@@ -2,11 +2,17 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginForm } from './Pages/LoginForm';
 import { Home } from './Pages/Home';
-import { Proposal } from './Components/Proposal';
+import { Proposal } from './Components/ClubProposal';
+import { ClubForm } from './Components/ClubForm';
 
 function App() {
   return (
-    <Proposal/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Proposal />} />
+        <Route path="/form" element={<ClubForm />} />
+      </Routes>
+    </BrowserRouter>
     // <BrowserRouter>
     //   <Routes>
     //     <Route path="/" element={<LoginForm />} />

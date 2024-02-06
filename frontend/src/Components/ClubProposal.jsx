@@ -1,8 +1,9 @@
 import React from 'react'
 import { Container, Row, Col, Table, Form, Button, Card, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { FiPrinter, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
-export const Proposal = ({ onFilterChange, onCreateProposal }) => {
+export const Proposal = ({ onFilterChange }) => {
     const student = {
         StudentNo: '1002058020',
         FullName: 'Kong Seh Chong',
@@ -10,10 +11,16 @@ export const Proposal = ({ onFilterChange, onCreateProposal }) => {
         Image: 'https://via.placeholder.com/150',
       };
       
-      const clubProposals = [
+    const clubProposals = [
         { ClubName: 'Proposal 1', Status: 'Created' },
         { ClubName: 'Proposal 2', Status: 'Created' },
     ];
+
+    const navigate = useNavigate();
+
+    const onCreateProposal = () => {
+      navigate('/form');
+    }
 
     const IconButton = ({ children, variant, onClick, className }) => (
         <Dropdown.Item as="button" className={className} onClick={onClick}>
