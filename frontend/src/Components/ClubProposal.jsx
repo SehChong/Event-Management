@@ -31,14 +31,14 @@ export const Proposal = ({ onFilterChange }) => {
         </Dropdown.Item>
     );
   return (
-    <Container fluid className="mt-5" style={{ height: '50vh', overflowY: 'auto' }}>
+    <Container fluid className="mt-5" style={{ height: '90vh', overflowY: 'auto' }}>
       <Row className="h-100">
         <Col md={4} className="h-100 d-flex flex-column justify-content-center">
           <Card className="h-100 shadow-sm">
             <Card.Body>
               <h5 className="font-weight-bold fs-4">Student Info:</h5>
-              <div className='d-flex justify-content-center mb-3'>
-                <img src={student.Image} alt="Profile" className="rounded-circle mb-3 d-block mx-auto" width="150" height="150" />
+              <div className='d-flex justify-content-center mb-3' style={{padding:100}}>
+                <img src={student.Image} alt="Profile" className="rounded-circle d-block mx-auto" width="250" height="250" />
               </div>
               <p className='fs-5'> 
                 Student No: {student.StudentNo} <br />
