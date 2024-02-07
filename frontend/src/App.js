@@ -9,16 +9,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Proposal />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/home" element={<Home /> } />
+        <Route path="/proposal" element={<Proposal />} />
         <Route path="/form" element={<ClubForm />} />
       </Routes>
     </BrowserRouter>
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/" element={<LoginForm />} />
-    //     <Route path="/home" element={<Home /> } />
-    //   </Routes>
-    // </BrowserRouter>
   );
 }
 

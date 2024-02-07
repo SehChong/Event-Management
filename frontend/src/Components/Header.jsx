@@ -6,6 +6,7 @@ import {
   Card,
   Button
 } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const handleMouseOver = (e) => {
@@ -19,6 +20,12 @@ export const Header = () => {
     e.target.style.color = 'black' ;
   };
 
+  const navigate = useNavigate();
+
+  const toProposal = () => {
+    navigate("/proposal");
+  };
+
   return (
     <>
       <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
@@ -30,7 +37,7 @@ export const Header = () => {
               <Nav.Link href="#link1" onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link  rounded">Event</Nav.Link>
-              <Nav.Link href="#link2" onMouseOver={handleMouseOver}
+              <Nav.Link onClick={toProposal} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Club</Nav.Link>
               <Nav.Link href="#link3" onMouseOver={handleMouseOver}
