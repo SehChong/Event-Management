@@ -19,7 +19,11 @@ export const Header_V2 = () => {
       };
     
       const navigate = useNavigate();
-    
+      
+      const toHome = () => {
+        navigate("/home");
+      };
+
       const toClub = () => {
         navigate("/club");
       };
@@ -31,7 +35,7 @@ export const Header_V2 = () => {
     <>
       <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
         <Container>
-          <Navbar.Brand href="#home" className='fs-3'>My Website</Navbar.Brand>
+          <Navbar.Brand onClick={toHome} className='fs-3'>My Website</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
