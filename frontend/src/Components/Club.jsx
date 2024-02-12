@@ -3,7 +3,7 @@ import { Container, Row, Col, Table, Form, Button, Card, ButtonGroup, Dropdown }
 import { FiPrinter, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-export const Proposal = ({ onFilterChange }) => {
+export const Club = ({ onFilterChange }) => {
     const student = {
         StudentNo: '1002058020',
         FullName: 'Kong Seh Chong',
@@ -19,7 +19,7 @@ export const Proposal = ({ onFilterChange }) => {
     const navigate = useNavigate();
 
     const onCreateProposal = () => {
-      navigate('/form');
+      navigate('/clubForm');
     }
 
     const IconButton = ({ children, variant, onClick, className }) => (

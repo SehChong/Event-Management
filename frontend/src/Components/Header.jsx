@@ -22,8 +22,12 @@ export const Header = () => {
 
   const navigate = useNavigate();
 
-  const toProposal = () => {
-    navigate("/proposal");
+  const toClub = () => {
+    navigate("/club");
+  };
+
+  const toEvent = () => {
+    navigate("/event");
   };
 
   return (
@@ -34,10 +38,10 @@ export const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
-              <Nav.Link href="#link1" onMouseOver={handleMouseOver}
+              <Nav.Link onClick={toEvent} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link  rounded">Event</Nav.Link>
-              <Nav.Link onClick={toProposal} onMouseOver={handleMouseOver}
+              <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Club</Nav.Link>
               <Nav.Link href="#link3" onMouseOver={handleMouseOver}
