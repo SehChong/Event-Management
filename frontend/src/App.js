@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginForm } from './Pages/LoginForm';
 import { Home } from './Pages/Home';
 import { Club } from './Pages/Club';
-import { ClubForm } from './Components/ClubForm';
+import { ClubFormPage } from './Pages/ClubFormPage';
 import { Event } from './Pages/Event';
-import { EventForm } from './Components/EventForm';
+import { EventFormPage } from './Pages/EventFormPage';
+import { Profile } from './Pages/Profile';
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
         <Route path="/" element={<LoginForm />} />
         <Route path="/home" element={<Home /> } />
         <Route path="/Club" element={<Club />} />
-        <Route path="/ClubForm" element={<ClubForm />} />
+        <Route path="/ClubForm" element={<ClubFormPage />} />
         <Route path="/event" element={<Event />} />
-        <Route path="/eventForm" element={<EventForm />} />
+        <Route path="/eventForm" element={<EventFormPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
