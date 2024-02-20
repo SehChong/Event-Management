@@ -32,6 +32,10 @@ export const Profile = () => {
       const toEvent = () => {
         navigate("/event");
       };
+
+      const toAttendance = () => {
+        navigate("/attendance")
+      }
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
@@ -48,7 +52,7 @@ export const Profile = () => {
                 <a onClick={toEvent} href="#">Event</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a href="#">Attendance</a>
+                <a onClick={toAttendance} href="#">Attendance</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>

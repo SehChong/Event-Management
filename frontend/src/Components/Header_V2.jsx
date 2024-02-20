@@ -36,6 +36,10 @@ export const Header_V2 = () => {
         navigate("/profile");
       };
 
+      const toAttendance = () => {
+        navigate("/attendance");
+      };
+
   return (
     <>
       <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
@@ -50,7 +54,7 @@ export const Header_V2 = () => {
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Club</Nav.Link>
-              <Nav.Link href="#link3" onMouseOver={handleMouseOver}
+              <Nav.Link onClick={toAttendance} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Attendance</Nav.Link>
               <Nav.Link  onClick={toProfile} href="#link4" onMouseOver={handleMouseOver}

@@ -7,10 +7,13 @@ import { ClubFormPage } from './Pages/ClubFormPage';
 import { Event } from './Pages/Event';
 import { EventFormPage } from './Pages/EventFormPage';
 import { Profile } from './Pages/Profile';
+import { Attendance } from './Pages/Attendance';
+import { ActivitiesCard } from './Components/ActivitiesCard';
 
 function App() {
   return (
     <BrowserRouter>
+    {/* <ActivitiesCard totalPoints={95} timeLimit={1} /> */}
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/home" element={<Home /> } />
@@ -19,6 +22,7 @@ function App() {
         <Route path="/event" element={<Event />} />
         <Route path="/eventForm" element={<EventFormPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/attendance" element={<Attendance />} />
       </Routes>
     </BrowserRouter>
   );
