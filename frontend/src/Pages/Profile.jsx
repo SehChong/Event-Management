@@ -17,6 +17,7 @@ import {
     MDBListGroupItem
 } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
+import { Footer } from '../Components/Footer';
 
 export const Profile = () => {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const Profile = () => {
       }
   return (
     <section style={{ backgroundColor: '#eee' }}>
-      <MDBContainer className="py-5">
+      <MDBContainer className="py-5" style={{height:"100vh"}}>
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
@@ -223,6 +224,7 @@ export const Profile = () => {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      <Footer/>
     </section>
   )
 }
