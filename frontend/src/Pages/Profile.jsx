@@ -43,16 +43,16 @@ export const Profile = () => {
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a onClick={toHome} href='#'>Home</a>
+                <a onClick={toHome} className='text-primary' style={{ cursor: 'pointer' }}>Home</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a onClick={toClub} href="#">Club</a>
+                <a onClick={toClub} className='text-primary' style={{ cursor: 'pointer' }}>Club</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a onClick={toEvent} href="#">Event</a>
+                <a onClick={toEvent} className='text-primary' style={{ cursor: 'pointer' }}>Event</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
-                <a onClick={toAttendance} href="#">Attendance</a>
+                <a onClick={toAttendance} className='text-primary' style={{ cursor: 'pointer' }}>Attendance</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>

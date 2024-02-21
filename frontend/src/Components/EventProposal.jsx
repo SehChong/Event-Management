@@ -12,8 +12,8 @@ export const EventProposal = ({ onFilterChange }) => {
       };
       
     const clubProposals = [
-        { ClubName: 'Proposal 1', Status: 'Created' },
-        { ClubName: 'Proposal 2', Status: 'Created' },
+        { EventName: 'First Event', Status: 'Created' },
+        { EventName: 'Second Event', Status: 'Created' },
     ];
 
     const navigate = useNavigate();
@@ -65,18 +65,18 @@ export const EventProposal = ({ onFilterChange }) => {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Club Name</th>
-                    <th>Club Type</th>
+                    <th>Event Name</th>
+                    <th>Event Type</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {clubProposals.map((proposal, index) => (
-                    <tr key={proposal.ClubName}>
+                    <tr key={proposal.EventName}>
                       <td>{index + 1}</td>
-                      <td>{proposal.ClubName}</td>
-                      <td>{proposal.ClubType}</td>
+                      <td>{proposal.EventName}</td>
+                      <td>{proposal.EventType}</td>
                       <td>{proposal.Status}</td>
                       <td>
                         <ButtonGroup horizontal className='d-flex justify-content-center'>

@@ -53,26 +53,30 @@ export const EventForm = () => {
         <Form.Group className="d-flex align-items-start">
             <Form.Label className='fs-1'>Event Proposal</Form.Label>
         </Form.Group>
-
-      <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Event Type:</Form.Label>
-          <Form.Select type="text" value={eventType} onChange={(e) => setEventType(e.target.value)}>
-                <option value="E">Event</option>
-                <option value="C">Competition</option>
+      <Row>
+        <Col>
+          <Form.Group className="mb-3">
+            <Form.Label className='fw-bold'>Event Name:</Form.Label>
+            <Form.Control type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} style={{width:400}}/>
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group className="mb-3">
+            <Form.Label className='fw-bold'>Event Type:</Form.Label>
+            <Form.Select type="text" value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:410}}>
+                  <option value="E">Event</option>
+                  <option value="C">Competition</option>
             </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Event Name:</Form.Label>
-          <Form.Control type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} />
-        </Form.Group>
+          </Form.Group>
+        </Col>
+      </Row>
 
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Organized By:</Form.Label>
           <Form.Control type="text" value={organizedBy} onChange={(e) => setOrganizedBy(e.target.value)} />
         </Form.Group>
 
-        <Row className="g-3 mb-3">
+      <Row className="g-3 mb-3">
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Event Date:</Form.Label>
@@ -119,63 +123,79 @@ export const EventForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Venue:</Form.Label>
-          <Form.Control type="text" value={venue} onChange={(e) => setVenue(e.target.value)} />
+          <Form.Control type="text" value={venue} onChange={(e) => setVenue(e.target.value)}/>
         </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Estimated Attendance:</Form.Label>
-          <Form.Control type="number" value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)} />
-        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Estimated Attendance:</Form.Label>
+              <Form.Control type="number" value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)} style={{width:250}}/>
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Total Hours:</Form.Label>
-          <Form.Control type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} />
-        </Form.Group>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Total Hours:</Form.Label>
+              <Form.Control type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} style={{width:250}}/>
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>ELE Point Request:</Form.Label>
-            <Form.Select type="text" value={elePointRequest} onChange={(e) => setElePointRequest(e.target.value)}>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </Form.Select>
-        </Form.Group>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>ELE Point Request:</Form.Label>
+                <Form.Select type="text" value={elePointRequest} onChange={(e) => setElePointRequest(e.target.value)} style={{width:250}}>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </Form.Select>
+            </Form.Group>
+          </Col> 
+        </Row>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Event / Competition Level:</Form.Label>
-            <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventLevel(e.target.value)}>
-                <option value="IL">International Level</option>
-                <option value="NL">National Level</option>
-                <option value="SL">State Level</option>
-                <option value="UL">University Level</option>
-                <option value="CFL">Club / Faculty Level</option>
-            </Form.Select>
-        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Event / Competition Level:</Form.Label>
+                <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventLevel(e.target.value)} style={{width:200}}>
+                    <option value="IL">International Level</option>
+                    <option value="NL">National Level</option>
+                    <option value="SL">State Level</option>
+                    <option value="UL">University Level</option>
+                    <option value="CFL">Club / Faculty Level</option>
+                </Form.Select>
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Event Category:</Form.Label>
-          <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventCategory(e.target.value)}>
-                <option value="1">Conferences</option>
-                <option value="2">Seminar</option>
-                <option value="3">Meetings</option>
-                <option value="4">Dinner/Lunches</option>
-                <option value="5">Exhibition</option>
-                <option value="6">Camp</option>
-                <option value="7">Trade Fairs/Job Fairs/Carnival</option>
-                <option value="8">Award Ceremonies</option>
-                <option value="9">Talk/Forum</option>
-                <option value="10">Performance/Screening</option>
-                <option value="11">Religious Activity</option>
-                <option value="12">Sport Activities/Competition</option>
-                <option value="13">Community Service</option>
-            </Form.Select>
-        </Form.Group>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Event Category:</Form.Label>
+              <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventCategory(e.target.value)} style={{width:200}}>
+                    <option value="1">Conferences</option>
+                    <option value="2">Seminar</option>
+                    <option value="3">Meetings</option>
+                    <option value="4">Dinner/Lunches</option>
+                    <option value="5">Exhibition</option>
+                    <option value="6">Camp</option>
+                    <option value="7">Trade Fairs/Job Fairs/Carnival</option>
+                    <option value="8">Award Ceremonies</option>
+                    <option value="9">Talk/Forum</option>
+                    <option value="10">Performance/Screening</option>
+                    <option value="11">Religious Activity</option>
+                    <option value="12">Sport Activities/Competition</option>
+                    <option value="13">Community Service</option>
+                </Form.Select>
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label className='fw-bold'>Upload PDF:</Form.Label>
-          <Form.Control type="file" accept=".pdf" onChange={handleFileChange} />
-        </Form.Group>
+          <Col>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Upload PDF:</Form.Label>
+              <Form.Control type="file" accept=".pdf" onChange={handleFileChange} style={{width:250}}/>
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className='float-end'>
           Submit
         </Button>
       </Form>

@@ -57,7 +57,7 @@ export const Header_V2 = () => {
               <Nav.Link onClick={toAttendance} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Attendance</Nav.Link>
-              <Nav.Link  onClick={toProfile} href="#link4" onMouseOver={handleMouseOver}
+              <Nav.Link  onClick={toProfile} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Profile</Nav.Link>
             </Nav>

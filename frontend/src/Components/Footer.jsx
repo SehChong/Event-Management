@@ -7,21 +7,13 @@ export const Footer = () => {
   return (
     <footer className="bg-dark pt-5">
       <Container>
-        <Row>
+        <Row className='justify-content-center'>
           <Col md={3}>
             <h5 className='text-light text-center'>Company</h5>
             <ListGroup>
               <ListGroup.Item>About Us</ListGroup.Item>
               <ListGroup.Item>Careers</ListGroup.Item>
               <ListGroup.Item>Contact Us</ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <h5 className='text-light text-center'>Products</h5>
-            <ListGroup>
-              <ListGroup.Item>Product 1</ListGroup.Item>
-              <ListGroup.Item>Product 2</ListGroup.Item>
-              <ListGroup.Item>Product 3</ListGroup.Item>
             </ListGroup>
           </Col>
           <Col md={3}>
