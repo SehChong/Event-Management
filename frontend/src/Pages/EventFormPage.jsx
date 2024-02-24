@@ -5,7 +5,7 @@ import { EventForm } from '../Components/EventForm'
 export const EventFormPage = () => {
   return (
     <div>
-        <Back/>
+        <Back to="/event"/>
         <EventForm/>
     </div>
   )

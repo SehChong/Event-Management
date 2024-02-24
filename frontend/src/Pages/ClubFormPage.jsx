@@ -5,7 +5,7 @@ import { ClubForm } from '../Components/ClubForm'
 export const ClubFormPage = () => {
   return (
     <div>
-        <Back/>
+        <Back to="/Club"/>
         <ClubForm/>    
     </div>
   )

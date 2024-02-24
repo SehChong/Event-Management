@@ -1,6 +1,17 @@
 import React from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody
+} from 'mdb-react-ui-kit';
+import { useState } from 'react';
+import { ActivitiesTable } from './ActivitiesTable';
 
 const CardContainer = styled.div`
   display: flex;
@@ -42,6 +53,10 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
     }
   };
 
+  const [optSmModal, setOptSmModal] = useState(false);
+
+  const toggleOpen = () => setOptSmModal(!optSmModal);
+
   return (
     <CardContainer>
       <CardWrapper>
@@ -58,7 +73,20 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
             <Card.Text className='text-justify pb-3'>
               Points: {totalPoints}/100
             </Card.Text>
-            <Button variant="primary">View Activities</Button>
+            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
+            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+              <MDBModalDialog size='xl'>
+                <MDBModalContent>
+                  <MDBModalHeader>
+                    <MDBModalTitle>Registered Events</MDBModalTitle>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+                  </MDBModalHeader>
+                  <MDBModalBody>
+                    <ActivitiesTable/>
+                  </MDBModalBody>
+                </MDBModalContent>
+              </MDBModalDialog>
+            </MDBModal>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -76,7 +104,20 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
             <Card.Text className='text-justify pb-3'>
               Points: {totalPoints}/100
             </Card.Text>
-            <Button variant="primary">View Activities</Button>
+            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
+            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+              <MDBModalDialog size='xl'>
+                <MDBModalContent>
+                  <MDBModalHeader>
+                    <MDBModalTitle>Registered Events</MDBModalTitle>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+                  </MDBModalHeader>
+                  <MDBModalBody>
+                    <ActivitiesTable/>
+                  </MDBModalBody>
+                </MDBModalContent>
+              </MDBModalDialog>
+            </MDBModal>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -94,7 +135,20 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
             <Card.Text className='text-justify pb-3'>
               Points: {totalPoints}/100
             </Card.Text>
-            <Button variant="primary">View Activities</Button>
+            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
+            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+              <MDBModalDialog size='xl'>
+                <MDBModalContent>
+                  <MDBModalHeader>
+                    <MDBModalTitle>Registered Events</MDBModalTitle>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+                  </MDBModalHeader>
+                  <MDBModalBody>
+                    <ActivitiesTable/>
+                  </MDBModalBody>
+                </MDBModalContent>
+              </MDBModalDialog>
+            </MDBModal>
           </Card.Body>
         </Card>
       </CardWrapper>
