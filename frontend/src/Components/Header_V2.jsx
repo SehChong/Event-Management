@@ -3,6 +3,7 @@ import {
   Navbar,
   Nav,
   Container,
+  NavDropdown
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +33,10 @@ export const Header_V2 = () => {
         navigate("/event");
       };
 
+      const toEventList = () => {
+        navigate("/eventlist");
+      };
+
       const toProfile = () => {
         navigate("/profile");
       };
@@ -48,9 +53,10 @@ export const Header_V2 = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
-              <Nav.Link onClick={toEvent} onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}
-                className="nav-link  rounded">Event</Nav.Link>
+              <NavDropdown title="Event" id="event-dropdown" className="rounded">
+                <NavDropdown.Item onClick={toEvent}>Create Event</NavDropdown.Item>
+                <NavDropdown.Item onClick={toEventList}>Event List</NavDropdown.Item>
+              </NavDropdown>
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 className="nav-link rounded">Club</Nav.Link>

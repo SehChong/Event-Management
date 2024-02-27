@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Button, Carousel } from 'react-bootstrap';
 
 export const CardEventSlider = () => {
 

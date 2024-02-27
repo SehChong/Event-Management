@@ -9,6 +9,7 @@ import { EventFormPage } from './Pages/EventFormPage';
 import { Profile } from './Pages/Profile';
 import { Attendance } from './Pages/Attendance';
 import { AccordionForm } from './Pages/AccordionForm';
+import { EventList } from './Pages/EventList';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path="/eventForm" element={<EventFormPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/attendance" element={<Attendance />} />
-        <Route path="accordion-form" element={<AccordionForm />} />
+        <Route path="/accordion-form" element={<AccordionForm />} />
+        <Route path="/eventlist" element={<EventList />} />
       </Routes>
     </BrowserRouter>
   );
