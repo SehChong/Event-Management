@@ -36,7 +36,7 @@ export const LoginForm = () => {
             <p className='fs-5 text-center'>Please login to your account</p>
 
 
-            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='email'/>
+            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username'/>
             <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
 
 
