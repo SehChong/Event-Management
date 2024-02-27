@@ -54,8 +54,8 @@ export const Header_V2 = () => {
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
               <NavDropdown title="Event" id="event-dropdown" className="rounded">
-                <NavDropdown.Item onClick={toEvent}>Create Event</NavDropdown.Item>
-                <NavDropdown.Item onClick={toEventList}>Event List</NavDropdown.Item>
+                <NavDropdown.Item onClick={toEvent} className='fs-4'>Create Event</NavDropdown.Item>
+                <NavDropdown.Item onClick={toEventList} className='fs-4'>Event List</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
