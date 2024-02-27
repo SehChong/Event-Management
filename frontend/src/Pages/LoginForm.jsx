@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export const LoginForm = () => {
   const navigate = useNavigate();
 
-  const handleSignIn = () => {
+  const handleSignIn =  () => {
     // Perform authentication logic
     // Assuming authentication is successful, navigate to Home component
     navigate('/home');
@@ -53,8 +53,8 @@ export const LoginForm = () => {
           <div className="d-flex flex-column justify-content-center gradient-custom-2 h-100 ">
 
             <div className="text-white p-5 p-md-4 mx-md-4 ">
-              <h3 class="mb-4 text-center">We are welcoming you to join more events in UCSI!</h3>
-              <p class="small-mb-0 text-justify fs-5" >Welcome to the UCSI University Event Management System! Our platform is designed to simplify the process of 
+              <h3 className="mb-4 text-center">We are welcoming you to join more events in UCSI!</h3>
+              <p className="small-mb-0 text-justify fs-5" >Welcome to the UCSI University Event Management System! Our platform is designed to simplify the process of 
               planning, organizing, and managing events within our university community. From creating event listings to tracking attendance and 
               gathering feedback, our system streamlines every step of the event lifecycle. Join us in making events at UCSI University memorable 
               and successful!.
