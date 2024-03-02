@@ -1,8 +1,8 @@
 {
   "user": [
     {
-      "id" : "user1",
-      "password" : "password1"
+      "id": "user1",
+      "password": "password1"
     },
     {
       "id": "ntuser",
@@ -12,8 +12,29 @@
       "phone": "56778889989",
       "country": "singapore",
       "address": "address1\naddrees2",
-      "role":"user",
+      "role": "user",
       "gender": "male"
+    }
+  ],
+  "events": [
+    {
+      "id": "bbf8",
+      "eventType": "",
+      "eventName": "1",
+      "organizedBy": "qwdqwd",
+      "eventDate": "2002-02-12",
+      "eventEndDate": "2042-03-21",
+      "eventTime": "00:32",
+      "eventEndTime": "12:03",
+      "publicityPeriod": "2021-03-21",
+      "endPeriod": "0213-01-23",
+      "venue": "tadawd",
+      "estimatedAttendance": "200",
+      "totalHours": "24",
+      "elePointRequest": "",
+      "eventLevel": "",
+      "eventCategory": "",
+      "pdfFile": null
     }
   ]
 }

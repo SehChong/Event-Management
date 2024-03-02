@@ -23,7 +23,7 @@ export const EventForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
-    console.log({
+    const formData = {
         eventType,
         eventName,
         organizedBy,
@@ -39,7 +39,37 @@ export const EventForm = () => {
         elePointRequest,
         eventLevel,
         eventCategory,
-        pdfFile,
+        pdfFile: pdfFile ? pdfFile.name : null,
+    };
+    // Send a POST request to the JSON server
+    fetch("http://localhost:8000/events", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Success:", data);
+      // Clear the input fields
+      setEventType("");
+      setEventName("");
+      setOrganizedBy("");
+      setEventDate("");
+      setEventEndDate("");
+      setEventTime("");
+      setEventEndTime("");
+      setPublicityPeriod("");
+      setEndPeriod("");
+      setVenue("");
+      setEstimatedAttendance("");
+      setTotalHours("");
+      setElePointRequest("");
+      setEventLevel("");
+      setEventCategory("");
+      setPdfFile(null);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
   };
 
