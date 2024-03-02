@@ -9,15 +9,61 @@ import {
 from 'mdb-react-ui-kit';
 import '../Assets/Styles/LoginForm.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSignIn =  () => {
+  useEffect(()=>{
+    sessionStorage.clear();
+        },[]);
+
+  const handleSignIn =  (e) => {
     // Perform authentication logic
     // Assuming authentication is successful, navigate to Home component
-    navigate('/home');
+    // navigate('/home');
+    e.preventDefault();
+        if (validate()) {
+            ///implentation
+            // console.log('proceed');
+            fetch("http://localhost:8000/user/" + username).then((res) => {
+                return res.json();
+            }).then((resp) => {
+                // console.log(resp)
+                if (Object.keys(resp).length === 0) {
+                    toast.error('Please Enter valid username');
+                } else {
+                    if (resp.password === password) {
+                        toast.success('Success');
+                        sessionStorage.setItem('username',username);
+                        sessionStorage.setItem('userrole',resp.role);
+                        navigate('/home')
+                    }else{
+                        toast.error('Please Enter valid credentials');
+                    }
+                }
+            }).catch((err) => {
+                toast.error('Login Failed due to :' + err.message);
+            });
+        }
   };
+
+  const validate = () => {
+    let result = true;
+    if (!username) {
+        result = false;
+        toast.warning('Please Enter Username');
+    }
+    if (!password) {
+        result = false;
+        toast.warning('Please Enter Password');
+    }
+    return result;
+  }
 
   return (
     <MDBContainer className="margin-screen gradient-form rounded">
@@ -35,9 +81,8 @@ export const LoginForm = () => {
 
             <p className='fs-5 text-center'>Please login to your account</p>
 
-
-            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username'/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
+            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username' value={username} onChange={e => setUsername(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={e => setPassword(e.target.value)}/>
 
 
             <div className="text-center pt-1 mb-5 pb-1">

@@ -1,16 +1,19 @@
 {
-    "user": [
-        {
-          "id": 1,
-          "username": "user1",
-          "password": "password1",
-          "role": "admin"
-        },
-        {
-          "id": 2,
-          "username": "user2",
-          "password": "password2",
-          "role": "user"
-        }
-      ]
+  "user": [
+    {
+      "id" : "user1",
+      "password" : "password1"
+    },
+    {
+      "id": "ntuser",
+      "name": "Fullname",
+      "password": "ntuser",
+      "email": "email@email.com",
+      "phone": "56778889989",
+      "country": "singapore",
+      "address": "address1\naddrees2",
+      "role":"user",
+      "gender": "male"
+    }
+  ]
 }
