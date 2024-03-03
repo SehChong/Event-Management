@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Form, Button, Card, ButtonGroup, Dropdown }
 import { FiPrinter, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import EventPrintModal from './EventPrintModal';
 
 export const EventProposal = ({ onFilterChange }) => {
     const student = {
@@ -46,6 +47,19 @@ export const EventProposal = ({ onFilterChange }) => {
 
     const handleEditProposal = (proposal) => {
       navigate('/eventForm', { state: { proposal } });
+    };
+
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [showPrintModal, setShowPrintModal] = useState(false);
+    
+    const handlePrintProposal = (event) => {
+      setSelectedEvent(event);
+      setShowPrintModal(true);
+    };
+    
+    const handleClosePrintModal = () => {
+      setSelectedEvent(null);
+      setShowPrintModal(false);
     };
 
     const IconButton = ({ children, variant, onClick, className }) => (
@@ -106,7 +120,8 @@ export const EventProposal = ({ onFilterChange }) => {
                       <td>{proposal.status}</td>
                       <td>
                         <ButtonGroup horizontal className='d-flex justify-content-center'>
-                          <IconButton variant="secondary" onClick={() => {}} className="mb-2 px-2">
+                          <IconButton variant="secondary" onClick={() => handlePrintProposal(proposal)} className="mb-2 px-2">
+                          {selectedEvent && <EventPrintModal event={selectedEvent} onHide={handleClosePrintModal} show={showPrintModal} />}
                             <FiPrinter /> Print
                           </IconButton>
                           <IconButton variant="info" onClick={() => handleEditProposal(proposal)} className="mb-2 px-2">
