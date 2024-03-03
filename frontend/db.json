@@ -2,35 +2,36 @@
   "user": [
     {
       "id": "user1",
-      "password": "password1"
-    },
-    {
-      "id": "ntuser",
-      "name": "Fullname",
-      "password": "ntuser",
-      "email": "email@email.com",
-      "phone": "56778889989",
-      "country": "singapore",
-      "address": "address1\naddrees2",
+      "password": "password1",
+      "name": "Kong Seh Chong",
+      "program": "Foundation in Arts (Information Technology)",
       "role": "user",
       "gender": "male"
+    },
+    {
+      "id": "user2",
+      "password": "password2",
+      "name": "Lee",
+      "program": "Foundation in Arts (Information Technology)",
+      "role": "admin",
+      "gender": "female"
     }
   ],
   "events": [
     {
-      "id": "bbf8",
+      "id": "d86e",
       "eventType": "",
-      "eventName": "1",
-      "organizedBy": "qwdqwd",
-      "eventDate": "2002-02-12",
-      "eventEndDate": "2042-03-21",
-      "eventTime": "00:32",
-      "eventEndTime": "12:03",
-      "publicityPeriod": "2021-03-21",
-      "endPeriod": "0213-01-23",
-      "venue": "tadawd",
-      "estimatedAttendance": "200",
-      "totalHours": "24",
+      "eventName": "Testing Event Editted",
+      "organizedBy": "kong Seh Chong",
+      "eventDate": "",
+      "eventEndDate": "",
+      "eventTime": "",
+      "eventEndTime": "",
+      "publicityPeriod": "",
+      "endPeriod": "",
+      "venue": "",
+      "estimatedAttendance": "",
+      "totalHours": "",
       "elePointRequest": "",
       "eventLevel": "",
       "eventCategory": "",

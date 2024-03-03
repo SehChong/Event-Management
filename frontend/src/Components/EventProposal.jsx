@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col, Table, Form, Button, Card, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { FiPrinter, FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export const EventProposal = ({ onFilterChange }) => {
     const student = {
@@ -11,16 +12,41 @@ export const EventProposal = ({ onFilterChange }) => {
         Image: 'https://via.placeholder.com/150',
       };
       
-    const clubProposals = [
-        { EventName: 'First Event', Status: 'Created' },
-        { EventName: 'Second Event', Status: 'Created' },
-    ];
+    const [clubProposals, setClubProposals] = useState([]);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const fetchData = async () => {
+          const response = await fetch('http://localhost:8000/events'); // Replace with the URL of your JSON server
+          const data = await response.json();
+          setClubProposals(data);
+      };
+      fetchData();
+    }, []);
 
     const onCreateProposal = () => {
       navigate('/eventForm');
     }
+
+    const handleDeleteProposal = async (id) => {
+      const response = await fetch(`http://localhost:8000/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setClubProposals(clubProposals.filter((proposal) => proposal.id !== id));
+      } else {
+        console.log('Error:', data);
+      }
+    };
+
+    const handleEditProposal = (proposal) => {
+      navigate('/eventForm', { state: { proposal } });
+    };
 
     const IconButton = ({ children, variant, onClick, className }) => (
         <Dropdown.Item as="button" className={className} onClick={onClick}>
@@ -73,20 +99,20 @@ export const EventProposal = ({ onFilterChange }) => {
                 </thead>
                 <tbody>
                   {clubProposals.map((proposal, index) => (
-                    <tr key={proposal.EventName}>
+                    <tr key={proposal.id}>
                       <td>{index + 1}</td>
-                      <td>{proposal.EventName}</td>
-                      <td>{proposal.EventType}</td>
-                      <td>{proposal.Status}</td>
+                      <td>{proposal.eventName}</td>
+                      <td>{proposal.eventType}</td>
+                      <td>{proposal.status}</td>
                       <td>
                         <ButtonGroup horizontal className='d-flex justify-content-center'>
                           <IconButton variant="secondary" onClick={() => {}} className="mb-2 px-2">
                             <FiPrinter /> Print
                           </IconButton>
-                          <IconButton variant="info" onClick={() => {}} className="mb-2 px-2">
+                          <IconButton variant="info" onClick={() => handleEditProposal(proposal)} className="mb-2 px-2">
                             <FiEdit /> Edit
                           </IconButton>
-                          <IconButton variant="danger" onClick={() => {}} className="mb-2 px-2">
+                          <IconButton variant="danger" onClick={() => handleDeleteProposal(proposal.id)} className="mb-2 px-2">
                             <FiTrash2 /> Delete
                           </IconButton>
                         </ButtonGroup>

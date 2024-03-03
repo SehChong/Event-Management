@@ -1,29 +1,34 @@
 import React from 'react'
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const EventForm = () => {
-    const [eventType, setEventType] = useState('');
-    const [eventName, setEventName] = useState('');
-    const [organizedBy, setOrganizedBy] = useState('');
-    const [eventDate, setEventDate] = useState('');
-    const [eventEndDate, setEventEndDate] = useState('');
-    const [eventTime, setEventTime] = useState('');
-    const [eventEndTime, setEventEndTime] = useState('');
-    const [publicityPeriod, setPublicityPeriod] = useState('');
-    const [endPeriod, setEndPeriod ] = useState('');
-    const [venue, setVenue] = useState('');
-    const [estimatedAttendance, setEstimatedAttendance] = useState('');
-    const [totalHours, setTotalHours] = useState('');
-    const [elePointRequest, setElePointRequest] = useState('');
-    const [eventLevel, setEventLevel] = useState('');
-    const [eventCategory, setEventCategory] = useState('');
-    const [pdfFile, setPdfFile] = useState(null);
+  const location = useLocation(); // use useLocation
+  const proposal = location.state?.proposal || {}; // initialize proposal as an empty object if it's undefined
+
+  const [eventType, setEventType] = useState(proposal?.eventType || '');
+  const [eventName, setEventName] = useState(proposal?.eventName || '');
+  const [organizedBy, setOrganizedBy] = useState(proposal?.organizedBy || '');
+  const [eventDate, setEventDate] = useState(proposal?.eventDate || '');
+  const [eventEndDate, setEventEndDate] = useState(proposal?.eventEndDate || '');
+  const [eventTime, setEventTime] = useState(proposal?.eventTime || '');
+  const [eventEndTime, setEventEndTime] = useState(proposal?.eventEndTime || '');
+  const [publicityPeriod, setPublicityPeriod] = useState(proposal?.publicityPeriod || '');
+  const [endPeriod, setEndPeriod] = useState(proposal?.endPeriod || '');
+  const [venue, setVenue] = useState(proposal?.venue || '');
+  const [estimatedAttendance, setEstimatedAttendance] = useState(proposal?.estimatedAttendance || '');
+  const [totalHours, setTotalHours] = useState(proposal?.totalHours || '');
+  const [elePointRequest, setElePointRequest] = useState(proposal?.elePointRequest || '');
+  const [eventLevel, setEventLevel] = useState(proposal?.eventLevel || '');
+  const [eventCategory, setEventCategory] = useState(proposal?.eventCategory || '');
+  const [pdfFile, setPdfFile] = useState(proposal?.pdfFile || null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
     const formData = {
+        id: proposal.id,
         eventType,
         eventName,
         organizedBy,
@@ -41,36 +46,37 @@ export const EventForm = () => {
         eventCategory,
         pdfFile: pdfFile ? pdfFile.name : null,
     };
-    // Send a POST request to the JSON server
-    fetch("http://localhost:8000/events", {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("Success:", data);
-      // Clear the input fields
-      setEventType("");
-      setEventName("");
-      setOrganizedBy("");
-      setEventDate("");
-      setEventEndDate("");
-      setEventTime("");
-      setEventEndTime("");
-      setPublicityPeriod("");
-      setEndPeriod("");
-      setVenue("");
-      setEstimatedAttendance("");
-      setTotalHours("");
-      setElePointRequest("");
-      setEventLevel("");
-      setEventCategory("");
-      setPdfFile(null);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+    if (proposal.id) {
+      // Update the existing event
+      fetch(`http://localhost:8000/events/${proposal.id}`, {
+        method: "PUT",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Event updated:", data);
+        // Clear the input fields or keep the event information for further editing
+      })
+      .catch((error) => {
+        console.error("Error updating event:", error);
+      });
+    } else {
+      // Create a new event
+      fetch("http://localhost:8000/events", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // Clear the input fields
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    }
   };
 
   const handleFileChange = (e) => {
@@ -94,8 +100,8 @@ export const EventForm = () => {
           <Form.Group className="mb-3">
             <Form.Label className='fw-bold'>Event Type:</Form.Label>
             <Form.Select type="text" value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:410}}>
-                  <option value="E">Event</option>
-                  <option value="C">Competition</option>
+                  <option value="Event">Event</option>
+                  <option value="Competition">Competition</option>
             </Form.Select>
           </Form.Group>
         </Col>
@@ -175,8 +181,8 @@ export const EventForm = () => {
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>ELE Point Request:</Form.Label>
                 <Form.Select type="text" value={elePointRequest} onChange={(e) => setElePointRequest(e.target.value)} style={{width:250}}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="Required">Yes</option>
+                    <option value="None">No</option>
                 </Form.Select>
             </Form.Group>
           </Col> 
