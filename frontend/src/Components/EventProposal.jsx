@@ -94,9 +94,9 @@ export const EventProposal = ({ onFilterChange }) => {
               <Form.Label>Select Status:</Form.Label>
               <Form.Select onChange={(e) => onFilterChange(e.target.value)} className="mb-3">
                 <option value="All">All</option>
-                <option value="Created">Created</option>
-                <option value="Submitted">Submitted</option>
                 <option value="Approved">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
               </Form.Select>
               <Button variant="primary" onClick={onCreateProposal}>
                 Create New Proposal
@@ -117,7 +117,7 @@ export const EventProposal = ({ onFilterChange }) => {
                       <td>{index + 1}</td>
                       <td>{proposal.eventName}</td>
                       <td>{proposal.eventType}</td>
-                      <td>{proposal.status}</td>
+                      <td className={proposal.status === "Pending" ? "text-warning" : proposal.status === "Approved" ? "text-success" : proposal.status === "Rejected" ? "text-danger" : "text-dark"}>{proposal.status}</td>
                       <td>
                         <ButtonGroup horizontal className='d-flex justify-content-center'>
                           <IconButton variant="secondary" onClick={() => handlePrintProposal(proposal)} className="mb-2 px-2">

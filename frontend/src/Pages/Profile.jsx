@@ -39,7 +39,7 @@ export const Profile = () => {
       }
   return (
     <section style={{ backgroundColor: '#eee' }}>
-      <MDBContainer className="py-5" style={{height:"100vh"}}>
+      <MDBContainer className="py-5" style={{height:"100"}}>
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">

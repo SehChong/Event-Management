@@ -45,6 +45,7 @@ export const EventForm = () => {
         eventLevel,
         eventCategory,
         pdfFile: pdfFile ? pdfFile.name : null,
+        status: "Pending"
     };
     if (proposal.id) {
       // Update the existing event
@@ -230,7 +231,7 @@ export const EventForm = () => {
             </Form.Group>
           </Col>
         </Row>
-
+        <input type="hidden" name="status" value="pending" />
         <Button variant="primary" type="submit" className='float-end'>
           Submit
         </Button>
