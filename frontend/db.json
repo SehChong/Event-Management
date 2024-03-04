@@ -8,7 +8,7 @@
       "program": "Foundation in Arts (Information Technology)",
       "role": "user",
       "gender": "male",
-      "Image" : "https://via.placeholder.com/150"
+      "image" : "https://via.placeholder.com/150"
     },
     {
       "id": "user2",
@@ -18,7 +18,7 @@
       "program": "Foundation in Arts (Information Technology)",
       "role": "admin",
       "gender": "female",
-      "Image" : "https://via.placeholder.com/150"
+      "image" : "https://via.placeholder.com/150"
     }
   ],
   "events": [

@@ -6,16 +6,37 @@ import { useState, useEffect } from 'react';
 import EventPrintModal from './EventPrintModal';
 
 export const EventProposal = ({ onFilterChange }) => {
-    const student = {
-        studentNo: '1002058020',
-        name: 'Kong Seh Chong',
-        program: 'Foundation in Arts (Information Technology)',
-        Image: 'https://via.placeholder.com/150',
-      };
       
     const [clubProposals, setClubProposals] = useState([]);
+    const [student, setStudent] = useState({
+      name: "",
+      studentNo: "",
+      program: "",
+      image: "",
+    });
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+          }
+          const data = await response.json();
+          setStudent({
+            name: data.name,
+            studentNo: data.studentNo,
+            program: data.program,
+            image: data.image,
+          });
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchData();
+    }, []);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -78,7 +99,7 @@ export const EventProposal = ({ onFilterChange }) => {
             <Card.Body>
               <h5 className="font-weight-bold fs-4">Student Info:</h5>
               <div className='d-flex justify-content-center mb-3' style={{padding:100}}>
-                <img src={student.Image} alt="Profile" className="rounded-circle d-block mx-auto" width="250" height="250" />
+              <img src={student.image} alt="Profile" className="rounded-circle d-block mx-auto" width="250" height="250" />
               </div>
               <p className='fs-5'> 
                 Student No: {student.studentNo} <br />
