@@ -45,6 +45,10 @@ export const Header_V2 = () => {
         navigate("/attendance");
       };
 
+      const toLogin = () => {
+        navigate("/");
+      };
+
   return (
     <>
       <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
@@ -69,7 +73,7 @@ export const Header_V2 = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-              <Nav.Link href="#logout" className='fs-3 p-5'>Logout</Nav.Link>
+              <Nav.Link onClick={toLogin} className='fs-3 p-5'>Logout</Nav.Link>
       </Navbar>
     </>
   )
