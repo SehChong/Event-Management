@@ -7,9 +7,9 @@ import EventPrintModal from './EventPrintModal';
 
 export const EventProposal = ({ onFilterChange }) => {
     const student = {
-        StudentNo: '1002058020',
-        FullName: 'Kong Seh Chong',
-        Program: 'Foundation in Arts (Information Technology)',
+        studentNo: '1002058020',
+        name: 'Kong Seh Chong',
+        program: 'Foundation in Arts (Information Technology)',
         Image: 'https://via.placeholder.com/150',
       };
       
@@ -81,9 +81,9 @@ export const EventProposal = ({ onFilterChange }) => {
                 <img src={student.Image} alt="Profile" className="rounded-circle d-block mx-auto" width="250" height="250" />
               </div>
               <p className='fs-5'> 
-                Student No: {student.StudentNo} <br />
-                Full Name: {student.FullName} <br />
-                Program: {student.Program}
+                Student No: {student.studentNo} <br />
+                Full Name: {student.name} <br />
+                Program: {student.program}
               </p>
             </Card.Body>
           </Card>

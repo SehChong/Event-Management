@@ -4,17 +4,21 @@
       "id": "user1",
       "password": "password1",
       "name": "Kong Seh Chong",
+      "studentNo" : "1002058020",
       "program": "Foundation in Arts (Information Technology)",
       "role": "user",
-      "gender": "male"
+      "gender": "male",
+      "Image" : "https://via.placeholder.com/150"
     },
     {
       "id": "user2",
       "password": "password2",
       "name": "Lee",
+      "studentNo" : "1002058999",
       "program": "Foundation in Arts (Information Technology)",
       "role": "admin",
-      "gender": "female"
+      "gender": "female",
+      "Image" : "https://via.placeholder.com/150"
     }
   ],
   "events": [
