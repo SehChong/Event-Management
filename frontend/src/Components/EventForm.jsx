@@ -27,6 +27,12 @@ export const EventForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
+    const form = e.target;
+    if (form.checkValidity() === false) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     const formData = {
         id: proposal.id,
         eventType,
@@ -86,7 +92,7 @@ export const EventForm = () => {
 
   return (
     <Container className="bg-danger p-5 my-5 rounded w-50 d-block">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} noValidate>
         <Form.Group className="d-flex align-items-start">
             <Form.Label className='fs-1'>Event Proposal</Form.Label>
         </Form.Group>
@@ -94,13 +100,13 @@ export const EventForm = () => {
         <Col>
           <Form.Group className="mb-3">
             <Form.Label className='fw-bold'>Event Name:</Form.Label>
-            <Form.Control type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} style={{width:400}}/>
+            <Form.Control type="text" required value={eventName} onChange={(e) => setEventName(e.target.value)} style={{width:400}}/>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3">
             <Form.Label className='fw-bold'>Event Type:</Form.Label>
-            <Form.Select type="text" value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:410}}>
+            <Form.Select type="text" required value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:410}}>
                   <option value="Event">Event</option>
                   <option value="Competition">Competition</option>
             </Form.Select>
@@ -110,20 +116,20 @@ export const EventForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Organized By:</Form.Label>
-          <Form.Control type="text" value={organizedBy} onChange={(e) => setOrganizedBy(e.target.value)} />
+          <Form.Control type="text" required value={organizedBy} onChange={(e) => setOrganizedBy(e.target.value)} />
         </Form.Group>
 
       <Row className="g-3 mb-3">
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Event Date:</Form.Label>
-          <Form.Control type="date" className="form-control" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
+          <Form.Control type="date" required className="form-control" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
         </Form.Group>
       </Col>
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Event End Date:</Form.Label>
-          <Form.Control type="date" className="form-control" value={eventEndDate} onChange={(e) => setEventEndDate(e.target.value)} />
+          <Form.Control type="date" required className="form-control" value={eventEndDate} onChange={(e) => setEventEndDate(e.target.value)} />
         </Form.Group>
       </Col>
     </Row>
@@ -132,13 +138,13 @@ export const EventForm = () => {
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Event Time:</Form.Label>
-          <Form.Control type="time" className="form-control" value={eventTime} onChange={(e) => setEventTime(e.target.value)} />
+          <Form.Control type="time" required className="form-control" value={eventTime} onChange={(e) => setEventTime(e.target.value)} />
         </Form.Group>
       </Col>
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Event End Time:</Form.Label>
-          <Form.Control type="time" className="form-control" value={eventEndTime} onChange={(e) => setEventEndTime(e.target.value)} />
+          <Form.Control type="time" required className="form-control" value={eventEndTime} onChange={(e) => setEventEndTime(e.target.value)} />
         </Form.Group>
       </Col>
     </Row>
@@ -147,41 +153,41 @@ export const EventForm = () => {
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">Publicity Period:</Form.Label>
-          <Form.Control type="date" className="form-control" value={publicityPeriod} onChange={(e) => setPublicityPeriod(e.target.value)} />
+          <Form.Control type="date" required className="form-control" value={publicityPeriod} onChange={(e) => setPublicityPeriod(e.target.value)} />
         </Form.Group>
       </Col>
       <Col>
         <Form.Group>
           <Form.Label className="fw-bold">End Period:</Form.Label>
-          <Form.Control type="date" className="form-control" value={endPeriod} onChange={(e) => setEndPeriod(e.target.value)} />
+          <Form.Control type="date" required className="form-control" value={endPeriod} onChange={(e) => setEndPeriod(e.target.value)} />
         </Form.Group>
       </Col>
     </Row>
 
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Venue:</Form.Label>
-          <Form.Control type="text" value={venue} onChange={(e) => setVenue(e.target.value)}/>
+          <Form.Control type="text" required value={venue} onChange={(e) => setVenue(e.target.value)}/>
         </Form.Group>
 
         <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Estimated Attendance:</Form.Label>
-              <Form.Control type="number" value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)} style={{width:250}}/>
+              <Form.Control type="number" required value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)} style={{width:250}}/>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Total Hours:</Form.Label>
-              <Form.Control type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} style={{width:250}}/>
+              <Form.Control type="number" required value={totalHours} onChange={(e) => setTotalHours(e.target.value)} style={{width:250}}/>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>ELE Point Request:</Form.Label>
-                <Form.Select type="text" value={elePointRequest} onChange={(e) => setElePointRequest(e.target.value)} style={{width:250}}>
+                <Form.Select type="text" required value={elePointRequest} onChange={(e) => setElePointRequest(e.target.value)} style={{width:250}}>
                     <option value="Required">Yes</option>
                     <option value="None">No</option>
                 </Form.Select>
@@ -193,7 +199,7 @@ export const EventForm = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Event / Competition Level:</Form.Label>
-                <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventLevel(e.target.value)} style={{width:200}}>
+                <Form.Select type="text" required value={elePointRequest} onChange={(e) => setEventLevel(e.target.value)} style={{width:200}}>
                     <option value="IL">International Level</option>
                     <option value="NL">National Level</option>
                     <option value="SL">State Level</option>
@@ -206,7 +212,7 @@ export const EventForm = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Event Category:</Form.Label>
-              <Form.Select type="text" value={elePointRequest} onChange={(e) => setEventCategory(e.target.value)} style={{width:200}}>
+              <Form.Select type="text" required value={elePointRequest} onChange={(e) => setEventCategory(e.target.value)} style={{width:200}}>
                     <option value="1">Conferences</option>
                     <option value="2">Seminar</option>
                     <option value="3">Meetings</option>

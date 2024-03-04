@@ -71,7 +71,7 @@ export const EventProposal = ({ onFilterChange }) => {
         </Dropdown.Item>
     );
   return (
-    <Container fluid className="my-5" style={{ height: '90vh', overflowY: 'auto' }}>
+    <Container fluid className="my-5" style={{ height: '100vh', overflowY: 'auto' }}>
       <Row className="h-100">
         <Col md={4} className="h-100 d-flex flex-column justify-content-center">
           <Card className="h-100 shadow-sm">
