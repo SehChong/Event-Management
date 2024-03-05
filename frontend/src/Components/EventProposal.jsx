@@ -7,7 +7,7 @@ import EventPrintModal from './EventPrintModal';
 
 export const EventProposal = ({ onFilterChange }) => {
       
-    const [clubProposals, setClubProposals] = useState([]);
+    const [eventProposals, setEventProposals] = useState([]);
     const [student, setStudent] = useState({
       name: "",
       studentNo: "",
@@ -39,13 +39,20 @@ export const EventProposal = ({ onFilterChange }) => {
     }, []);
 
     useEffect(() => {
-      const fetchData = async () => {
-          const response = await fetch('http://localhost:8000/events'); // Replace with the URL of your JSON server
+      const fetchEventProposals = async () => {
+        try {
+          const response = await fetch(`http://localhost:8000/events?userId=${sessionStorage.getItem("username")}`);
+          if (!response.ok) {
+            throw new Error('HTTP error ' + response.status);
+          }
           const data = await response.json();
-          setClubProposals(data);
+          setEventProposals(data);
+        } catch (error) {
+          console.error('Error fetching events data:', error);
+        }
       };
-      fetchData();
-    }, []);
+      fetchEventProposals();
+    }, [student]);
 
     const onCreateProposal = () => {
       navigate('/eventForm');
@@ -60,7 +67,7 @@ export const EventProposal = ({ onFilterChange }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        setClubProposals(clubProposals.filter((proposal) => proposal.id !== id));
+        setEventProposals(eventProposals.filter((proposal) => proposal.id !== id));
       } else {
         console.log('Error:', data);
       }
@@ -133,13 +140,12 @@ export const EventProposal = ({ onFilterChange }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {clubProposals.map((proposal, index) => (
+                  {eventProposals.map((proposal, index) => (
                     <tr key={proposal.id}>
                       <td>{index + 1}</td>
                       <td>{proposal.eventName}</td>
                       <td>{proposal.eventType}</td>
-                      <td className={proposal.status === "Pending" ? "text-warning" : proposal.status === "Approved" ? "text-success" : proposal.status === "Rejected" ? "text-danger" : "text-dark"}>{proposal.status}</td>
-                      <td>
+                      <td className={`text-${proposal.status === "Pending" ? "warning" : proposal.status === "Approved" ? "success" : proposal.status === "Rejected" ? "danger" : "dark"}`}>{proposal.status}</td>                      <td>
                         <ButtonGroup horizontal className='d-flex justify-content-center'>
                           <IconButton variant="secondary" onClick={() => handlePrintProposal(proposal)} className="mb-2 px-2">
                           {selectedEvent && <EventPrintModal event={selectedEvent} onHide={handleClosePrintModal} show={showPrintModal} />}
