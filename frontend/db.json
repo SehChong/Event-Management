@@ -93,6 +93,30 @@
       "mode": "Online",
       "link": "www.UCSI.com",
       "platform": "Zoom"
+    },
+    {
+      "id": "e8aa",
+      "eventType": "Event",
+      "eventName": "Testing Event",
+      "organizedBy": "Chong Kai Xuan",
+      "eventDate": "2024-03-06",
+      "eventEndDate": "2024-03-07",
+      "eventTime": "14:00",
+      "eventEndTime": "15:00",
+      "publicityPeriod": "2024-03-03",
+      "endPeriod": "2024-03-06",
+      "venue": "UCSI",
+      "estimatedAttendance": "20",
+      "totalHours": "1.00",
+      "elePointRequest": "Required",
+      "eventLevel": "UL",
+      "eventCategory": "talk",
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Pending",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
     }
   ]
 }

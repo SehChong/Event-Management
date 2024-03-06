@@ -160,8 +160,8 @@ export const EventForm = () => {
       setEventEndDateError('');
     }  
 
-    const publicityEndDateObj = new Date(publicityPeriod);
-    const publicityPeriodObj = new Date(endPeriod);
+    const publicityEndDateObj = new Date(endPeriod);
+    const publicityPeriodObj = new Date(publicityPeriod);
 
     if (publicityEndDateObj < publicityPeriodObj) {
       setPublicityEndDateError('Publicity end date should not be earlier than the publicity date.');
