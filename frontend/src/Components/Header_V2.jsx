@@ -51,7 +51,7 @@ export const Header_V2 = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
+      <Navbar bg="light" expand="lg" style={{height:120}}>
         <Container>
           <Navbar.Brand onClick={toHome} className='fs-3'>My Website</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
