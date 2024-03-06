@@ -1,8 +1,6 @@
 // Import necessary modules
 import React, { useState, useEffect } from 'react';
 
-const ITEMS_PER_PAGE = 9;
-
 // Define the component
 export const CardEventSlider = () => {
   // Define state variables
@@ -52,7 +50,7 @@ export const CardEventSlider = () => {
             <div className="card h-100">
               <img src={event.image} className="card-img-top" alt="Event" />
               <div className="card-body">
-                <h5 className="card-title">{event.eventName}</h5>
+                <h5 className="card-title">{event.name}</h5>
                 <ul className="list-unstyled">
                   <li><strong>Event Date:</strong> {event.eventDate}</li>
                   <li><strong>Event End:</strong> {event.eventEndDate}</li>

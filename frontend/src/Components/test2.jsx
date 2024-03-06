@@ -1,16 +1,12 @@
-// Import necessary modules
 import React, { useState, useEffect } from 'react';
 
 const ITEMS_PER_PAGE = 9;
 
-// Define the component
 export const CardEventSlider = () => {
-  // Define state variables
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch events from the server on component mount
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -27,23 +23,16 @@ export const CardEventSlider = () => {
     fetchEvents();
   }, []);
 
-  // Filter events based on registration date and end date
   useEffect(() => {
-    const currentDate = new Date().toISOString().split('T')[0];
-    const filtered = events.filter(event => {
-      const registrationDate = event.publicityPeriod;
-      const endDate = event.endPeriod;
-      return currentDate >= registrationDate && currentDate <= endDate;
-    });
-    setFilteredEvents(filtered);
-  }, [events]);
+    const indexOfLastEvent = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstEvent = indexOfLastEvent - ITEMS_PER_PAGE;
+    setFilteredEvents(events.slice(indexOfFirstEvent, indexOfLastEvent));
+  }, [events, currentPage]);
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Render the component
   return (
     <div className='m-5 p-5'>
       <div className="row row-cols-1 row-cols-md-3 g-5">
@@ -52,11 +41,11 @@ export const CardEventSlider = () => {
             <div className="card h-100">
               <img src={event.image} className="card-img-top" alt="Event" />
               <div className="card-body">
-                <h5 className="card-title">{event.eventName}</h5>
+                <h5 className="card-title">{event.name}</h5>
                 <ul className="list-unstyled">
                   <li><strong>Event Date:</strong> {event.eventDate}</li>
                   <li><strong>Event End:</strong> {event.eventEndDate}</li>
-                  <li><strong>Event Points:</strong> {event.elePointRequest}</li>
+                  <strong>Event Points:</strong> {event.elePointRequest === 'Required' ? 'Yes' : 'No'}
                   <li><strong>Mode:</strong> {event.mode}</li>
                   {event.mode === 'Physical' && <li className="physical"><strong>Venue:</strong> {event.venue}</li>}
                   {event.mode === 'Online' && (
@@ -64,7 +53,9 @@ export const CardEventSlider = () => {
                       <li className="online"><strong>Platform:</strong> {event.platform}</li>
                       <li><strong>Link:</strong> <a href={event.link} className="online">Meetings Link for the Events</a></li>
                     </div>
-                  )}
+                  )}                  
+                  <li><strong>Registration Date:</strong> {event.publicityPeriod}</li>
+                  <li><strong>Registration Close:</strong> {event.endPeriod}</li>
                 </ul>
               </div>
               <div className="card-footer">
@@ -76,7 +67,6 @@ export const CardEventSlider = () => {
       </div>
       <nav aria-label="Page navigation example" className='mt-5'>
         <ul className="pagination justify-content-end">
-          {/* Pagination controls */}
           {currentPage > 1 && (
             <li className="page-item">
               <a className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>Previous</a>
