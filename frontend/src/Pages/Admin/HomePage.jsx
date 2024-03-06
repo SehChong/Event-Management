@@ -71,9 +71,9 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <>
-      <Dashboard /> {/* Integrate the Dashboard component here */}
-      <div className=" w-100 mt-5">
+    <div className="d-flex" style={{ height: '100vh' }}>
+      <Dashboard />
+      <div className="w-100 mt-5">
         <div className='d-flex justify-content-start mx-4 gap-4'>
           <div className="card" style={{ width: '25%' }}>
             <div className="card-body">
@@ -115,6 +115,6 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
