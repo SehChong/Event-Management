@@ -10,7 +10,7 @@ const CardContainer = styled.div`
 
 export const HomeContent = () => {
   return (
-      <CardContainer>
+      <CardContainer className='gap-5'>
         <Card style={{ width: '30rem    ' }}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
