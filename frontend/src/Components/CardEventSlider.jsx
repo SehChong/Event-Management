@@ -9,6 +9,7 @@ export const CardEventSlider = () => {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [users, setUsers] = useState([]);
 
   // Fetch events from the server on component mount
   useEffect(() => {
@@ -24,7 +25,20 @@ export const CardEventSlider = () => {
         console.error('Error fetching events data:', error);
       }
     };
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/user');
+        if (!response.ok) {
+          throw new Error('HTTP error ' + response.status);
+        }
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error('Error fetching users data:', error);
+      }
+    };
     fetchEvents();
+    fetchUsers();
   }, []);
 
   // Filter events based on registration date and end date
@@ -43,6 +57,49 @@ export const CardEventSlider = () => {
     setCurrentPage(page);
   };
 
+  const registerForEvent = async (eventId) => {
+    try {
+      // Get the user's ID from session or local storage
+      const userId = sessionStorage.getItem("userId"); // Make sure to replace "userId" with the actual key you use to store the user's ID
+      // Fetch the user data
+      const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+      if (!response.ok) {
+        throw new Error('HTTP error ' + response.status);
+      }
+      const userData = await response.json();
+      // Check if the user is already registered for the event
+      if (userData.registeredEvents && userData.registeredEvents.includes(eventId)) {
+        alert('You have already registered for this event.');
+        return;
+      }
+      // Add the event ID to the user's registeredEvents array
+      const updatedUserData = {
+        ...userData,
+        registeredEvents: userData.registeredEvents ? [...userData.registeredEvents, eventId] : [eventId]
+      };
+      // Update the user data in the database
+      await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUserData),
+      });
+      alert('Registration successful!');
+    } catch (error) {
+      console.error('Error registering for event:', error);
+      alert('Failed to register for event. Please try again.');
+    }
+  };
+
+  // Count participants for each event
+  const countParticipants = (eventId) => {
+    if (!users.length) return 0;
+    return users.reduce((count, user) => {
+      return count + (user.registeredEvents && user.registeredEvents.includes(eventId) ? 1 : 0);
+    }, 0);
+  };
+
   // Render the component
   return (
     <div className='m-5 p-5'>
@@ -57,6 +114,7 @@ export const CardEventSlider = () => {
                   <li><strong>Event Date:</strong> {event.eventDate}</li>
                   <li><strong>Event End:</strong> {event.eventEndDate}</li>
                   <li><strong>Event Points:</strong> {event.elePointRequest}</li>
+                  <li><strong>Participants:</strong>  {countParticipants(event.id)} / {event.estimatedAttendance}</li>
                   <li><strong>Mode:</strong> {event.mode}</li>
                   {event.mode === 'Physical' && <li className="physical"><strong>Venue:</strong> {event.venue}</li>}
                   {event.mode === 'Online' && (
@@ -65,10 +123,15 @@ export const CardEventSlider = () => {
                       <li><strong>Link:</strong> <a href={event.link} className="online">Meetings Link for the Events</a></li>
                     </div>
                   )}
+                  <li><strong>Registration Close (After):</strong> {event.endPeriod}</li>
                 </ul>
               </div>
               <div className="card-footer">
-                <button className="btn btn-primary d-flex mx-auto">Register</button>
+              <button className={`btn btn-primary d-flex mx-auto ${countParticipants(event.id) >= event.estimatedAttendance ? 'disabled' : ''}`} 
+                      disabled={countParticipants(event.id) >= event.estimatedAttendance}
+                      onClick={() => countParticipants(event.id) < event.estimatedAttendance && registerForEvent(event.id)}>
+                {countParticipants(event.id) >= event.estimatedAttendance ? 'Registration Closed' : 'Register'}
+              </button>             
               </div>
             </div>
           </div>

@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "@material-ui/icons": "^4.11.3",
     "chart.js": "^4.4.2",
-    "react-alert": "^7.0.3"
+    "react-alert": "^7.0.3",
+    "react-transition-group": "^4.4.5",
+    "react-use": "^17.5.0"
   }
 }
