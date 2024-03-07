@@ -62,7 +62,7 @@ export const Profile = () => {
 
         <MDBRow>
           <MDBCol lg="4">
-            <MDBCard className="mb-4">
+            <MDBCard className="mb-4 rounded">
               <MDBCardBody className="text-center">
                 <MDBCardImage
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
@@ -79,7 +79,7 @@ export const Profile = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="mb-4 mb-lg-0">
+            <MDBCard className="mb-4 mb-lg-0 rounded">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
@@ -107,7 +107,7 @@ export const Profile = () => {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
-            <MDBCard className="mb-4">
+            <MDBCard className="mb-4 rounded">
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol sm="3">
@@ -158,7 +158,7 @@ export const Profile = () => {
 
             <MDBRow>
               <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
+                <MDBCard className="mb-4 mb-md-0 rounded">
                   <MDBCardBody>
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
@@ -190,7 +190,7 @@ export const Profile = () => {
               </MDBCol>
 
               <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
+                <MDBCard className="mb-4 mb-md-0 rounded">
                   <MDBCardBody>
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>

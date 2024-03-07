@@ -106,7 +106,7 @@ export const CardEventSlider = () => {
       <div className="row row-cols-1 row-cols-md-3 g-5">
         {filteredEvents.map((event) => (
           <div className="col" key={event.id}>
-            <div className="card h-100">
+            <div className="card h-100 rounded">
               <img src={event.image} className="card-img-top" alt="Event" />
               <div className="card-body">
                 <h5 className="card-title">{event.eventName}</h5>

@@ -34,7 +34,7 @@ export const ClubProposal = ({ onFilterChange }) => {
     <Container fluid className="my-5" style={{ height: '90vh', overflowY: 'auto' }}>
       <Row className="h-100">
         <Col md={4} className="h-100 d-flex flex-column justify-content-center">
-          <Card className="h-100 shadow-sm">
+          <Card className="h-100 shadow-sm rounded">
             <Card.Body>
               <h5 className="font-weight-bold fs-4">Student Info:</h5>
               <div className='d-flex justify-content-center mb-3' style={{padding:100}}>
@@ -49,7 +49,7 @@ export const ClubProposal = ({ onFilterChange }) => {
           </Card>
         </Col>
         <Col md={8} className="h-100">
-          <Card className="h-100 shadow-sm">
+          <Card className="h-100 shadow-sm rounded">
             <Card.Body className="h-100 d-flex flex-column">
               <Form.Label>Select Status:</Form.Label>
               <Form.Select onChange={(e) => onFilterChange(e.target.value)} className="mb-3">

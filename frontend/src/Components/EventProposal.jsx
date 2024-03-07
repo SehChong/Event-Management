@@ -134,7 +134,7 @@ export const EventProposal = ({ onFilterChange }) => {
       <Row className="h-100">
         {/* Student info card */}
         <Col md={4} className="h-100 d-flex flex-column justify-content-center">
-          <Card className="h-100 shadow-sm">
+          <Card className="h-100 shadow-sm rounded">
             <Card.Body>
                 {/* Student info content */}
                 <h5 className="font-weight-bold fs-4">Student Info:</h5>
@@ -151,7 +151,7 @@ export const EventProposal = ({ onFilterChange }) => {
         </Col>
         {/* Event proposals table */}
         <Col md={8} className="h-100">
-          <Card className="h-100 shadow-sm">
+          <Card className="h-100 shadow-sm rounded">
             <Card.Body className="h-100 d-flex flex-column">
               {/* Filter dropdown */}
               <Form.Label>Select Status:</Form.Label>

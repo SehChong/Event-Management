@@ -60,7 +60,7 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
   return (
     <CardContainer>
       <CardWrapper>
-        <Card style={{ width: '25rem'}}>
+        <Card className="rounded" style={{ width: '25rem'}}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>ELE 1</Card.Title>
@@ -91,7 +91,7 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
         </Card>
       </CardWrapper>
       <CardWrapper>
-        <Card style={{ width: '25rem' }}>
+        <Card className="rounded" style={{ width: '25rem' }}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>ELE 2</Card.Title>
@@ -122,7 +122,7 @@ export const ActivitiesCard = ({ totalPoints, timeLimit }) => {
         </Card>
       </CardWrapper>
       <CardWrapper>
-        <Card style={{ width: '25rem' }}>
+        <Card className="rounded" style={{ width: '25rem' }}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>ELE 3</Card.Title>
