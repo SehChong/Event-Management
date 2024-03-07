@@ -1,3 +1,5 @@
+// HomePage.jsx
+
 import React, { useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chart from 'chart.js/auto'; // Import Chart.js library
@@ -71,9 +73,9 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className="d-flex" style={{ height: '100vh' }}>
-      <Dashboard />
-      <div className="w-100 mt-5">
+    <div className="d-flex bg-light" style={{ height: '100vh' }}>
+      <div style={{width:"18%"}}><Dashboard /></div>
+      <div className="w-75 mt-5 " style={{ position: 'relative' }}> {/* Ensure the position of HomePage is fixed */}
         <div className='d-flex justify-content-start mx-4 gap-4'>
           <div className="card" style={{ width: '25%' }}>
             <div className="card-body">

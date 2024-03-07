@@ -13,6 +13,7 @@ import { EventList } from './Pages/EventList';
 import { Dashboard } from './Components/Dashboard';
 import { EventValidation } from './Pages/Admin/EventValidation';
 import { HomePage } from './Pages/Admin/HomePage';
+import { ViewUser } from './Pages/Admin/ViewUser';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
     //   </Routes>
     // </BrowserRouter>
     // <Dashboard/>
-    <HomePage />
+    // <ViewUser />
+    <EventValidation />
   );
 }
 

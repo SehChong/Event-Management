@@ -2,3 +2,47 @@
     background-color: grey !important;
     border-radius: 10px;
 }
+  
+.toggle-button {
+    position: absolute;
+    left: 10px;
+    margin: 10px; /* Added margin */
+    font-size: 14px;
+    border: none; /* Removed border */
+    background: none; /* Removed background */
+    
+  }
+
+.sidebar-container {
+  width: 250px;
+  height: 100vh;
+  padding: 20px;
+  transform: translateX(0); /* Initial position */
+  transition: transform 0.3s ease-in-out; /* Transition for transform property */
+  background-color: transparent; /* Make the background color transparent */
+}
+
+  
+  .sidebar-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .sidebar-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .sidebar-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  
