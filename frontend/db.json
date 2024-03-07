@@ -8,7 +8,12 @@
       "program": "Foundation in Arts (Information Technology)",
       "role": "user",
       "gender": "male",
-      "image": "https://via.placeholder.com/150"
+      "image": "https://via.placeholder.com/150",
+      "registeredEvents": [
+        "9003",
+        "0f19",
+        "e6f5"
+      ]
     },
     {
       "id": "user2",
@@ -18,7 +23,13 @@
       "program": "Foundation in Arts (Information Technology)",
       "role": "admin",
       "gender": "female",
-      "image": "https://via.placeholder.com/150"
+      "image": "https://via.placeholder.com/150",
+      "registeredEvents": [
+        "9003",
+        "0f19",
+        "e6f5",
+        "2bad"
+      ]
     }
   ],
   "events": [
@@ -257,6 +268,30 @@
       "eventCategory": "seminar",
       "pdfFile": null,
       "userId": "user1",
+      "status": "Approved",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
+    },
+    {
+      "id": "2bad",
+      "eventType": "Event",
+      "eventName": "Testing Registration Button Event",
+      "organizedBy": "Kong",
+      "eventDate": "2024-03-02",
+      "eventEndDate": "2024-03-02",
+      "eventTime": "14:30",
+      "eventEndTime": "15:30",
+      "publicityPeriod": "2024-03-07",
+      "endPeriod": "2024-03-07",
+      "venue": "Testing Ground",
+      "estimatedAttendance": "1",
+      "totalHours": "1.00",
+      "elePointRequest": "Required",
+      "eventLevel": "UL",
+      "eventCategory": "camp",
+      "pdfFile": null,
+      "userId": "user2",
       "status": "Approved",
       "mode": "Physical",
       "link": "",
