@@ -11,7 +11,7 @@ const CardContainer = styled.div`
 export const HomeContent = () => {
   return (
       <CardContainer className='gap-5'>
-        <Card style={{ width: '30rem    ' }}>
+        <Card style={{ width: '30rem    ' }} className='rounded'>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Event</Card.Title>
@@ -21,7 +21,7 @@ export const HomeContent = () => {
             <Button variant="primary">Learn More</Button>
           </Card.Body>
         </Card>
-        <Card style={{ width: '30rem' }}>
+        <Card style={{ width: '30rem' }} className='rounded'>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Club</Card.Title>
@@ -31,7 +31,7 @@ export const HomeContent = () => {
             <Button variant="primary">Learn More</Button>
           </Card.Body>
         </Card>
-        <Card style={{ width: '30rem' }}>
+        <Card style={{ width: '30rem' }} className='rounded'>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Attendance</Card.Title>

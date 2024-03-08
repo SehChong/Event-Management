@@ -100,6 +100,29 @@ export const CardEventSlider = () => {
     }, 0);
   };
 
+  // Poll for updated participant counts periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchParticipantCounts();
+    }, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
+  // Fetch updated participant counts
+  const fetchParticipantCounts = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/user');
+      if (!response.ok) {
+        throw new Error('HTTP error ' + response.status);
+      }
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error fetching participant counts:', error);
+    }
+  };
+
   // Render the component
   return (
     <div className='m-5 p-5'>

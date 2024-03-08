@@ -12,7 +12,8 @@
       "registeredEvents": [
         "9003",
         "0f19",
-        "e6f5"
+        "e6f5",
+        "cf63"
       ]
     },
     {
@@ -28,7 +29,8 @@
         "9003",
         "0f19",
         "e6f5",
-        "2bad"
+        "2bad",
+        "cf63"
       ]
     }
   ],
@@ -296,6 +298,30 @@
       "mode": "Physical",
       "link": "",
       "platform": ""
+    },
+    {
+      "id": "cf63",
+      "eventType": "Event",
+      "eventName": "Event Display Refresh",
+      "organizedBy": "KSC",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "eventTime": "15:30",
+      "eventEndTime": "17:30",
+      "publicityPeriod": "2024-03-06",
+      "endPeriod": "2024-03-09",
+      "venue": "",
+      "estimatedAttendance": "20",
+      "totalHours": "2.00",
+      "elePointRequest": "Required",
+      "eventLevel": "CFL",
+      "eventCategory": "talk",
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Approved",
+      "mode": "Online",
+      "link": "www.testing.com",
+      "platform": "Testing"
     }
   ]
 }
