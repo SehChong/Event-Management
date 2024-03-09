@@ -14,7 +14,10 @@
         "0f19",
         "e6f5",
         "cf63"
-      ]
+      ],
+      "ele1": ["None", 0, "Unregistered", ""],
+      "ele2": ["None", 0, "Unregistered", ""],
+      "ele3": ["None", 0, "Unregistered", ""]
     },
     {
       "id": "user2",
@@ -31,7 +34,10 @@
         "e6f5",
         "2bad",
         "cf63"
-      ]
+      ],
+      "ele1": ["None", 0, "Unregistered", ""],
+      "ele2": ["None", 0, "Unregistered", ""],
+      "ele3": ["None", 0, "Unregistered", ""]
     }
   ],
   "events": [
@@ -322,6 +328,31 @@
       "mode": "Online",
       "link": "www.testing.com",
       "platform": "Testing"
+    },
+    {
+      "id": "ec2f",
+      "eventType": "Event",
+      "eventName": "Testing ELE Points",
+      "organizedBy": "Kong Seh Chong",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-11",
+      "eventTime": "14:00",
+      "eventEndTime": "15:00",
+      "publicityPeriod": "2024-03-08",
+      "endPeriod": "2024-03-10",
+      "venue": "ELE Venue",
+      "estimatedAttendance": "10",
+      "totalHours": "1.00",
+      "elePointRequest": "Required",
+      "totalELEPoints": "15",
+      "eventLevel": "UL",
+      "eventCategory": "talk",
+      "pdfFile": "ExamTokenY3S2.pdf",
+      "userId": "user2",
+      "status": "Approved",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
     }
   ]
 }

@@ -61,22 +61,40 @@ const EventPrintModal = ({ event, onHide, show }) => {
       <Modal.Body ref={printContentRef} style={{ whiteSpace: 'pre-wrap' }}>
         {event ? (
           <>
-            <strong>Event Name:</strong> {event?.eventName} <br />
-            <strong>Event Type:</strong> {event?.eventType} <br />
-            <strong>Organized By:</strong> {event?.organizedBy} <br />
-            <strong>Event Date:</strong> {event?.eventDate} <br />
-            <strong>Event End Date:</strong> {event?.eventEndDate} <br />
-            <strong>Event Time:</strong> {event?.eventTime} <br />
-            <strong>Event End Time:</strong> {event?.eventEndTime} <br />
-            <strong>Publicity Period:</strong> {event?.publicityPeriod} <br />
-            <strong>End Period:</strong> {event?.endPeriod} <br />
-            <strong>Venue:</strong> {event?.venue} <br />
-            <strong>Estimated Attendance:</strong> {event?.estimatedAttendance} <br />
-            <strong>Total Hours:</strong> {event?.totalHours} <br />
-            <strong>ELE Point Request:</strong> {event?.elePointRequest} <br />
-            <strong>Event Level:</strong> {event?.eventLevel} <br />
-            <strong>Event Category:</strong> {event?.eventCategory} <br />
-            <strong>PDF File:</strong> {event?.pdfFile} <br />
+            <strong>Event Name:</strong> {event.eventName} <br />
+            <strong>Event Type:</strong> {event.eventType} <br />
+            <strong>Organized By:</strong> {event.organizedBy} <br />
+            <strong>Event Date:</strong> {event.eventDate} <br />
+            <strong>Event End Date:</strong> {event.eventEndDate} <br />
+            <strong>Event Time:</strong> {event.eventTime} <br />
+            <strong>Event End Time:</strong> {event.eventEndTime} <br />
+            <strong>Publicity Period:</strong> {event.publicityPeriod} <br />
+            <strong>End Period:</strong> {event.endPeriod} <br />
+            {event.mode === 'Online' ? (
+              <>
+                <strong>Platform:</strong> {event.platform} <br />
+                <strong>Link:</strong> {event.link} <br />
+              </>
+            ) : (
+              <>
+                <strong>Venue:</strong> {event.venue} <br />
+              </>
+            )}
+            <strong>Estimated Attendance:</strong> {event.estimatedAttendance} <br />
+            <strong>Total Hours:</strong> {event.totalHours} <br />
+            <strong>ELE Point Request:</strong> {event.elePointRequest} <br />
+            {event.elePointRequest === 'Required' && (
+              <>
+                <strong>Total ELE Points:</strong>{event.totalELEPoints} <br />
+              </>
+            )}
+            <strong>Event Level:</strong> {event.eventLevel} <br />
+            <strong>Event Category:</strong> {event.eventCategory} <br />
+            {event.pdfFile != null && (
+              <>
+                <strong>PDF File:</strong> {event.pdfFile} <br />
+              </>
+            )}
           </>
         ): (
             <div className="d-flex justify-content-center">

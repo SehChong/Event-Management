@@ -23,6 +23,7 @@ export const EventForm = () => {
   const [estimatedAttendance, setEstimatedAttendance] = useState(proposal?.estimatedAttendance || '');
   const [totalHours, setTotalHours] = useState(proposal?.totalHours || '');
   const [elePointRequest, setElePointRequest] = useState(proposal?.elePointRequest || '');
+  const [totalELEPoints, setTotalELEPoints] = useState('');
   const [eventLevel, setEventLevel] = useState(proposal?.eventLevel || '');
   const [eventCategory, setEventCategory] = useState(proposal?.eventCategory || '');
   const [pdfFile, setPdfFile] = useState(proposal?.pdfFile || null);
@@ -45,6 +46,7 @@ export const EventForm = () => {
     setEstimatedAttendance('');
     setTotalHours('');
     setElePointRequest('');
+    setTotalELEPoints('');
     setEventLevel('');
     setEventCategory('');
     setPdfFile(null);
@@ -52,6 +54,7 @@ export const EventForm = () => {
     setPlatform('');
     setLink('');
     setUserIdValue('');
+    setPdfFile('');
   };
 
   const handleSubmit = (e) => {
@@ -78,6 +81,7 @@ export const EventForm = () => {
         estimatedAttendance,
         totalHours,
         elePointRequest,
+        totalELEPoints,
         eventLevel,
         eventCategory,
         pdfFile: pdfFile ? pdfFile.name : null,
@@ -322,6 +326,17 @@ export const EventForm = () => {
             </Form.Group>
           </Col> 
         </Row>
+        
+        {elePointRequest === "Required" && (
+          <Row className="g-3 mb-3">
+            <Col>
+              <Form.Group className="mb-3">
+                <Form.Label className='fw-bold'>Total ELE Points:</Form.Label>
+                <Form.Control type="number" required value={totalELEPoints} onChange={(e) => setTotalELEPoints(e.target.value)} />
+              </Form.Group>
+            </Col>
+          </Row>
+        )}
 
         <Row>
           <Col>

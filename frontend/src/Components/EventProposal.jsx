@@ -251,6 +251,9 @@ export const EventProposal = ({ onFilterChange }) => {
           </Card>
         </Col>
       </Row>
+      {selectedEvent && (
+        <EventPrintModal event={selectedEvent} onHide={handleClosePrintModal} show={showPrintModal} />
+      )}
     </Container>
   );
 };

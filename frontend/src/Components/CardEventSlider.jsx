@@ -136,7 +136,13 @@ export const CardEventSlider = () => {
                 <ul className="list-unstyled">
                   <li><strong>Event Date:</strong> {event.eventDate}</li>
                   <li><strong>Event End:</strong> {event.eventEndDate}</li>
-                  <li><strong>Event Points:</strong> {event.elePointRequest}</li>
+                  <li>
+                    {event.totalELEPoints != null && (
+                      <>
+                        <strong>ELE Points:</strong> {event.totalELEPoints}
+                      </>
+                    )}
+                  </li>
                   <li><strong>Participants:</strong>  {countParticipants(event.id)} / {event.estimatedAttendance}</li>
                   <li><strong>Mode:</strong> {event.mode}</li>
                   {event.mode === 'Physical' && <li className="physical"><strong>Venue:</strong> {event.venue}</li>}
