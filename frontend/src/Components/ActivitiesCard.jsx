@@ -10,13 +10,14 @@ import {
   MDBModalTitle,
   MDBModalBody
 } from 'mdb-react-ui-kit';
-import { ActivitiesTable } from './ActivitiesTable';
+import { SubmitReportModal } from './SubmitReportModal';
+import { ActivitiesModal } from './ActivitiesModal';
 
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
 `;
 
 const CardWrapper = styled.div`
@@ -43,6 +44,8 @@ const StatusText = styled.span`
 
 export const ActivitiesCard = () => {
   const [userData, setUserData] = useState(null);
+  const [optSmReportModal, setOptSmReportModal] = useState(false);
+  const [optSmActivitiesModal, setOptSmActivitiesModal] = useState(false);
 
   // Function to get the total points from ele1, ele2, and ele3
   const getTotalPoints = () => {
@@ -133,11 +136,15 @@ export const ActivitiesCard = () => {
     return 'Ongoing';
   };
   
-  const [optSmModal, setOptSmModal] = useState(false);
-
-  const toggleOpen = () => setOptSmModal(!optSmModal);
+  const toggleReportModal = () => setOptSmReportModal(!optSmReportModal);
+  const toggleActivitiesModal = () => setOptSmActivitiesModal(!optSmActivitiesModal);
 
   return (
+    <div className='text-center mt-5'>
+      <MDBBtn variant="primary" onClick={toggleReportModal}>
+        Submit Report
+      </MDBBtn>
+
     <CardContainer>
       <CardWrapper>
         <Card className="rounded" style={{ width: '25rem'}}>
@@ -153,8 +160,8 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele1TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
-            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            {/* <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
               <MDBModalDialog size='xl'>
                 <MDBModalContent>
                   <MDBModalHeader>
@@ -162,11 +169,11 @@ export const ActivitiesCard = () => {
                     <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                   </MDBModalHeader>
                   <MDBModalBody>
-                    <ActivitiesTable/>
+                    <SubmitReportModal/>
                   </MDBModalBody>
                 </MDBModalContent>
               </MDBModalDialog>
-            </MDBModal>
+            </MDBModal> */}
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -184,8 +191,8 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele2TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
-            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            {/* <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
               <MDBModalDialog size='xl'>
                 <MDBModalContent>
                   <MDBModalHeader>
@@ -193,11 +200,11 @@ export const ActivitiesCard = () => {
                     <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                   </MDBModalHeader>
                   <MDBModalBody>
-                    <ActivitiesTable/>
+                    <SubmitReportModal/>
                   </MDBModalBody>
                 </MDBModalContent>
               </MDBModalDialog>
-            </MDBModal>
+            </MDBModal> */}
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -215,8 +222,8 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele3TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleOpen}>View Activities</MDBBtn>
-            <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
+            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            {/* <MDBModal open={optSmModal} tabIndex='-1' setOpen={setOptSmModal}>
               <MDBModalDialog size='xl'>
                 <MDBModalContent>
                   <MDBModalHeader>
@@ -224,14 +231,45 @@ export const ActivitiesCard = () => {
                     <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                   </MDBModalHeader>
                   <MDBModalBody>
-                    <ActivitiesTable/>
+                    <SubmitReportModal/>
                   </MDBModalBody>
                 </MDBModalContent>
               </MDBModalDialog>
-            </MDBModal>
+            </MDBModal> */}
           </Card.Body>
         </Card>
       </CardWrapper>
     </CardContainer>
+
+    {/* SubmitReportModal */}
+    <MDBModal open={optSmReportModal} tabIndex='-1' setOpen={setOptSmReportModal}>
+        <MDBModalDialog size='xl'>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Submit Report</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={toggleReportModal}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <SubmitReportModal />
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+
+    {/* ActivitiesModal */}
+    <MDBModal open={optSmActivitiesModal} tabIndex='-1' setOpen={setOptSmActivitiesModal}>
+        <MDBModalDialog size='xl'>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Activities</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={toggleActivitiesModal}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <ActivitiesModal/>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+    </div>
   )
 }
