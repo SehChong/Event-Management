@@ -23,30 +23,38 @@ export const SubmitReportModal = () => {
         });
 
         const eventDataResponses = await Promise.all(eventPromises);
-
         const eventData = await Promise.all(
-          eventDataResponses.map(response => {
+          eventDataResponses.map(async (response) => {
             if (!response.ok) {
-              throw new Error('Failed to fetch event data');
+              // Skip if event data cannot be fetched
+              return null;
             }
             return response.json();
           })
         );
 
-        const registeredEventsData = eventData.map(event => {
-          if (event.elePointRequest === 'Required') {
+        const currentDate = new Date();
+        const registeredEventsData = eventData
+          .filter(event => event && event.elePointRequest === 'Required' && new Date(event.eventEndDate) < currentDate) // Filter out null values, non-required events, and events that have not ended
+          .map(event => {
+            const eventEndDate = new Date(event.eventEndDate);
+            const timeDifference = currentDate.getTime() - eventEndDate.getTime();
+            let submissionStatus;
+            if (timeDifference <= 7 * 24 * 60 * 60 * 1000) {
+              submissionStatus = event.submittedReport ? "Approved" : "Ongoing";
+            } else {
+              submissionStatus = "Rejected";
+            }
             return {
               eventName: event.eventName,
               eventDate: event.eventDate,
-              eventEndDate: event.eventEndDate,
+              eventEndDate: event.eventEndDate, // Convert to a readable format
               totalELEPoints: event.totalELEPoints,
-              status: event.status,
-              submittedReport: false // Assuming none of the reports are submitted initially
+              submissionStatus: submissionStatus,
+              submittedReport: event.submittedReport || false // Assuming none of the reports are submitted initially
             };
-          }
-          return null;
-        }).filter(Boolean);
-        
+          });
+
         setData(registeredEventsData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -56,12 +64,13 @@ export const SubmitReportModal = () => {
     fetchEventData();
   }, []);
     
-      const handleSubmit = (index) => {
-        const updatedData = [...data];
-        updatedData[index].submittedReport = "Yes";
-        setData(updatedData);
-        navigate("/accordion-form")
-      };
+  const handleSubmit = (eventDetails) => {
+    // const updatedData = [...data];
+    // updatedData[index].submittedReport = "Yes";
+    // setData(updatedData);
+    // navigate("/accordion-form")
+    navigate("/accordion-form", { state: { eventDetails } }); // Navigate to AccordionForm with eventDetails in location state
+  };
 
   return (
     <Table striped bordered hover>
@@ -79,17 +88,17 @@ export const SubmitReportModal = () => {
       </thead>
       <tbody>
         {data.map((item, index) => (
-          <tr key={item.no}>
-            <td>{item.no}</td>
+          <tr key={index}>
+            <td>{index + 1}</td>
             <td>{item.eventName}</td>
             <td>{item.eventDate}</td>
             <td>{item.eventEndDate}</td>
             <td>{item.totalELEPoints}</td>
-            <td>{item.status}</td>
+            <td className={item.submissionStatus === "Approved" ? "text-success" : item.submissionStatus === "Rejected" ? "text-danger" : "text-warning"}>{item.submissionStatus}</td>
             <td>{item.submittedReport ? "Yes" : "No"}</td>
             <td>
               {!item.submittedReport && (
-                <Button variant="primary" onClick={() => handleSubmit(index)}>
+                <Button variant="primary" onClick={() => handleSubmit(item)}>
                   <HiDocument />
                 </Button>
               )}

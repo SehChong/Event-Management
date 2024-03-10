@@ -10,14 +10,30 @@
       "gender": "male",
       "image": "https://via.placeholder.com/150",
       "registeredEvents": [
-        "9003",
         "0f19",
         "e6f5",
-        "cf63"
+        "cf63",
+        "995f",
+        "00fd"
       ],
-      "ele1": ["None", 0, "Unregistered", ""],
-      "ele2": ["None", 0, "Unregistered", ""],
-      "ele3": ["None", 0, "Unregistered", ""]
+      "ele1": [
+        "Ongoing",
+        105,
+        "Registered",
+        "2024-01-01"
+      ],
+      "ele2": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele3": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ]
     },
     {
       "id": "user2",
@@ -29,12 +45,12 @@
       "gender": "female",
       "image": "https://via.placeholder.com/150",
       "registeredEvents": [
-        "9003",
         "0f19",
         "e6f5",
         "2bad",
         "cf63"
       ],
+<<<<<<< HEAD
       "ele1": ["None", 0, "Unregistered", ""],
       "ele2": ["None", 0, "Unregistered", ""],
       "ele3": ["None", 0, "Unregistered", ""]
@@ -45,6 +61,26 @@
       "password": "admin",
       "name": "Admin",
       "role": "admin"
+=======
+      "ele1": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele2": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele3": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ]
+>>>>>>> bc5e6779c2e037687775f2197d50158f06c89636
     }
   ],
   "events": [
@@ -199,30 +235,6 @@
       "platform": "Zoom"
     },
     {
-      "id": "9003",
-      "eventType": "Event",
-      "eventName": "Try Publicity Date",
-      "organizedBy": "Kong Seh Chong",
-      "eventDate": "2024-04-06",
-      "eventEndDate": "2024-04-06",
-      "eventTime": "14:00",
-      "eventEndTime": "15:00",
-      "publicityPeriod": "2024-03-06",
-      "endPeriod": "2024-03-07",
-      "venue": "",
-      "estimatedAttendance": "50",
-      "totalHours": "1.00",
-      "elePointRequest": "None",
-      "eventLevel": "UL",
-      "eventCategory": "talk",
-      "pdfFile": null,
-      "userId": "user1",
-      "status": "Approved",
-      "mode": "Online",
-      "link": "www.youtube.com",
-      "platform": "Youtube"
-    },
-    {
       "id": "0f19",
       "eventType": "Event",
       "eventName": "Second Event Try Publicity Date",
@@ -371,8 +383,34 @@
       "mode": "Physical",
       "link": "",
       "platform": ""
+    },
+    {
+      "id": "995f",
+      "eventType": "Event",
+      "eventName": "Try Submit Report",
+      "organizedBy": "Testing user",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "eventTime": "13:00",
+      "eventEndTime": "13:30",
+      "publicityPeriod": "2024-03-09",
+      "endPeriod": "2024-03-10",
+      "venue": "Playground",
+      "estimatedAttendance": "1",
+      "totalHours": "0.50",
+      "elePointRequest": "Required",
+      "totalELEPoints": "15",
+      "eventLevel": "CFL",
+      "eventCategory": "talk",
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Approved",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
     }
   ],
+<<<<<<< HEAD
 
   "users": [
     { "id": 1, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
@@ -401,4 +439,7 @@
     { "id": 24, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
     { "id": 25, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" }
 ]
+=======
+  "reports": []
+>>>>>>> bc5e6779c2e037687775f2197d50158f06c89636
 }
