@@ -1,44 +1,99 @@
-body{
+/* Global Styles */
+body {
     background: #edf1f5;
-}
-
-.card {
+  }
+  
+  .card {
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
-    background-clip: border-box;
     border: 0 solid transparent;
     border-radius: 0;
-}
-
-.btn-circle.btn-lg, .btn-group-lg>.btn-circle.btn {
-    width: 50px;
-    height: 50px;
-    padding: 14px 15px;
-    font-size: 18px;
-    line-height: 23px;
-}
-
-
-.text-muted {
-    color: #8898aa!important;
-}
-
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: pointer;
-}
-
-.btn-circle {
+  }
+  
+  .btn-circle {
     border-radius: 100%;
     width: 40px;
     height: 40px;
     padding: 10px;
     margin-right: 10px;
-}
-
-.user-table {
+  }
+  
+  .text-muted {
+    color: #8898aa!important;
+  }
+  
+  [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+  }
+  
+  /* Component Specific Styles */
+  .user-table {
     border-radius: 10px; /* Adjust the border radius as needed */
   }
+  
+  .details-column {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Changed to three columns */
+    grid-gap: 10px;
+  }
+  
+  .details-grid div {
+    padding: 5px;
+  }
+  
+  /* Optional: Adjust styles for better appearance */
+  .details-grid strong {
+    font-weight: bold;
+  }
+  
+  .details-grid span {
+    margin-right: 10px;
+  }
+  
+  /* EventValidation.css */
+  
+  /* Reduce padding for the first column */
+  .table th.pl-2,
+  .table td.pl-2 {
+    padding-left: 0.75rem; /* Adjust as needed */
+  }
+  
+  /* Style for table */
+  .table {
+    font-size: 14px;
+  }
+  
+  /* Style for search box */
+  .search-box {
+    width: 250px; /* Adjust width as needed */
+  }
+  
+  /* Optional: add styles for hover effect or any additional customizations */
+
+  /* EventValidation.css */
+
+/* Reduce padding for the first column */
+.table th.pl-2,
+.table td.pl-2 {
+  padding-left: 0.5rem; /* Adjust as needed */
+}
+
+/* Reduce font size for table content */
+.table {
+  font-size: 12px; /* Adjust as needed */
+}
+
+/* Optional: Adjust padding for the whole table */
+.table td,
+.table th {
+  padding: 0.5rem; /* Adjust as needed */
+}

@@ -25,26 +25,33 @@ export const LoginForm = () => {
   const handleSignIn = (e) => {
     e.preventDefault();
     if (validate()) {
-      fetch("http://localhost:8000/user/" + username).then((res) => {
-        return res.json();
-      }).then((resp) => {
-        if (Object.keys(resp).length === 0) {
-          toast.error('Please Enter valid username');
-        } else {
-          if (resp.password === password) {
-            toast.success('Success');
-            sessionStorage.setItem('username', username);
-            sessionStorage.setItem('userrole', resp.role);
-            navigate('/home');
+      fetch("http://localhost:8000/user/" + username)
+        .then((res) => {
+          return res.json();
+        })
+        .then((resp) => {
+          if (Object.keys(resp).length === 0) {
+            toast.error('Please Enter valid username');
           } else {
-            toast.error('Please Enter valid credentials');
+            if (resp.password === password) {
+              toast.success('Success');
+              sessionStorage.setItem('username', username);
+              sessionStorage.setItem('userrole', resp.role);
+              if (resp.role === 'admin') {
+                navigate('/adminHome'); // Redirect to admin page
+              } else {
+                navigate('/home');
+              }
+            } else {
+              toast.error('Please Enter valid credentials');
+            }
           }
-        }
-      }).catch((err) => {
-        toast.error('Login Failed due to :' + err.message);
-      });
+        })
+        .catch((err) => {
+          toast.error('Login Failed due to :' + err.message);
+        });
     }
-  };
+  };  
 
   const validate = () => {
     let result = true;
