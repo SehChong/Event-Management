@@ -17,23 +17,24 @@ import { ViewUser } from './Pages/Admin/ViewUser';
 
 function App() {
   return (
-    <BrowserRouter>
-    {/* <ActivitiesCard totalPoints={95} timeLimit={1} /> */}
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/home" element={<Home /> } />
-        <Route path="/Club" element={<Club />} />
-        <Route path="/ClubForm" element={<ClubFormPage />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/eventForm" element={<EventFormPage />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/accordion-form" element={<AccordionForm />} />
-        <Route path="/eventlist" element={<EventList />} />
-      </Routes>
-    </BrowserRouter>
-    // <Dashboard/>
-    // <HomePage />
+    // <BrowserRouter>
+    // {/* <ActivitiesCard totalPoints={95} timeLimit={1} /> */}
+    //   <Routes>
+    //     <Route path="/" element={<LoginForm />} />
+    //     <Route path="/home" element={<Home /> } />
+    //     <Route path="/Club" element={<Club />} />
+    //     <Route path="/ClubForm" element={<ClubFormPage />} />
+    //     <Route path="/event" element={<Event />} />
+    //     <Route path="/eventForm" element={<EventFormPage />} />
+    //     <Route path="/profile" element={<Profile />} />
+    //     <Route path="/attendance" element={<Attendance />} />
+    //     <Route path="/accordion-form" element={<AccordionForm />} />
+    //     <Route path="/eventlist" element={<EventList />} />
+    //     <Route path="/dashboard" element={<Dashboard />} />
+    //     <Route path="/eventlist" element={<HomePage />} />
+    //   </Routes>
+    // </BrowserRouter>
+    <ViewUser />
   );
 }
 

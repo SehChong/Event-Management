@@ -42,3 +42,15 @@ body{
 .user-table {
     border-radius: 10px; /* Adjust the border radius as needed */
   }
+
+.pagination-btn {
+    margin: 0 2px; /* Adjust margin as needed */
+    border-radius: 5px; /* Rounded corners */
+    color: #333; /* Text color */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+.pagination-btn:hover {
+    background-color: #f0f0f0; /* Hover background color */
+  }
+

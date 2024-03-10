@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsHouse, BsInfoCircle, BsGear, BsChatDots, BsList } from 'react-icons/bs';
-import { Dropdown } from 'react-bootstrap';
 import { CSSTransition } from 'react-transition-group'; 
 import '../Assets/Styles/Dashboard.css';
 
@@ -27,7 +26,7 @@ export const Dashboard = () => {
               <li className="nav-item">
                 <div className="media align-items-center">
                   <img src="https://placehold.jp/150x150.png" alt="User Icon" className="mr-3 mt-4" style={{ width: '200px', height: '200px' }} />
-                  <div className="media-body mt-3">
+                  <div className="media-body mt-3 mb-4">
                     <h5 className="mt-0 d-flex justify-content-center">User Name</h5>
                   </div>
                 </div>
@@ -38,16 +37,9 @@ export const Dashboard = () => {
                 </a>
               </li>
               <li className="nav-item sb-hover">
-                <Dropdown className="sb-hover">
-                  <Dropdown.Toggle variant="transparent" id="dropdown-basic">
-                    <BsInfoCircle /> About
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                <a className="nav-link active text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
+                  <BsInfoCircle /> About
+                </a>
               </li>
               <li className="nav-item sb-hover">
                 <a className="nav-link text-dark sb-hover" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>

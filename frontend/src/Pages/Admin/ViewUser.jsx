@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dashboard } from '../../Components/Dashboard';
 import '../../Assets/Styles/ViewUser.css';
 
 const UserRow = ({ index, name, location, occupation, email, added, category }) => (
   <tr>
-    <td className="pl-4">{index}</td>
+    <td className="pl-4">{index < 10 ? `0${index}` : index}</td>
     <td>
       <h5 className="font-medium mb-0">{name}</h5>
       <span className="text-muted">{location}</span>
@@ -30,17 +30,31 @@ const UserRow = ({ index, name, location, occupation, email, added, category }) 
       </select>
     </td>
     <td>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle"><i className="fas fa-key"></i> </button>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-trash"></i> </button>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-edit"></i> </button>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-cloud-upload-alt"></i> </button>
+      <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle"><i className="fas fa-key"></i> </button>
+      <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-trash"></i> </button>
+      <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-edit"></i> </button>
+      <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fas fa-cloud-upload-alt"></i> </button>
     </td>
-
   </tr>
 );
 
 export const ViewUser = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
+  const [searchQuery, setSearchQuery] = useState('');
+
   const users = [
+    // Your user data array
+     { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 4, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 5, name: 'Sophia Jones', location: 'Texas, United States', occupation: 'Visual Designer', email: 'sophia@website.com', added: '16 Aug 2001', category: 'User' },
+    { index: 6, name: 'Charlotte Brown', location: 'Texas, United States', occupation: 'Visual Designer', email: 'charlotte@website.com', added: '15 Mar 1988', category: 'Admin' },
+    { index: 7, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
     { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
     { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
     { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
@@ -51,47 +65,118 @@ export const ViewUser = () => {
     { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
     { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
     { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 4, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 5, name: 'Sophia Jones', location: 'Texas, United States', occupation: 'Visual Designer', email: 'sophia@website.com', added: '16 Aug 2001', category: 'User' },
+    { index: 6, name: 'Charlotte Brown', location: 'Texas, United States', occupation: 'Visual Designer', email: 'charlotte@website.com', added: '15 Mar 1988', category: 'Admin' },
+    { index: 7, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 4, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 5, name: 'Sophia Jones', location: 'Texas, United States', occupation: 'Visual Designer', email: 'sophia@website.com', added: '16 Aug 2001', category: 'User' },
+    { index: 6, name: 'Charlotte Brown', location: 'Texas, United States', occupation: 'Visual Designer', email: 'charlotte@website.com', added: '15 Mar 1988', category: 'Admin' },
+    { index: 7, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 4, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 5, name: 'Sophia Jones', location: 'Texas, United States', occupation: 'Visual Designer', email: 'sophia@website.com', added: '16 Aug 2001', category: 'User' },
+    { index: 6, name: 'Charlotte Brown', location: 'Texas, United States', occupation: 'Visual Designer', email: 'charlotte@website.com', added: '15 Mar 1988', category: 'Admin' },
+    { index: 7, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 1, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 2, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 3, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 4, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+    { index: 5, name: 'Sophia Jones', location: 'Texas, United States', occupation: 'Visual Designer', email: 'sophia@website.com', added: '16 Aug 2001', category: 'User' },
+    { index: 6, name: 'Charlotte Brown', location: 'Texas, United States', occupation: 'Visual Designer', email: 'charlotte@website.com', added: '15 Mar 1988', category: 'Admin' },
+    { index: 7, name: 'Daniel Kristeen', location: 'Texas, United States', occupation: 'Visual Designer', email: 'daniel@website.com', added: '15 Mar 1988', category: 'Modulator' },
+    { index: 8, name: 'Emma Smith', location: 'Texas, United States', occupation: 'Visual Designer', email: 'emma@website.com', added: '15 Mar 1855', category: 'Admin' },
+    { index: 9, name: 'Olivia Johnson', location: 'Texas, United States', occupation: 'Visual Designer', email: 'olivia@website.com', added: '17 Aug 1988', category: 'User' },
+    { index: 10, name: 'Isabella Williams', location: 'Texas, United States', occupation: 'Visual Designer', email: 'isabella@website.com', added: '26 Mar 1999', category: 'Subscriber' },
+
   ];
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = searchQuery ? filteredUsers.slice(indexOfFirstUser, indexOfLastUser) : users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset pagination when search query changes
+  };
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
-      <div style={{width:"15%"}}><Dashboard /></div>
-      <div className="container my-4"> {/* Added my-4 class for margin */}
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title text-uppercase mb-0">Manage Users</h5>
+      <div style={{ width: "15%" }}><Dashboard /></div>
+      <div className="container my-4">
+        <div className="table-container">
+          <div className="card">
+            <div className="card-body d-flex justify-content-between align-items-center">
+              <h5 className="card-title text-uppercase mb-0">Manage Users</h5>
+              <div className="search-box custom-rounded">
+                <input type="text" className="form-control" placeholder="Search..." value={searchQuery} onChange={handleSearchInputChange} />
               </div>
-              <div className="table-responsive">
-                <table className="table no-wrap user-table mb-0 rounded">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="border-0 text-uppercase font-medium pl-4">#</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Occupation</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Email</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Added</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map(user => (
-                      <UserRow
-                        key={user.index}
-                        index={user.index}
-                        name={user.name}
-                        location={user.location}
-                        occupation={user.occupation}
-                        email={user.email}
-                        added={user.added}
-                        category={user.category}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            </div>
+            <div className="table-responsive">
+              <table className="table no-wrap user-table mb-0 rounded">
+                <thead>
+                  <tr>
+                    <th scope="col" className="border-0 text-uppercase font-medium pl-4">#</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Occupation</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Email</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Added</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
+                    <th scope="col" className="border-0 text-uppercase font-medium">Manage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentUsers.map((user, index) => (
+                    <UserRow
+                      key={user.index}
+                      index={indexOfFirstUser + index + 1}
+                      name={user.name}
+                      location={user.location}
+                      occupation={user.occupation}
+                      email={user.email}
+                      added={user.added}
+                      category={user.category}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="d-flex justify-content-center">
+              <nav className="mt-3">
+                <ul className="pagination justify-content-end">
+                  {Array.from({ length: Math.ceil((searchQuery ? filteredUsers.length : users.length) / usersPerPage) }, (_, i) => (
+                    <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                      <button onClick={() => paginate(i + 1)} className="page-link btn btn-outline-info btn-lg pagination-btn">
+                        {i + 1}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
