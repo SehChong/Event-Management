@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsList, BsHouse, BsPerson, BsCalendar, BsBoxArrowRight } from 'react-icons/bs';
 import { CSSTransition } from 'react-transition-group'; 
 import '../Assets/Styles/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 
-
 export const Dashboard = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUsername = sessionStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -16,22 +23,19 @@ export const Dashboard = () => {
 
   const navigateHome = () => {
     navigate("/adminHome");
-    console.log("Navigating to Home");
   };
 
   const navigateManageUsers = () => {
     navigate("/ManageUsers");
-    console.log("Navigating to Manage Users");
   };
 
   const navigateManageEvent = () => {
     navigate("/ManageEvent");
-    console.log("Navigating to Manage Event");
   };
 
   const logout = () => {
+    sessionStorage.clear();
     navigate("/");
-    console.log("Logging out");
   };
 
   return (
@@ -50,7 +54,7 @@ export const Dashboard = () => {
                 <div className="media align-items-center">
                   <img src="https://placehold.jp/150x150.png" alt="User Icon" className="mr-3 mt-4" style={{ width: '200px', height: '200px' }} />
                   <div className="media-body mt-3 mb-4">
-                    <h5 className="mt-0 d-flex justify-content-center">User Name</h5>
+                    <h5 className="mt-0 d-flex justify-content-center">{username}</h5>
                   </div>
                 </div>
               </li>

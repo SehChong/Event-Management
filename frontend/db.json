@@ -50,18 +50,6 @@
         "2bad",
         "cf63"
       ],
-<<<<<<< HEAD
-      "ele1": ["None", 0, "Unregistered", ""],
-      "ele2": ["None", 0, "Unregistered", ""],
-      "ele3": ["None", 0, "Unregistered", ""]
-    },
-    
-    {
-      "id": "admin",
-      "password": "admin",
-      "name": "Admin",
-      "role": "admin"
-=======
       "ele1": [
         "None",
         0,
@@ -80,7 +68,24 @@
         "Unregistered",
         ""
       ]
->>>>>>> bc5e6779c2e037687775f2197d50158f06c89636
+    },
+    {
+      "id": "admin1",
+      "username": "admin1",
+      "password": "password1",
+      "role": "admin"
+    },
+    {
+      "id": "admin2",
+      "username": "admin2",
+      "password": "password2",
+      "role": "admin"
+    },
+    {
+      "id": "admin3",
+      "username": "admin3",
+      "password": "password3",
+      "role": "admin"
     }
   ],
   "events": [
@@ -410,7 +415,6 @@
       "platform": ""
     }
   ],
-<<<<<<< HEAD
 
   "users": [
     { "id": 1, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
@@ -439,7 +443,4 @@
     { "id": 24, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
     { "id": 25, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" }
 ]
-=======
-  "reports": []
->>>>>>> bc5e6779c2e037687775f2197d50158f06c89636
 }
