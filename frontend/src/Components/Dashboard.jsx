@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsHouse, BsInfoCircle, BsGear, BsChatDots, BsList } from 'react-icons/bs';
+import { BsList, BsHouse, BsPerson, BsCalendar, BsBoxArrowRight } from 'react-icons/bs';
 import { CSSTransition } from 'react-transition-group'; 
 import '../Assets/Styles/Dashboard.css';
+import { useNavigate } from 'react-router-dom';
+
 
 export const Dashboard = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
+  };
+
+  const navigateHome = () => {
+    navigate("/adminHome");
+    console.log("Navigating to Home");
+  };
+
+  const navigateManageUsers = () => {
+    navigate("/ManageUsers");
+    console.log("Navigating to Manage Users");
+  };
+
+  const navigateManageEvent = () => {
+    navigate("/ManageEvent");
+    console.log("Navigating to Manage Event");
+  };
+
+  const logout = () => {
+    navigate("/");
+    console.log("Logging out");
   };
 
   return (
@@ -31,24 +54,24 @@ export const Dashboard = () => {
                   </div>
                 </div>
               </li>
-              <li className="nav-item sb-hover">
-                <a className="nav-link active text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
+              <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
+                <a className="nav-link active text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={navigateHome}>
                   <BsHouse /> Home
                 </a>
               </li>
-              <li className="nav-item sb-hover">
-                <a className="nav-link active text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
-                  <BsInfoCircle /> About
+              <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
+                <a className="nav-link active text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={navigateManageUsers}>
+                  <BsPerson /> Manage Users
                 </a>
               </li>
-              <li className="nav-item sb-hover">
-                <a className="nav-link text-dark sb-hover" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
-                  <BsGear /> Services
+              <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
+                <a className="nav-link text-dark sb-hover" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={navigateManageEvent}>
+                  <BsCalendar /> Manage Event
                 </a>
               </li>
-              <li className="nav-item sb-hover">
-                <a className="nav-link text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
-                  <BsChatDots /> Contact
+              <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
+                <a className="nav-link text-dark" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={logout}>
+                  <BsBoxArrowRight /> Logout
                 </a>
               </li>
             </ul>

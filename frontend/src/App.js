@@ -30,11 +30,13 @@ function App() {
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/accordion-form" element={<AccordionForm />} />
         <Route path="/eventlist" element={<EventList />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/eventlist" element={<HomePage />} />
+        <Route path="/adminHome" element={<HomePage />} />
+        <Route path="/ManageUsers" element={<ViewUser />} />
+        <Route path="/ManageEvent" element={<EventValidation />} />
       </Routes>
-    // </BrowserRouter>
+    </BrowserRouter>
     // <ViewUser />
+    // <EventValidation />
   );
 }
 

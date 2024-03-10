@@ -38,6 +38,13 @@
       "ele1": ["None", 0, "Unregistered", ""],
       "ele2": ["None", 0, "Unregistered", ""],
       "ele3": ["None", 0, "Unregistered", ""]
+    },
+    
+    {
+      "id": "admin",
+      "password": "admin",
+      "name": "Admin",
+      "role": "admin"
     }
   ],
   "events": [
@@ -365,5 +372,33 @@
       "link": "",
       "platform": ""
     }
-  ]
+  ],
+
+  "users": [
+    { "id": 1, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
+    { "id": 2, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
+    { "id": 3, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
+    { "id": 4, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
+    { "id": 5, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
+    { "id": 6, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
+    { "id": 7, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
+    { "id": 8, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
+    { "id": 9, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
+    { "id": 10, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
+    { "id": 11, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
+    { "id": 12, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
+    { "id": 13, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
+    { "id": 14, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
+    { "id": 15, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
+    { "id": 16, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
+    { "id": 17, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
+    { "id": 18, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
+    { "id": 19, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
+    { "id": 20, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
+    { "id": 21, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
+    { "id": 22, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
+    { "id": 23, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
+    { "id": 24, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
+    { "id": 25, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" }
+]
 }
