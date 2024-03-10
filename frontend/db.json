@@ -18,7 +18,7 @@
       ],
       "ele1": [
         "Ongoing",
-        45,
+        0,
         "Registered",
         "2024-01-01"
       ],
@@ -415,7 +415,6 @@
       "platform": ""
     }
   ],
-
   "reports": [
     {
       "id": "b982",
