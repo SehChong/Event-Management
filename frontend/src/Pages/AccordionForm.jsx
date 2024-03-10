@@ -66,6 +66,42 @@ export const AccordionForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleModalFormSubmit = async (eventDetails) => {
+      try {
+          const userId = sessionStorage.getItem("username");
+          const eventId = eventDetails.eventId
+
+          const updatedFormData = {
+            ...formData,
+            submissionStatus: "Approved",
+            submittedReport: true
+          };
+          setFormData(updatedFormData);
+    
+          // Combine event details with form data
+          const reportData = {
+              eventId: eventId,
+              userId: userId,
+              ...updatedFormData
+          };
+  
+          // Send POST request to create new report entry
+          const response = await fetch('http://localhost:8000/reports', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(reportData)
+          });
+  
+          if (!response.ok) {
+              throw new Error('Failed to submit report');
+          }
+      } catch (error) {
+          console.error('Error submitting report:', error);
+      }
+  };
+
     const handleFormSubmit = async () => {
         // Show the modal when submitting the form
         setShowModal(true);
@@ -79,6 +115,17 @@ export const AccordionForm = () => {
     // Function to handle saving ELE points and navigate back
     const handleSaveELEPoints = async () => {
         try {
+            if (!eventDetails) {
+              console.error('Event details not found');
+              return;
+            }
+
+            // Check if eventDetails contains the totalELEPoints property
+            if (!eventDetails.hasOwnProperty('totalELEPoints')) {
+                console.error('totalELEPoints not found in event details');
+                return;
+            }
+
             const eleIndex = selectedELE.charAt(selectedELE.length - 1); // Extract ELE index (1, 2, or 3)
             const eleKey = `ele${eleIndex}`;
     
@@ -123,6 +170,11 @@ export const AccordionForm = () => {
         }
     };
 
+  const handleSaveAndSubmit = async () => {
+      await handleSaveELEPoints(); // First, handle ELE points saving
+      handleModalFormSubmit(eventDetails); // Then, show the modal for form submission
+  };
+
   return (
     <div>
       <Back to="/attendance" />
@@ -139,7 +191,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea1" className='mb-3'>What knowledge/skills will you gain from attending the event?</label>
-                    <textarea id="Textarea1" className="form-control" rows="5" name="question1" value={formData.question1} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea1" className="form-control" rows="5" name="question1" value={formData.question1} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -156,7 +208,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea2" className='mb-3'>How do you think you can apply the knowledge/skills learnt from the event to use in the future?</label>
-                    <textarea id="Textarea2" className="form-control" rows="5" name="question2" value={formData.question2} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea2" className="form-control" rows="5" name="question2" value={formData.question2} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -173,7 +225,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea3" className='mb-3'>How do you feel about the event after attending it?</label>
-                    <textarea id="Textarea3" className="form-control" rows="5" name="question3" value={formData.question3} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea3" className="form-control" rows="5" name="question3" value={formData.question3} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -196,7 +248,7 @@ export const AccordionForm = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
-                    <Button variant="primary" onClick={handleSaveELEPoints}>Save</Button>
+                    <Button variant="primary" onClick={handleSaveAndSubmit}>Save</Button>
                 </Modal.Footer>
         </Modal>
     </div>

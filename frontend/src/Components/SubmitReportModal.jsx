@@ -60,16 +60,65 @@ export const SubmitReportModal = () => {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchEventData();
   }, []);
+
+  // Use for check the report event id and the event id available to make the report submit once only
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch event data
+        const eventResponse = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+        if (!eventResponse.ok) {
+          throw new Error('Failed to fetch event data');
+        }
+        const eventData = await eventResponse.json();
+  
+        // Ensure events data is available
+        if (!eventData.events || eventData.events.length === 0) {
+          throw new Error('Events data not found');
+        }
+  
+        // Fetch report data
+        const reportResponse = await fetch('http://localhost:8000/reports');
+        if (!reportResponse.ok) {
+          throw new Error('Failed to fetch report data');
+        }
+        const reportData = await reportResponse.json();
+  
+        // Combine event and report data
+        const updatedEventData = eventData.registeredEvents.map(eventId => {
+          const event = eventData.events.find(event => event.id === eventId);
+          const report = reportData.find(report => report.eventId === eventId);
+          const submissionStatus = report ? report.submissionStatus : "Pending";
+          const submittedReport = report ? report.submittedReport : false;
+          return {
+            ...event,
+            submissionStatus,
+            submittedReport
+          };
+        });
+  
+        setData(updatedEventData);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        // Handle the error more gracefully (e.g., display a message to the user)
+      }
+    };
+    fetchData();
+  }, []);  
     
-  const handleSubmit = (eventDetails) => {
+  const handleSubmit = (eventId) => {
     // const updatedData = [...data];
     // updatedData[index].submittedReport = "Yes";
     // setData(updatedData);
     // navigate("/accordion-form")
-    navigate("/accordion-form", { state: { eventDetails } }); // Navigate to AccordionForm with eventDetails in location state
+    const event = data.find(event => event.id === eventId);
+    if (!event) {
+      console.error('Event details not found');
+      return;
+    }
+    navigate("/accordion-form", { state: { eventDetails: event } }); // Navigate to AccordionForm with eventDetails in location state
   };
 
   return (
@@ -87,24 +136,31 @@ export const SubmitReportModal = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{item.eventName}</td>
-            <td>{item.eventDate}</td>
-            <td>{item.eventEndDate}</td>
-            <td>{item.totalELEPoints}</td>
-            <td className={item.submissionStatus === "Approved" ? "text-success" : item.submissionStatus === "Rejected" ? "text-danger" : "text-warning"}>{item.submissionStatus}</td>
-            <td>{item.submittedReport ? "Yes" : "No"}</td>
-            <td>
-              {!item.submittedReport && (
-                <Button variant="primary" onClick={() => handleSubmit(item)}>
-                  <HiDocument />
-                </Button>
-              )}
-            </td>
-          </tr>
-        ))}
+        {data.map((event, index) => {
+          return (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{event.eventName}</td>
+              <td>{event.eventDate}</td>
+              <td>{event.eventEndDate}</td>
+              <td>{event.totalELEPoints}</td>
+              <td>{event.submissionStatus}</td>
+              <td>{event.submittedReport ? "Yes" : "No"}</td>
+              <td>
+                {!event.submittedReport && event.submissionStatus !== "Approved" && (
+                  <Button variant="primary" onClick={() => handleSubmit(event.id)}>
+                    <HiDocument />
+                  </Button>
+                )}
+                {event.submittedReport && event.submissionStatus === "Approved" && (
+                  <Button variant="primary" disabled>
+                    <HiDocument />
+                  </Button>
+                )}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   )
