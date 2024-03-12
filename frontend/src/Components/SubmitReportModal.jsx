@@ -65,59 +65,57 @@ export const SubmitReportModal = () => {
 
   // Use for check the report event id and the event id available to make the report submit once only
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch event data
-        const eventResponse = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
-        if (!eventResponse.ok) {
-          throw new Error('Failed to fetch event data');
-        }
-        const eventData = await eventResponse.json();
-  
-        // Ensure events data is available
-        if (!eventData.events || eventData.events.length === 0) {
-          throw new Error('Events data not found');
-        }
-  
-        // Fetch report data
-        const reportResponse = await fetch('http://localhost:8000/reports');
-        if (!reportResponse.ok) {
-          throw new Error('Failed to fetch report data');
-        }
-        const reportData = await reportResponse.json();
-  
-        // Combine event and report data
-        const updatedEventData = eventData.registeredEvents.map(eventId => {
-          const event = eventData.events.find(event => event.id === eventId);
-          const report = reportData.find(report => report.eventId === eventId);
-          const submissionStatus = report ? report.submissionStatus : "Pending";
-          const submittedReport = report ? report.submittedReport : false;
-          return {
-            ...event,
-            submissionStatus,
-            submittedReport
-          };
-        });
-  
-        setData(updatedEventData);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-        // Handle the error more gracefully (e.g., display a message to the user)
-      }
-    };
-    fetchData();
-  }, []);  
+        const fetchData = async () => {
+            try {
+                // Fetch event data
+                const eventDataResponse = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+                if (!eventDataResponse.ok) {
+                    throw new Error('Failed to fetch event data');
+                }
+                const eventData = await eventDataResponse.json();
+
+                // Fetch report data
+                const reportResponse = await fetch('http://localhost:8000/reports');
+                if (!reportResponse.ok) {
+                    throw new Error('Failed to fetch report data');
+                }
+                const reportData = await reportResponse.json();
+
+                // Merge event and report data
+                const updatedEventData = eventData.registeredEvents.map(eventId => {
+                    const event = eventData.events.find(event => event.id === eventId);
+                    const report = reportData.find(report => report.eventId === eventId);
+                    const submissionStatus = report ? report.submissionStatus : "Pending";
+                    const submittedReport = report ? report.submittedReport : false;
+                    return {
+                        ...event,
+                        submissionStatus,
+                        submittedReport
+                    };
+                });
+
+                setData(updatedEventData);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+                // Handle the error gracefully
+            }
+        };
+
+        fetchData();
+    }, []);
     
   const handleSubmit = (eventId) => {
-    // const updatedData = [...data];
-    // updatedData[index].submittedReport = "Yes";
-    // setData(updatedData);
-    // navigate("/accordion-form")
     const event = data.find(event => event.id === eventId);
-    if (!event) {
-      console.error('Event details not found');
-      return;
-    }
+        if (!event) {
+            console.error('Event details not found');
+            return;
+        }
+
+        // Check if report already submitted for the event
+        if (event.submittedReport) {
+            console.error('Report already submitted for this event');
+            return;
+        }
     navigate("/accordion-form", { state: { eventDetails: event } }); // Navigate to AccordionForm with eventDetails in location state
   };
 
@@ -147,16 +145,15 @@ export const SubmitReportModal = () => {
               <td>{event.submissionStatus}</td>
               <td>{event.submittedReport ? "Yes" : "No"}</td>
               <td>
-                {!event.submittedReport && event.submissionStatus !== "Approved" && (
+              {!event.submittedReport && event.submissionStatus !== "Approved" ? (
                   <Button variant="primary" onClick={() => handleSubmit(event.id)}>
-                    <HiDocument />
+                      <HiDocument />
                   </Button>
-                )}
-                {event.submittedReport && event.submissionStatus === "Approved" && (
+               ) : (
                   <Button variant="primary" disabled>
-                    <HiDocument />
+                      <HiDocument />
                   </Button>
-                )}
+              )}
               </td>
             </tr>
           );

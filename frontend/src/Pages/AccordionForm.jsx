@@ -71,15 +71,27 @@ export const AccordionForm = () => {
     const handleModalFormSubmit = async (eventDetails) => {
       try {
           const userId = sessionStorage.getItem("username");
-          const eventId = eventDetails.eventId
-
+          const eventId = eventDetails.eventId;
+  
+          // Check if the user is registered for the selected ELE
+          const userResponse = await fetch(`http://localhost:8000/user/${userId}`);
+          if (!userResponse.ok) {
+              throw new Error('Failed to fetch user data');
+          }
+          const userData = await userResponse.json();
+          const eleIndex = selectedELE.charAt(selectedELE.length - 1);
+          const eleKey = `ele${eleIndex}`;
+          if (userData[eleKey][2] !== 'Registered') {
+              throw new Error(`User is not registered for ${selectedELE}`);
+          }
+  
           const updatedFormData = {
-            ...formData,
-            submissionStatus: "Approved",
-            submittedReport: true
+              ...formData,
+              submissionStatus: "Approved",
+              submittedReport: true
           };
           setFormData(updatedFormData);
-    
+  
           // Combine event details with form data
           const reportData = {
               eventId: eventId,
@@ -100,10 +112,15 @@ export const AccordionForm = () => {
           if (!response.ok) {
               throw new Error('Failed to submit report');
           }
+  
+          // If successful, show success message
+          toast.success('Report submitted successfully!');
       } catch (error) {
           console.error('Error submitting report:', error);
+          // Show error message
+          toast.error('Failed to submit report. ' + error.message);
       }
-  };
+  };  
 
     const handleFormSubmit = async () => {
         // Check if all textareas are filled in
@@ -181,7 +198,6 @@ export const AccordionForm = () => {
   const handleSaveAndSubmit = async () => {
       await handleSaveELEPoints(); // First, handle ELE points saving
       handleModalFormSubmit(eventDetails); // Then, show the modal for form submission
-      toast.success('Report submitted successfully!');
   };
 
   return (

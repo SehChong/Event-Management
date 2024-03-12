@@ -17,7 +17,7 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
 `;
 
 const CardWrapper = styled.div`

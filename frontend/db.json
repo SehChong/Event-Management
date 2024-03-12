@@ -416,20 +416,6 @@
     }
   ],
   "reports": [
-    {
-      "id": "8454",
-      "eventId": "0f19",
-      "userId": "user1",
-      "ele": "ele1",
-      "question1": "dadad",
-      "question2": "dwadaw",
-      "question3": "dwada",
-      "eventName": "Second Event Try Publicity Date",
-      "eventDate": "2024-03-08",
-      "eventEndDate": "2024-03-09",
-      "totalELEPoints": "15",
-      "submissionStatus": "Approved",
-      "submittedReport": true
-    }
+
   ]
 }
