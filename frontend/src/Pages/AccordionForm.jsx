@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Back } from '../Components/Back';
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AccordionForm = () => {
     const { state } = useLocation(); // Extract location state
@@ -82,6 +84,7 @@ export const AccordionForm = () => {
           const reportData = {
               eventId: eventId,
               userId: userId,
+              ele: selectedELE,
               ...updatedFormData
           };
   
@@ -103,8 +106,14 @@ export const AccordionForm = () => {
   };
 
     const handleFormSubmit = async () => {
-        // Show the modal when submitting the form
-        setShowModal(true);
+        // Check if all textareas are filled in
+        if (formData.question1.trim() === '' || formData.question2.trim() === '' || formData.question3.trim() === '') {
+          alert('Please fill in all questions before submitting.');
+          return;
+      }
+
+      // Show the modal for selecting ELE
+      setShowModal(true);
     };
 
     // Function to handle ELE selection
@@ -159,7 +168,6 @@ export const AccordionForm = () => {
                 if (!response.ok) {
                     throw new Error('Failed to update user data');
                 }
-    
                 // If successful, navigate to the previous page
                 navigate(-1);
             } else {
@@ -173,6 +181,7 @@ export const AccordionForm = () => {
   const handleSaveAndSubmit = async () => {
       await handleSaveELEPoints(); // First, handle ELE points saving
       handleModalFormSubmit(eventDetails); // Then, show the modal for form submission
+      toast.success('Report submitted successfully!');
   };
 
   return (

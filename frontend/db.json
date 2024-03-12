@@ -18,7 +18,7 @@
       ],
       "ele1": [
         "Ongoing",
-        0,
+        15,
         "Registered",
         "2024-01-01"
       ],
@@ -417,12 +417,13 @@
   ],
   "reports": [
     {
-      "id": "b982",
+      "id": "8454",
       "eventId": "0f19",
       "userId": "user1",
-      "question1": "dwadawd",
+      "ele": "ele1",
+      "question1": "dadad",
       "question2": "dwadaw",
-      "question3": "dwadawd",
+      "question3": "dwada",
       "eventName": "Second Event Try Publicity Date",
       "eventDate": "2024-03-08",
       "eventEndDate": "2024-03-09",
