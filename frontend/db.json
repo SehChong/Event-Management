@@ -14,19 +14,20 @@
         "e6f5",
         "cf63",
         "995f",
-        "00fd"
+        "00fd",
+        "acfa"
       ],
       "ele1": [
         "Ongoing",
-        45,
+        60,
         "Registered",
         "2024-01-01"
       ],
       "ele2": [
-        "None",
-        0,
-        "Unregistered",
-        ""
+        "Ongoing",
+        17,
+        "Registered",
+        "2024-01-01"
       ],
       "ele3": [
         "None",
@@ -413,6 +414,31 @@
       "mode": "Physical",
       "link": "",
       "platform": ""
+    },
+    {
+      "id": "acfa",
+      "eventType": "Event",
+      "eventName": "Testing Activities Modal 2",
+      "organizedBy": "modal 2",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-12",
+      "eventTime": "14:00",
+      "eventEndTime": "15:00",
+      "publicityPeriod": "2024-03-10",
+      "endPeriod": "2024-03-13",
+      "venue": "dwadwdawda",
+      "estimatedAttendance": "50",
+      "totalHours": "1.00",
+      "elePointRequest": "Required",
+      "totalELEPoints": "17",
+      "eventLevel": "UL",
+      "eventCategory": "meetings",
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Approved",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
     }
   ],
   "reports": [
@@ -488,6 +514,36 @@
       "eventDate": "2024-03-12",
       "eventEndDate": "2024-03-13",
       "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "16e5",
+      "eventId": "995f",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dadawd",
+      "question2": "dawdaw",
+      "question3": "dwada",
+      "eventName": "Try Submit Report",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "90d9",
+      "eventId": "acfa",
+      "userId": "user1",
+      "ele": "ele2",
+      "question1": "adawdawd",
+      "question2": "wadawdaw",
+      "question3": "wdadawda",
+      "eventName": "Testing Activities Modal 2",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-12",
+      "totalELEPoints": "17",
       "submissionStatus": "Approved",
       "submittedReport": true
     }

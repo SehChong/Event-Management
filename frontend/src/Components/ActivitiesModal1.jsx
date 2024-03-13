@@ -3,7 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { AccordionQuestion } from './AccordionQuestion';
 
-export const ActivitiesModal = () => {
+export const ActivitiesModal1 = () => {
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
 
@@ -15,7 +15,8 @@ export const ActivitiesModal = () => {
         }
         const reportData = await response.json();
         const userReports = reportData.filter(report => report.userId === sessionStorage.getItem("username"));
-        setReports(userReports);
+        const ele1Reports = userReports.filter(report => report.ele === 'ele1');
+        setReports(ele1Reports);
       } catch (error) {
         console.error('Error fetching report data:', error);
       }
