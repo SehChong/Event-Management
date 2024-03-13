@@ -4,122 +4,122 @@ import { HiDocument } from "react-icons/hi2";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const SubmitReportModal = () => {
+export const SubmitReportModal = ( {userId} ) => {
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEventData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch user data');
-        }
-        const userData = await response.json();
-        const registeredEvents = userData.registeredEvents || [];
-
-        const eventPromises = registeredEvents.map(eventId => {
-          return fetch(`http://localhost:8000/events/${eventId}`);
-        });
-
-        const eventDataResponses = await Promise.all(eventPromises);
-        const eventData = await Promise.all(
-          eventDataResponses.map(async (response) => {
+        try {
+            const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
             if (!response.ok) {
-              // Skip if event data cannot be fetched
-              return null;
+                throw new Error('Failed to fetch user data');
             }
-            return response.json();
-          })
-        );
+            const userData = await response.json();
+            const registeredEvents = userData.registeredEvents || [];
 
-        const currentDate = new Date();
-        const registeredEventsData = eventData
-          .filter(event => event && event.elePointRequest === 'Required' && new Date(event.eventEndDate) < currentDate) // Filter out null values, non-required events, and events that have not ended
-          .map(event => {
-            const eventEndDate = new Date(event.eventEndDate);
-            const timeDifference = currentDate.getTime() - eventEndDate.getTime();
-            let submissionStatus;
-            if (timeDifference <= 7 * 24 * 60 * 60 * 1000) {
-              submissionStatus = event.submittedReport ? "Approved" : "Ongoing";
-            } else {
-              submissionStatus = "Rejected";
-            }
-            return {
-              eventName: event.eventName,
-              eventDate: event.eventDate,
-              eventEndDate: event.eventEndDate, // Convert to a readable format
-              totalELEPoints: event.totalELEPoints,
-              submissionStatus: submissionStatus,
-              submittedReport: event.submittedReport || false // Assuming none of the reports are submitted initially
-            };
-          });
+            const eventPromises = registeredEvents.map(eventId => {
+                return fetch(`http://localhost:8000/events/${eventId}`);
+            });
 
-        setData(registeredEventsData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchEventData();
-  }, []);
+            const eventDataResponses = await Promise.all(eventPromises);
+            const eventData = await Promise.all(
+                eventDataResponses.map(async (response) => {
+                    if (!response.ok) {
+                        // Skip if event data cannot be fetched
+                        return null;
+                    }
+                    return response.json();
+                })
+            );
 
-  // Use for check the report event id and the event id available to make the report submit once only
-  useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch event data
-                const eventDataResponse = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
-                if (!eventDataResponse.ok) {
-                    throw new Error('Failed to fetch event data');
-                }
-                const eventData = await eventDataResponse.json();
-
-                // Fetch report data
-                const reportResponse = await fetch('http://localhost:8000/reports');
-                if (!reportResponse.ok) {
-                    throw new Error('Failed to fetch report data');
-                }
-                const reportData = await reportResponse.json();
-
-                // Merge event and report data
-                const updatedEventData = eventData.registeredEvents.map(eventId => {
-                    const event = eventData.events.find(event => event.id === eventId);
-                    const report = reportData.find(report => report.eventId === eventId);
-                    const submissionStatus = report ? report.submissionStatus : "Pending";
-                    const submittedReport = report ? report.submittedReport : false;
+            const currentDate = new Date();
+            const registeredEventsData = eventData
+                .filter(event => event && event.elePointRequest === 'Required' && new Date(event.eventEndDate) < currentDate) // Filter out null values, non-required events, and events that have not ended
+                .map(event => {
+                    const eventEndDate = new Date(event.eventEndDate);
+                    const timeDifference = currentDate.getTime() - eventEndDate.getTime();
+                    let submissionStatus;
+                    if (timeDifference <= 7 * 24 * 60 * 60 * 1000) {
+                        submissionStatus = event.submittedReport ? "Approved" : "Ongoing";
+                    } else {
+                        submissionStatus = "Rejected";
+                    }
                     return {
-                        ...event,
-                        submissionStatus,
-                        submittedReport
+                        event: event.eventId,
+                        eventName: event.eventName,
+                        eventDate: event.eventDate,
+                        eventEndDate: event.eventEndDate,
+                        totalELEPoints: event.totalELEPoints,
+                        submissionStatus: submissionStatus,
+                        submittedReport: event.submittedReport || false // Assuming none of the reports are submitted initially
                     };
                 });
 
-                setData(updatedEventData);
-            } catch (error) {
-                console.error('Error fetching data:', error.message);
-                // Handle the error gracefully
+            // Fetch report data
+            const reportResponse = await fetch('http://localhost:8000/reports');
+            if (!reportResponse.ok) {
+                throw new Error('Failed to fetch report data');
             }
-        };
+            const reportData = await reportResponse.json();
 
-        fetchData();
-    }, []);
-    
-  const handleSubmit = (eventId) => {
-    const event = data.find(event => event.id === eventId);
-        if (!event) {
-            console.error('Event details not found');
-            return;
-        }
+            // Filter report data for the current user
+            const userReportData = reportData.filter(report => report.userId === sessionStorage.getItem("username"));
 
-        // Check if report already submitted for the event
-        if (event.submittedReport) {
-            console.error('Report already submitted for this event');
-            return;
-        }
+            const updatedData = registeredEventsData.map(event => {
+              const report = userReportData.find(report => report.eventName === event.eventName);
+              if (report) {
+                  return {
+                      eventId: event.eventId,
+                      eventName: event.eventName,
+                      eventDate: event.eventDate,
+                      eventEndDate: event.eventEndDate,
+                      totalELEPoints: event.totalELEPoints,
+                      submissionStatus: report.submissionStatus,
+                      submittedReport: report.submittedReport
+                  };
+              }
+              return event;
+              });
+              setData(updatedData);
+              } catch (error) {
+                  console.error('Error fetching data:', error);
+              }
+    };
+
+      fetchEventData();
+    }, [userId]);
+
+  const handleSubmit = (event) => {
     navigate("/accordion-form", { state: { eventDetails: event } }); // Navigate to AccordionForm with eventDetails in location state
   };
 
+  const getStatusColor = (submissionStatus) => {
+    switch (submissionStatus) {
+      case "Approved":
+        return "text-success";
+      case "Ongoing":
+        return "text-warning";
+      case "Rejected":
+        return "text-danger";
+      default:
+        return "";
+    }
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+
   return (
+    <div>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -134,19 +134,19 @@ export const SubmitReportModal = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((event, index) => {
-          return (
-            <tr key={index}>
+        {currentItems.map((event, index) => {
+        return (
+            <tr key={event.eventId}>
               <td>{index + 1}</td>
               <td>{event.eventName}</td>
               <td>{event.eventDate}</td>
               <td>{event.eventEndDate}</td>
               <td>{event.totalELEPoints}</td>
-              <td>{event.submissionStatus}</td>
+              <td className={getStatusColor(event.submissionStatus)}>{event.submissionStatus}</td>
               <td>{event.submittedReport ? "Yes" : "No"}</td>
               <td>
-              {!event.submittedReport && event.submissionStatus !== "Approved" ? (
-                  <Button variant="primary" onClick={() => handleSubmit(event.id)}>
+              {!event.submittedReport ? (
+                  <Button variant="primary" onClick={() => handleSubmit(event)}>
                       <HiDocument />
                   </Button>
                ) : (
@@ -160,5 +160,25 @@ export const SubmitReportModal = () => {
         })}
       </tbody>
     </Table>
+    <nav aria-label="Page navigation example" className="mt-5">
+        <ul className="pagination justify-content-end">
+          {currentPage > 1 && (
+            <li className="page-item">
+              <a className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>Previous</a>
+            </li>
+          )}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+            <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
+              <a className="page-link" href="#" onClick={() => handlePageChange(page)}>{page}</a>
+            </li>
+          ))}
+          {currentPage < totalPages && (
+            <li className="page-item">
+              <a className="page-link" href="#" onClick={() => handlePageChange(currentPage + 1)}>Next</a>
+            </li>
+          )}
+        </ul>
+      </nav>
+  </div>
   )
 }

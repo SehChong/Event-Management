@@ -14,6 +14,7 @@ import { Dashboard } from './Components/Dashboard';
 import { EventValidation } from './Pages/Admin/EventValidation';
 import { HomePage } from './Pages/Admin/HomePage';
 import { ViewUser } from './Pages/Admin/ViewUser';
+import { AccordionQuestion } from './Components/AccordionQuestion';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/adminHome" element={<HomePage />} />
         <Route path="/ManageUsers" element={<ViewUser />} />
         <Route path="/ManageEvent" element={<EventValidation />} />
+        <Route path="/accordion-questions" element={<AccordionQuestion />} />
       </Routes>
     </BrowserRouter>
     // <ViewUser />

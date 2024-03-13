@@ -18,7 +18,7 @@
       ],
       "ele1": [
         "Ongoing",
-        15,
+        45,
         "Registered",
         "2024-01-01"
       ],
@@ -41,7 +41,7 @@
       "name": "Lee",
       "studentNo": "1002058999",
       "program": "Foundation in Arts (Information Technology)",
-      "role": "admin",
+      "role": "user",
       "gender": "female",
       "image": "https://via.placeholder.com/150",
       "registeredEvents": [
@@ -51,10 +51,10 @@
         "cf63"
       ],
       "ele1": [
-        "None",
-        0,
-        "Unregistered",
-        ""
+        "Ongoing",
+        30,
+        "Registered",
+        "2024-01-01"
       ],
       "ele2": [
         "None",
@@ -416,6 +416,80 @@
     }
   ],
   "reports": [
-
+    {
+      "id": "8b2e",
+      "eventId": "0f19",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dawdada",
+      "question2": "dawdad",
+      "question3": "dawdawd",
+      "eventName": "Second Event Try Publicity Date",
+      "eventDate": "2024-03-08",
+      "eventEndDate": "2024-03-09",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "3227",
+      "eventId": "e6f5",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dawdawdawd",
+      "question2": "dawdadawd",
+      "question3": "dawdadawd",
+      "eventName": "Third Try Event",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-13",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "1f1d",
+      "eventId": "cf63",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dwadadawd",
+      "question2": "wadadada",
+      "question3": "dawdadad",
+      "eventName": "Event Display Refresh",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "bdd3",
+      "eventId": "0f19",
+      "userId": "user2",
+      "ele": "ele1",
+      "question1": "fefsefs",
+      "question2": "fesfsefse",
+      "question3": "fesfsefes",
+      "eventName": "Second Event Try Publicity Date",
+      "eventDate": "2024-03-08",
+      "eventEndDate": "2024-03-09",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "b6d8",
+      "eventId": "e6f5",
+      "userId": "user2",
+      "ele": "ele1",
+      "question1": "dawdasdsad",
+      "question2": "dawdawda",
+      "question3": "dwadawdwa",
+      "eventName": "Third Try Event",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-13",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    }
   ]
 }

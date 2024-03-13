@@ -165,7 +165,7 @@ export const ActivitiesCard = () => {
       Reset Points for ELE 1
     </MDBBtn>
 
-    <CardContainer>
+    <CardContainer className='gap-5'>
       <CardWrapper>
         <Card className="rounded" style={{ width: '25rem'}}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
