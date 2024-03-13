@@ -25,30 +25,45 @@ export const LoginForm = () => {
   const handleSignIn = (e) => {
     e.preventDefault();
     if (validate()) {
-      fetch("http://localhost:8000/user/" + username)
-        .then((res) => {
-          return res.json();
-        })
-        .then((resp) => {
-          if (Object.keys(resp).length === 0) {
-            toast.error('Please Enter valid username');
-          } else {
-            if (resp.password === password) {
-              toast.success('Success');
-              sessionStorage.setItem('username', username);
-              sessionStorage.setItem('userrole', resp.role);
-              if (resp.role === 'admin') {
-                navigate('/adminHome'); // Redirect to admin page
-              } else {
-                navigate('/home');
-              }
+      // First, try to authenticate as a user
+      fetch("http://localhost:8000/user")
+        .then((res) => res.json())
+        .then((users) => {
+          const user = users.find((user) => user.id === username);
+          if (user) {
+            if (user.password === password) {
+              toast.success("Login successful");
+              sessionStorage.setItem("username", username);
+              sessionStorage.setItem("userrole", user.role);
+              navigate("/home");
             } else {
-              toast.error('Please Enter valid credentials');
+              toast.error("Invalid credentials");
             }
+          } else {
+            // If not found as a user, try to authenticate as an admin
+            fetch("http://localhost:8000/admins")
+              .then((res) => res.json())
+              .then((admins) => {
+                const admin = admins.find((admin) => admin.username === username);
+                if (admin) {
+                  if (admin.password === password) {
+                    toast.success("Login successful");
+                    sessionStorage.setItem("username", username);
+                    navigate("/adminHome");
+                  } else {
+                    toast.error("Invalid credentials");
+                  }
+                } else {
+                  toast.error("Invalid username");
+                }
+              })
+              .catch((err) => {
+                toast.error("Login failed due to: " + err.message);
+              });
           }
         })
         .catch((err) => {
-          toast.error('Login Failed due to :' + err.message);
+          toast.error("Login failed due to: " + err.message);
         });
     }
   };  
