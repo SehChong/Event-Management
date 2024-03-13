@@ -55,7 +55,7 @@ export const Header = () => {
     <>
       <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
         <Container>
-          <Navbar.Brand onClick={toHome} className='fs-3'>My Website</Navbar.Brand>
+          <Navbar.Brand onClick={toHome} className='fs-3 mx-5'>UCSI ELE Portal</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
