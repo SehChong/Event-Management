@@ -14,19 +14,20 @@
         "e6f5",
         "cf63",
         "995f",
-        "00fd"
+        "00fd",
+        "acfa"
       ],
       "ele1": [
         "Ongoing",
-        105,
+        60,
         "Registered",
         "2024-01-01"
       ],
       "ele2": [
-        "None",
-        0,
-        "Unregistered",
-        ""
+        "Ongoing",
+        17,
+        "Registered",
+        "2024-01-01"
       ],
       "ele3": [
         "None",
@@ -41,7 +42,7 @@
       "name": "Lee",
       "studentNo": "1002058999",
       "program": "Foundation in Arts (Information Technology)",
-      "role": "admin",
+      "role": "user",
       "gender": "female",
       "image": "https://via.placeholder.com/150",
       "registeredEvents": [
@@ -51,10 +52,10 @@
         "cf63"
       ],
       "ele1": [
-        "None",
-        0,
-        "Unregistered",
-        ""
+        "Ongoing",
+        30,
+        "Registered",
+        "2024-01-01"
       ],
       "ele2": [
         "None",
@@ -413,34 +414,138 @@
       "mode": "Physical",
       "link": "",
       "platform": ""
+    },
+    {
+      "id": "acfa",
+      "eventType": "Event",
+      "eventName": "Testing Activities Modal 2",
+      "organizedBy": "modal 2",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-12",
+      "eventTime": "14:00",
+      "eventEndTime": "15:00",
+      "publicityPeriod": "2024-03-10",
+      "endPeriod": "2024-03-13",
+      "venue": "dwadwdawda",
+      "estimatedAttendance": "50",
+      "totalHours": "1.00",
+      "elePointRequest": "Required",
+      "totalELEPoints": "17",
+      "eventLevel": "UL",
+      "eventCategory": "meetings",
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Approved",
+      "mode": "Physical",
+      "link": "",
+      "platform": ""
     }
   ],
-
-  "users": [
-    { "id": 1, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
-    { "id": 2, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
-    { "id": 3, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
-    { "id": 4, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
-    { "id": 5, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
-    { "id": 6, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
-    { "id": 7, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
-    { "id": 8, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
-    { "id": 9, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
-    { "id": 10, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
-    { "id": 11, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
-    { "id": 12, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
-    { "id": 13, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
-    { "id": 14, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
-    { "id": 15, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
-    { "id": 16, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
-    { "id": 17, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
-    { "id": 18, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
-    { "id": 19, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
-    { "id": 20, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" },
-    { "id": 21, "name": "Daniel Kristeen", "location": "Texas, United States", "occupation": "Visual Designer", "email": "daniel@website.com", "added": "15 Mar 1988", "category": "Modulator" },
-    { "id": 22, "name": "Emma Smith", "location": "Texas, United States", "occupation": "Visual Designer", "email": "emma@website.com", "added": "15 Mar 1855", "category": "Admin" },
-    { "id": 23, "name": "Olivia Johnson", "location": "Texas, United States", "occupation": "Visual Designer", "email": "olivia@website.com", "added": "17 Aug 1988", "category": "User" },
-    { "id": 24, "name": "Isabella Williams", "location": "Texas, United States", "occupation": "Visual Designer", "email": "isabella@website.com", "added": "26 Mar 1999", "category": "Subscriber" },
-    { "id": 25, "name": "Sophia Jones", "location": "Texas, United States", "occupation": "Visual Designer", "email": "sophia@website.com", "added": "16 Aug 2001", "category": "User" }
-]
+  "reports": [
+    {
+      "id": "8b2e",
+      "eventId": "0f19",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dawdada",
+      "question2": "dawdad",
+      "question3": "dawdawd",
+      "eventName": "Second Event Try Publicity Date",
+      "eventDate": "2024-03-08",
+      "eventEndDate": "2024-03-09",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "3227",
+      "eventId": "e6f5",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dawdawdawd",
+      "question2": "dawdadawd",
+      "question3": "dawdadawd",
+      "eventName": "Third Try Event",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-13",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "1f1d",
+      "eventId": "cf63",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dwadadawd",
+      "question2": "wadadada",
+      "question3": "dawdadad",
+      "eventName": "Event Display Refresh",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "bdd3",
+      "eventId": "0f19",
+      "userId": "user2",
+      "ele": "ele1",
+      "question1": "fefsefs",
+      "question2": "fesfsefse",
+      "question3": "fesfsefes",
+      "eventName": "Second Event Try Publicity Date",
+      "eventDate": "2024-03-08",
+      "eventEndDate": "2024-03-09",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "b6d8",
+      "eventId": "e6f5",
+      "userId": "user2",
+      "ele": "ele1",
+      "question1": "dawdasdsad",
+      "question2": "dawdawda",
+      "question3": "dwadawdwa",
+      "eventName": "Third Try Event",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-13",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "16e5",
+      "eventId": "995f",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "dadawd",
+      "question2": "dawdaw",
+      "question3": "dwada",
+      "eventName": "Try Submit Report",
+      "eventDate": "2024-03-10",
+      "eventEndDate": "2024-03-10",
+      "totalELEPoints": "15",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
+      "id": "90d9",
+      "eventId": "acfa",
+      "userId": "user1",
+      "ele": "ele2",
+      "question1": "adawdawd",
+      "question2": "wadawdaw",
+      "question3": "wdadawda",
+      "eventName": "Testing Activities Modal 2",
+      "eventDate": "2024-03-12",
+      "eventEndDate": "2024-03-12",
+      "totalELEPoints": "17",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    }
+  ]
 }

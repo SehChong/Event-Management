@@ -11,13 +11,15 @@ import {
   MDBModalBody
 } from 'mdb-react-ui-kit';
 import { SubmitReportModal } from './SubmitReportModal';
-import { ActivitiesModal } from './ActivitiesModal';
+import { ActivitiesModal1 } from './ActivitiesModal1';
+import { ActivitiesModal2 } from './ActivitiesModal2';
+import { ActivitiesModal3 } from './ActivitiesModal3';
 
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
 `;
 
 const CardWrapper = styled.div`
@@ -45,7 +47,27 @@ const StatusText = styled.span`
 export const ActivitiesCard = () => {
   const [userData, setUserData] = useState(null);
   const [optSmReportModal, setOptSmReportModal] = useState(false);
-  const [optSmActivitiesModal, setOptSmActivitiesModal] = useState(false);
+  // Define state variables for controlling modals for each ELE
+  const [optSmActivitiesModal1, setOptSmActivitiesModal1] = useState(false);
+  const [optSmActivitiesModal2, setOptSmActivitiesModal2] = useState(false);
+  const [optSmActivitiesModal3, setOptSmActivitiesModal3] = useState(false);
+
+  // Modify toggleActivitiesModal function to accept an argument specifying the ELE number
+  const toggleActivitiesModal = (eleNumber) => {
+    switch (eleNumber) {
+      case 1:
+        setOptSmActivitiesModal1(!optSmActivitiesModal1);
+        break;
+      case 2:
+        setOptSmActivitiesModal2(!optSmActivitiesModal2);
+        break;
+      case 3:
+        setOptSmActivitiesModal3(!optSmActivitiesModal3);
+        break;
+      default:
+        break;
+    }
+  };
 
   // Function to get the total points from ele1, ele2, and ele3
   const getTotalPoints = () => {
@@ -154,7 +176,6 @@ export const ActivitiesCard = () => {
   };
   
   const toggleReportModal = () => setOptSmReportModal(!optSmReportModal);
-  const toggleActivitiesModal = () => setOptSmActivitiesModal(!optSmActivitiesModal);
 
   return (
     <div className='text-center mt-5'>
@@ -165,7 +186,7 @@ export const ActivitiesCard = () => {
       Reset Points for ELE 1
     </MDBBtn>
 
-    <CardContainer>
+    <CardContainer className='gap-5'>
       <CardWrapper>
         <Card className="rounded" style={{ width: '25rem'}}>
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
@@ -180,7 +201,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele1TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(1)}>View Activities</MDBBtn>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -198,7 +219,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele2TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(2)}>View Activities</MDBBtn>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -216,7 +237,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele3TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={toggleActivitiesModal}>View Activities</MDBBtn>
+            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(3)}>View Activities</MDBBtn>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -238,15 +259,41 @@ export const ActivitiesCard = () => {
       </MDBModal>
 
     {/* ActivitiesModal */}
-    <MDBModal open={optSmActivitiesModal} tabIndex='-1' setOpen={setOptSmActivitiesModal}>
+    <MDBModal open={optSmActivitiesModal1} tabIndex='-1' setOpen={setOptSmActivitiesModal1}>
         <MDBModalDialog size='xl'>
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Activities</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleActivitiesModal}></MDBBtn>
+              <MDBBtn className='btn-close' color='none' onClick={() => setOptSmActivitiesModal1(false)}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
-              <ActivitiesModal/>
+              <ActivitiesModal1/>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+      <MDBModal open={optSmActivitiesModal2} tabIndex='-1' setOpen={setOptSmActivitiesModal2}>
+        <MDBModalDialog size='xl'>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Activities</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={() => setOptSmActivitiesModal2(false)}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <ActivitiesModal2/>
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+      <MDBModal open={optSmActivitiesModal3} tabIndex='-1' setOpen={setOptSmActivitiesModal3}>
+        <MDBModalDialog size='xl'>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Activities</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={() => setOptSmActivitiesModal3(false)}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <ActivitiesModal3/>
             </MDBModalBody>
           </MDBModalContent>
         </MDBModalDialog>

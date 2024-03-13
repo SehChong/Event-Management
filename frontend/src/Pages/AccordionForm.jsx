@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Back } from '../Components/Back';
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AccordionForm = () => {
     const { state } = useLocation(); // Extract location state
@@ -66,9 +68,69 @@ export const AccordionForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleModalFormSubmit = async (eventDetails) => {
+      try {
+          const userId = sessionStorage.getItem("username");
+          const eventId = eventDetails.eventId;
+  
+          // Check if the user is registered for the selected ELE
+          const userResponse = await fetch(`http://localhost:8000/user/${userId}`);
+          if (!userResponse.ok) {
+              throw new Error('Failed to fetch user data');
+          }
+          const userData = await userResponse.json();
+          const eleIndex = selectedELE.charAt(selectedELE.length - 1);
+          const eleKey = `ele${eleIndex}`;
+          if (userData[eleKey][2] !== 'Registered') {
+              throw new Error(`User is not registered for ${selectedELE}`);
+          }
+  
+          const updatedFormData = {
+              ...formData,
+              submissionStatus: "Approved",
+              submittedReport: true
+          };
+          setFormData(updatedFormData);
+  
+          // Combine event details with form data
+          const reportData = {
+              eventId: eventId,
+              userId: userId,
+              ele: selectedELE,
+              ...updatedFormData
+          };
+  
+          // Send POST request to create new report entry
+          const response = await fetch('http://localhost:8000/reports', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(reportData)
+          });
+  
+          if (!response.ok) {
+              throw new Error('Failed to submit report');
+          }
+  
+          // If successful, show success message
+          toast.success('Report submitted successfully!');
+      } catch (error) {
+          console.error('Error submitting report:', error);
+          // Show error message
+          toast.error('Failed to submit report. ' + error.message);
+      }
+  };  
+
     const handleFormSubmit = async () => {
-        // Show the modal when submitting the form
-        setShowModal(true);
+        // Check if all textareas are filled in
+        if (formData.question1.trim() === '' || formData.question2.trim() === '' || formData.question3.trim() === '') {
+          alert('Please fill in all questions before submitting.');
+          return;
+      }
+
+      // Show the modal for selecting ELE
+      setShowModal(true);
     };
 
     // Function to handle ELE selection
@@ -79,6 +141,17 @@ export const AccordionForm = () => {
     // Function to handle saving ELE points and navigate back
     const handleSaveELEPoints = async () => {
         try {
+            if (!eventDetails) {
+              console.error('Event details not found');
+              return;
+            }
+
+            // Check if eventDetails contains the totalELEPoints property
+            if (!eventDetails.hasOwnProperty('totalELEPoints')) {
+                console.error('totalELEPoints not found in event details');
+                return;
+            }
+
             const eleIndex = selectedELE.charAt(selectedELE.length - 1); // Extract ELE index (1, 2, or 3)
             const eleKey = `ele${eleIndex}`;
     
@@ -112,7 +185,6 @@ export const AccordionForm = () => {
                 if (!response.ok) {
                     throw new Error('Failed to update user data');
                 }
-    
                 // If successful, navigate to the previous page
                 navigate(-1);
             } else {
@@ -122,6 +194,11 @@ export const AccordionForm = () => {
             console.error('Error updating user data:', error);
         }
     };
+
+  const handleSaveAndSubmit = async () => {
+      await handleSaveELEPoints(); // First, handle ELE points saving
+      handleModalFormSubmit(eventDetails); // Then, show the modal for form submission
+  };
 
   return (
     <div>
@@ -139,7 +216,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea1" className='mb-3'>What knowledge/skills will you gain from attending the event?</label>
-                    <textarea id="Textarea1" className="form-control" rows="5" name="question1" value={formData.question1} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea1" className="form-control" rows="5" name="question1" value={formData.question1} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -156,7 +233,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea2" className='mb-3'>How do you think you can apply the knowledge/skills learnt from the event to use in the future?</label>
-                    <textarea id="Textarea2" className="form-control" rows="5" name="question2" value={formData.question2} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea2" className="form-control" rows="5" name="question2" value={formData.question2} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -173,7 +250,7 @@ export const AccordionForm = () => {
                 <form className='p-3'>
                   <div className="form-group">
                     <label htmlFor="Textarea3" className='mb-3'>How do you feel about the event after attending it?</label>
-                    <textarea id="Textarea3" className="form-control" rows="5" name="question3" value={formData.question3} onChange={handleInputChange}></textarea>
+                    <textarea id="Textarea3" className="form-control" rows="5" name="question3" value={formData.question3} onChange={handleInputChange} required></textarea>
                   </div>
                 </form>
               </div>
@@ -196,7 +273,7 @@ export const AccordionForm = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
-                    <Button variant="primary" onClick={handleSaveELEPoints}>Save</Button>
+                    <Button variant="primary" onClick={handleSaveAndSubmit}>Save</Button>
                 </Modal.Footer>
         </Modal>
     </div>
