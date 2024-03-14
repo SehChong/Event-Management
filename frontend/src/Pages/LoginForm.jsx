@@ -35,7 +35,11 @@ export const LoginForm = () => {
               toast.success("Login successful");
               sessionStorage.setItem("username", username);
               sessionStorage.setItem("userrole", user.role);
-              navigate("/home");
+              if (user.role === "admin") {
+                navigate("/adminHome");
+              } else {
+                navigate("/home");
+              }
             } else {
               toast.error("Invalid credentials");
             }
@@ -66,8 +70,8 @@ export const LoginForm = () => {
           toast.error("Login failed due to: " + err.message);
         });
     }
-  };  
-
+  };
+  
   const validate = () => {
     let result = true;
     if (!username) {

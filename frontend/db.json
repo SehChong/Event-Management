@@ -96,6 +96,34 @@
       "username": "admin3",
       "password": "password3",
       "role": "admin"
+    },
+    {
+      "id": "xx",
+      "name": "xxx",
+      "studentNo": "xxx",
+      "role": "Lecturer",
+      "password": "xxx",
+      "program": "xxxx",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": []
+    },
+    {
+      "id": "sasadsda",
+      "name": "asd",
+      "studentNo": "asdasdsad",
+      "role": "",
+      "password": "sadsdsa",
+      "program": "sadsdasadsad",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": []
     }
   ],
   "events": [

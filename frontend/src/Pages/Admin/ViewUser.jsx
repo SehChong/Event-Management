@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Dashboard } from '../../Components/Dashboard';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -90,18 +89,38 @@ export const ViewUser = () => {
     return (
       (user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (user.program && user.program.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (user.role && user.role.toLowerCase().includes(searchTerm.toLowerCase()))
+      ((user.role && user.role.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      user.role.toLowerCase() !== 'admin') // Exclude admin users
     );
   });
+  
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser).filter(user => user.role.toLowerCase() !== 'admin'); // Filter admin users from currentUsers
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const toggleModal = () => setShowModal(!showModal);
-
+  const toggleModal = () => {
+    // Reset newUser state when closing the modal
+    const resetNewUser = {
+      name: '',
+      studentNo: '',
+      role: '',
+      id: '',
+      password: '',
+      program: '',
+      gender: '',
+      image: null,
+      registeredEvents: [],
+      ele1: [],
+      ele2: [],
+      ele3: []
+    };
+    setNewUser(showModal ? resetNewUser : newUser);
+    setShowModal(!showModal);
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
@@ -113,61 +132,63 @@ export const ViewUser = () => {
   };
 
   const addUser = () => {
-    if (!newUser.name, !newUser.studentNo, !newUser.id, !newUser.password) {
-      toast.warning("Please fill in the Requirement * field");
+    if (!newUser.name.trim() || !newUser.studentNo.trim() || !newUser.id.trim() || !newUser.password.trim()) {
+      toast.warning("Please fill in all required fields");
       return;
     }
-
-    axios.post('http://localhost:8000/user', newUser)
-      .then(response => {
-        // If the request is successful, update the state and close the modal
-        setUsers([...users, newUser]);
-        setShowModal(false);
-        toast.success("User added successfully");
-      })
-      .catch(error => {
-        console.error('Error adding user:', error);
-        toast.error("Failed to add user");
-      });
-  };
-
-  const handleFormSubmit = (formData) => {
-    const newUser = {
-      id: formData.id,
-      password: formData.password,
-      name: formData.name,
-      studentNo: formData.studentNo,
-      program: formData.program,
-      role: formData.role,
-      gender: formData.gender,
-      image: formData.image,
-      registeredEvents: [],
-      ele1: [],
-      ele2: [],
-      ele3: []
-    };
-
-    addUser(newUser);
-  };
-
-  const deleteUser = () => {
-    axios.delete(`http://localhost:8000/user/${selectedUsers}`)
-      .then(response => {
-        // If the request is successful, update the state with the users after deletion
-        const updatedUsers = users.filter(user => !selectedUsers.includes(user.id));
-        setUsers(updatedUsers);
-        setSelectedUsers([]); // Clear selected users after deletion
-        setShowDeleteModal(false); // Close the delete confirmation modal
-        toast.success("User(s) deleted successfully");
-      })
-      .catch(error => {
-        console.error('Error deleting user(s):', error);
-        toast.error("Failed to delete user(s)");
-      });
+  
+    fetch('http://localhost:8000/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // If the request is successful, update the state and close the modal
+      setUsers([...users, newUser]);
+      setShowModal(false);
+      toast.success("User added successfully");
+    })
+    .catch(error => {
+      console.error('Error adding user:', error);
+      toast.error("Failed to add user");
+    });
   };
   
-  const editUser = () => {
+
+  const deleteUser = () => {
+    fetch(`http://localhost:8000/user/${selectedUsers}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // If the request is successful, update the state with the users after deletion
+      const updatedUsers = users.filter(user => !selectedUsers.includes(user.id));
+      setUsers(updatedUsers);
+      setSelectedUsers([]); // Clear selected users after deletion
+      setShowDeleteModal(false); // Close the delete confirmation modal
+      toast.success("User(s) deleted successfully"); // Show success toast here
+    })
+    .catch(error => {
+      console.error('Error deleting user(s):', error);
+      toast.error("Failed to delete user(s)");
+    });
   };
+  
+  
+  const editUser = () => {};
 
   const toggleSelectUser = (userId) => {
     if (selectedUsers.includes(userId)) {
@@ -182,7 +203,6 @@ export const ViewUser = () => {
   const handleDeleteConfirm = () => {
     deleteUser(selectedUsers);
     setShowDeleteModal(false);
-    toast.success("User(s) deleted successfully");
   };
 
   const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
@@ -294,13 +314,13 @@ export const ViewUser = () => {
           </div>
         </div>
       )}
-      {showDeleteModal && (
-        <DeleteConfirmationModal
-          selectedUsers={selectedUsers}
-          onDeleteConfirm={handleDeleteConfirm}
-          onClose={toggleDeleteModal}
-        />
-      )}
+    {showDeleteModal && (
+      <DeleteConfirmationModal
+        selectedUsers={selectedUsers}
+        onDeleteConfirm={handleDeleteConfirm}
+        toggle={toggleDeleteModal} // Pass toggleDeleteModal as the toggle prop
+      />
+    )}
       {showModal && <div className="modal-backdrop fade show"></div>}
       <ToastContainer /> {/* Add ToastContainer here */}
     </div>
