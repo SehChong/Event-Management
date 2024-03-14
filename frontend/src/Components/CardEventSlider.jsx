@@ -123,11 +123,15 @@ export const CardEventSlider = () => {
     }
   };
 
+  const indexOfLastEvent = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstEvent = indexOfLastEvent - ITEMS_PER_PAGE;
+  const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+
   // Render the component
   return (
     <div className='m-5 p-5'>
       <div className="row row-cols-1 row-cols-md-3 g-5">
-        {filteredEvents.map((event) => (
+        {currentEvents.map((event) => (
           <div className="col" key={event.id}>
             <div className="card h-100 rounded">
               <img src={event.image} className="card-img-top" alt="Event" />

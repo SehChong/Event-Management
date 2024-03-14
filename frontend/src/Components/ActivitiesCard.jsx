@@ -179,12 +179,12 @@ export const ActivitiesCard = () => {
 
   return (
     <div className='text-center mt-5'>
-      <MDBBtn variant="primary" onClick={toggleReportModal}>
+      <MDBBtn class='btn btn-primary btn-lg'variant="primary" onClick={toggleReportModal}>
         Submit Report
       </MDBBtn>
       <MDBBtn variant="primary" onClick={resetEle1Points}>
       Reset Points for ELE 1
-    </MDBBtn>
+      </MDBBtn>
 
     <CardContainer className='gap-5'>
       <CardWrapper>

@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export const EventForm = () => {
   const location = useLocation(); // use useLocation
   const proposal = location.state?.proposal || {}; // initialize proposal as an empty object if it's undefined
-  const userId = sessionStorage.getItem("username");
 
   const [eventType, setEventType] = useState(proposal?.eventType || '');
   const [eventName, setEventName] = useState(proposal?.eventName || '');
@@ -30,7 +29,15 @@ export const EventForm = () => {
   const [mode, setMode] = useState(proposal?.mode || '');
   const [platform, setPlatform] = useState(proposal?.platform || '');
   const [link, setLink] = useState(proposal?.link || '');
-  const [userIdValue, setUserIdValue] = useState(userId || '');
+  const [userIdValue, setUserIdValue] = useState(sessionStorage.getItem("username") || '');
+
+  useEffect(() => {
+    // Update userIdValue whenever sessionStorage changes
+    const storedUserId = sessionStorage.getItem("username");
+    if (storedUserId !== userIdValue) {
+      setUserIdValue(storedUserId || '');
+    }
+  }, [userIdValue]);
 
   const clearInputFields = () => {
     setEventType('');
@@ -191,7 +198,7 @@ export const EventForm = () => {
         <Form.Group className="d-flex align-items-start">
             <Form.Label className='fs-1'>Event Proposal</Form.Label>
         </Form.Group>
-        <Form.Group className="mb-3" style={{ display: 'none' }}>
+        <Form.Group className="mb-3" style={{display:"none"}}>
           <Form.Label className='fw-bold'>User:</Form.Label>
           <Form.Control type="text" value={userIdValue} onChange={(e) => setUserIdValue(e.target.value)} readOnly />
         </Form.Group>
