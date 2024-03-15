@@ -179,9 +179,9 @@ export const ActivitiesCard = () => {
 
   return (
     <div className='text-center mt-5'>
-      <MDBBtn class='btn btn-primary btn-lg'variant="primary" onClick={toggleReportModal}>
+      <button class='btn btn-primary btn-lg'variant="primary" onClick={toggleReportModal}>
         Submit Report
-      </MDBBtn>
+      </button>
       <MDBBtn variant="primary" onClick={resetEle1Points}>
       Reset Points for ELE 1
       </MDBBtn>
@@ -201,7 +201,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele1TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(1)}>View Activities</MDBBtn>
+            <button className='btn btn-primary text-light rounded' onClick={() => toggleActivitiesModal(1)}>View Activities</button>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -219,7 +219,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele2TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(2)}>View Activities</MDBBtn>
+            <button className='btn btn-primary text-light rounded' onClick={() => toggleActivitiesModal(2)}>View Activities</button>
           </Card.Body>
         </Card>
       </CardWrapper>
@@ -237,7 +237,7 @@ export const ActivitiesCard = () => {
             <Card.Text className='text-justify pb-3'>
               Points: {ele3TotalPoints}/100
             </Card.Text>
-            <MDBBtn variant="primary" onClick={() => toggleActivitiesModal(3)}>View Activities</MDBBtn>
+            <button className='btn btn-primary text-light rounded' onClick={() => toggleActivitiesModal(3)}>View Activities</button>
           </Card.Body>
         </Card>
       </CardWrapper>

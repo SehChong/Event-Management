@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
@@ -104,7 +103,7 @@ export const LoginForm = () => {
             <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username' value={username} onChange={e => setUsername(e.target.value)} onKeyPress={handleKeyPress} />
             <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={e => setPassword(e.target.value)} onKeyPress={handleKeyPress} />
             <div className="text-center pt-1 mb-5 pb-1">
-              <MDBBtn className="mb-4 w-100 gradient-custom-2" onClick={handleSignIn}>Sign in</MDBBtn>
+              <button className="btn mb-4 w-100 gradient-custom-2 rounded text-light p-1 btn-outline-dark" onClick={handleSignIn}>Sign in</button>
               <a className="text-muted" href="#!">Forgot password?</a>
             </div>
           </div>
