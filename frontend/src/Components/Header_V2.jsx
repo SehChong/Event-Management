@@ -45,6 +45,10 @@ export const Header_V2 = () => {
         navigate("/attendance");
       };
 
+      const toRegisteredEvents = () => {
+        navigate("/registeredEvent");
+      }
+
       const toLogin = () => {
         navigate("/");
       };
@@ -60,6 +64,7 @@ export const Header_V2 = () => {
               <NavDropdown title="Event" id="event-dropdown" className="rounded">
                 <NavDropdown.Item onClick={toEvent} className='fs-4'>Create Event</NavDropdown.Item>
                 <NavDropdown.Item onClick={toEventList} className='fs-4'>Event List</NavDropdown.Item>
+                <NavDropdown.Item onClick={toRegisteredEvents} className='fs-4'>Joined Events</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
