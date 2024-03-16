@@ -53,36 +53,36 @@ export const Header = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
+      <Navbar bg="danger" expand="lg" style={{height:120}}>
         <Container>
-          <Navbar.Brand onClick={toHome} className='fs-3 mx-5'>UCSI ELE Portal</Navbar.Brand>
+          <Navbar.Brand onClick={toHome} className='fs-3 mx-5 text-light'>UCSI ELE Portal</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
             <Nav className="me-auto gap-5">
-            <NavDropdown title="Event" id="event-dropdown" className="rounded">
+            <NavDropdown title="Event" id="event-dropdown" className="rounded custom-dropdown">
               <NavDropdown.Item onClick={toEvent} className='fs-4'>Create Event</NavDropdown.Item>
               <NavDropdown.Item onClick={toEventList} className='fs-4'>Event List</NavDropdown.Item>
             </NavDropdown>
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                className="nav-link rounded">Club</Nav.Link>
+                className="nav-link rounded text-light">Club</Nav.Link>
               <Nav.Link onClick={toAttendance} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                className="nav-link rounded">Attendance</Nav.Link>
+                className="nav-link rounded text-light">Attendance</Nav.Link>
               <Nav.Link onClick={toProfile} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                className="nav-link rounded">Profile</Nav.Link>
+                className="nav-link rounded text-light">Profile</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
-              <Nav.Link onClick={toLogin} className='fs-3 p-5'>Logout</Nav.Link>
+              <Nav.Link onClick={toLogin} className='fs-3 p-5 text-light'>Logout</Nav.Link>
       </Navbar>
 
-      <Card className="text-center bg-primary text-white" style={{height:800}}>
+      <Card className="text-center bg-primary text-danger" style={{height:800 , backgroundImage: `url(${require('../Assets/img/UCSI_Background.jpg')})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Card.Body className='d-flex align-items-center justify-content-center flex-column'>
-          <Card.Title className='fs-3'>Welcome to My Website</Card.Title>
-          <Card.Text className='fs-3'>This is the first page banner.</Card.Text>
-          <Button className='fs-3' variant="outline-light">Learn more</Button>
+          <Card.Title className='fs-1'>Welcome to My Website</Card.Title>
+          <Card.Text className='fs-1'>This is the first page banner.</Card.Text>
+          <Button className='fs-3 bg-primary' variant="outline-light">Learn more</Button>
         </Card.Body>
       </Card>
 

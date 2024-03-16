@@ -984,5 +984,59 @@
       "submissionStatus": "Approved",
       "submittedReport": true
     }
+  ],
+  "clubs": [
+    {
+      "id": "9832",
+      "name": "3424234",
+      "date": "2024-03-16",
+      "clubCode": "432423432",
+      "type": "Student Council",
+      "email": "342234@gmail.com",
+      "websites": "432432",
+      "logo": null,
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Pending"
+    },
+    {
+      "id": "65f9",
+      "name": "342234",
+      "date": "2024-03-16",
+      "clubCode": "432423",
+      "type": "Student Council",
+      "email": "dawd@gmail.com",
+      "websites": "423423",
+      "logo": null,
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Pending"
+    },
+    {
+      "id": "061a",
+      "name": "3423423",
+      "date": "2024-03-16",
+      "clubCode": "32424",
+      "type": "Student Council",
+      "email": "testing@gmail.com",
+      "websites": "testing",
+      "logo": null,
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Pending"
+    },
+    {
+      "id": "e418",
+      "name": "Unknown Club",
+      "date": "2024-03-16",
+      "clubCode": "423423",
+      "type": "Cultural",
+      "email": "Cultural@gmail.com",
+      "websites": "Cultural Web",
+      "logo": null,
+      "pdfFile": null,
+      "userId": "user1",
+      "status": "Pending"
+    }
   ]
 }

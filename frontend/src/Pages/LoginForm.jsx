@@ -100,8 +100,10 @@ export const LoginForm = () => {
               <h4 className="mt-1 mb-5 pb-1 fs-3">UCSI'S Event Management System</h4>
             </div>
             <p className='fs-5 text-center'>Please login to your account</p>
-            <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='username' value={username} onChange={e => setUsername(e.target.value)} onKeyPress={handleKeyPress} />
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' value={password} onChange={e => setPassword(e.target.value)} onKeyPress={handleKeyPress} />
+            <label htmlFor="username">Username</label>
+            <MDBInput wrapperClass='mb-4' id='form1' type='username' value={username} onChange={e => setUsername(e.target.value)} onKeyPress={handleKeyPress} />
+            <label htmlFor="password">Password</label>
+            <MDBInput wrapperClass='mb-4' id='form2' type='password' value={password} onChange={e => setPassword(e.target.value)} onKeyPress={handleKeyPress} />
             <div className="text-center pt-1 mb-5 pb-1">
               <button className="btn mb-4 w-100 gradient-custom-2 rounded text-light p-1 btn-outline-dark" onClick={handleSignIn}>Sign in</button>
               <a className="text-muted" href="#!">Forgot password?</a>

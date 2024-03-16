@@ -12,7 +12,7 @@ export const HomeContent = () => {
   return (
       <CardContainer className='gap-5'>
         <Card style={{ width: '30rem    ' }} className='rounded'>
-          <Card.Img variant="top" src="https://via.placeholder.com/150" />
+          <Card.Img variant="top" src={require("../Assets/img/event.avif")} />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Event</Card.Title>
             <Card.Text className='text-justify'>
@@ -22,7 +22,7 @@ export const HomeContent = () => {
           </Card.Body>
         </Card>
         <Card style={{ width: '30rem' }} className='rounded'>
-          <Card.Img variant="top" src="https://via.placeholder.com/150" />
+          <Card.Img variant="top" src={require("../Assets/img/club.avif")} />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Club</Card.Title>
             <Card.Text className='text-justify'>
@@ -32,7 +32,7 @@ export const HomeContent = () => {
           </Card.Body>
         </Card>
         <Card style={{ width: '30rem' }} className='rounded'>
-          <Card.Img variant="top" src="https://via.placeholder.com/150" />
+          <Card.Img variant="top" src={require("../Assets/img/attendance.avif")} />
           <Card.Body className='text-center'>
             <Card.Title className='fs-3'>Attendance</Card.Title>
             <Card.Text className='text-justify'>
