@@ -103,14 +103,21 @@ export const Profile = () => {
             }
             const eventsData = await eventsResponse.json();
 
-            // Filter events registered by the user and are approved
-            const userEvents = eventsData.filter(event =>
-                userData.registeredEvents.includes(event.id) &&
-                event.status === "Approved" &&
-                new Date(event.eventEndDate) < new Date() && // Check if event has ended
-                event.elePointRequest === "Required"
-            );
-
+            // Filter events registered by the user and are approved, and not marked as rejected after 7 days
+            const userEvents = eventsData.filter(event => {
+              if (
+                  userData.registeredEvents.includes(event.id) &&
+                  event.status === "Approved" &&
+                  event.elePointRequest === "Required"
+              ) {
+                  const currentDate = new Date();
+                  const eventEndDate = new Date(event.eventEndDate);
+                  const daysDifference = Math.floor((currentDate - eventEndDate) / (1000 * 60 * 60 * 24));
+                  return eventEndDate < currentDate && daysDifference <= 7;
+              }
+              return false;
+            });
+            
             // Count not submitted reports for the current user
             notSubmittedReportsCount = userEvents.length;
 
