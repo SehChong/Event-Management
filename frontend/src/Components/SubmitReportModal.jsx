@@ -48,7 +48,7 @@ export const SubmitReportModal = ( {userId} ) => {
                         submissionStatus = "Rejected";
                     }
                     return {
-                        event: event.eventId,
+                        event: event.id,
                         eventName: event.eventName,
                         eventDate: event.eventDate,
                         eventEndDate: event.eventEndDate,
@@ -57,6 +57,8 @@ export const SubmitReportModal = ( {userId} ) => {
                         submittedReport: event.submittedReport || false // Assuming none of the reports are submitted initially
                     };
                 });
+
+                console.log(registeredEventsData)
 
             // Fetch report data
             const reportResponse = await fetch('http://localhost:8000/reports');
@@ -72,7 +74,7 @@ export const SubmitReportModal = ( {userId} ) => {
               const report = userReportData.find(report => report.eventName === event.eventName);
               if (report) {
                   return {
-                      eventId: event.eventId,
+                      eventId: event.id,
                       eventName: event.eventName,
                       eventDate: event.eventDate,
                       eventEndDate: event.eventEndDate,
@@ -83,6 +85,7 @@ export const SubmitReportModal = ( {userId} ) => {
               }
               return event;
               });
+              console.log(updatedData)
               setData(updatedData);
               } catch (error) {
                   console.error('Error fetching data:', error);
@@ -136,8 +139,8 @@ export const SubmitReportModal = ( {userId} ) => {
       <tbody>
         {currentItems.map((event, index) => {
         return (
-            <tr key={event.eventId}>
-              <td>{index + 1}</td>
+            <tr key={event.id}>
+              <td>{index + 1 + (currentPage - 1) * itemsPerPage}</td>
               <td>{event.eventName}</td>
               <td>{event.eventDate}</td>
               <td>{event.eventEndDate}</td>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import {
     MDBCol,
     MDBContainer,
@@ -20,8 +20,117 @@ import { useNavigate } from 'react-router-dom';
 import { Footer } from '../Components/Footer';
 
 export const Profile = () => {
+    const [user, setUser] = useState(null);
+    const [createdEventsCount, setCreatedEventsCount] = useState(0);
+    const [joinedEventsCount, setJoinedEventsCount] = useState(0);
+    const [submittedReportsCount, setSubmittedReportsCount] = useState(0);
+    const [notSubmittedReportsCount, setNotSubmittedReportsCount] = useState(0);
     const navigate = useNavigate();
-    
+
+    useEffect(() => {
+      const fetchUserData = async () => {
+          try {
+              const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+              if (!response.ok) {
+                  throw new Error('Failed to fetch user data');
+              }
+              const userData = await response.json();
+              setUser(userData);
+              // Calculate the number of events joined
+              setJoinedEventsCount(userData.registeredEvents.length);
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+          }
+      };
+
+      fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const fetchEventsData = async () => {
+        try {
+            const userId = sessionStorage.getItem("username");
+            const response = await fetch(`http://localhost:8000/events`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch events data');
+            }
+            const eventsData = await response.json();
+            // Calculate the number of events created by the current user
+            const createdEvents = eventsData.filter(event => event.userId === userId);
+            setCreatedEventsCount(createdEvents.length);
+        } catch (error) {
+            console.error('Error fetching events data:', error);
+        }
+    };
+
+    fetchEventsData();
+  }, []);
+
+  useEffect(() => {
+    const fetchReportsData = async () => {
+        try {
+            const userId = sessionStorage.getItem("username");
+
+            // Fetch all reports
+            const response = await fetch(`http://localhost:8000/reports`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch reports data');
+            }
+            const reportsData = await response.json();
+
+            // Initialize counts
+            let submittedReportsCount = 0;
+            let notSubmittedReportsCount = 0;
+
+            // Count submitted reports for the current user
+            reportsData.forEach(report => {
+                if (report.userId === userId && report.submittedReport) {
+                    submittedReportsCount++;
+                }
+            });
+
+            // Fetch user data
+            const userResponse = await fetch(`http://localhost:8000/user/${userId}`);
+            if (!userResponse.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const userData = await userResponse.json();
+
+            // Fetch all events
+            const eventsResponse = await fetch(`http://localhost:8000/events`);
+            if (!eventsResponse.ok) {
+                throw new Error('Failed to fetch events data');
+            }
+            const eventsData = await eventsResponse.json();
+
+            // Filter events registered by the user and are approved
+            const userEvents = eventsData.filter(event =>
+                userData.registeredEvents.includes(event.id) &&
+                event.status === "Approved" &&
+                new Date(event.eventEndDate) < new Date() && // Check if event has ended
+                event.elePointRequest === "Required"
+            );
+
+            // Count not submitted reports for the current user
+            notSubmittedReportsCount = userEvents.length;
+
+            // Adjust notSubmittedReportsCount by subtracting the submittedReportsCount
+            notSubmittedReportsCount -= submittedReportsCount;
+
+            // Ensure notSubmittedReportsCount is non-negative
+            notSubmittedReportsCount = Math.max(0, notSubmittedReportsCount);
+
+            // Set the state with the counts
+            setSubmittedReportsCount(submittedReportsCount);
+            setNotSubmittedReportsCount(notSubmittedReportsCount);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchReportsData();
+  }, []);
+
     const toHome = () => {
         navigate("/home");
       };
@@ -62,6 +171,7 @@ export const Profile = () => {
 
         <MDBRow>
           <MDBCol lg="4">
+          {user && (
             <MDBCard className="mb-4 rounded">
               <MDBCardBody className="text-center">
                 <MDBCardImage
@@ -70,15 +180,16 @@ export const Profile = () => {
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                <p className="text-muted mb-1">Student</p>
+                <p className="text-muted mb-4">{user.program}</p>
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Follow</MDBBtn>
                   <MDBBtn outline className="ms-1">Message</MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
-
+          )}
+          
             <MDBCard className="mb-4 mb-lg-0 rounded">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
@@ -107,6 +218,7 @@ export const Profile = () => {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
+          {user && (
             <MDBCard className="mb-4 rounded">
               <MDBCardBody>
                 <MDBRow>
@@ -114,7 +226,7 @@ export const Profile = () => {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">{user.name}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -123,7 +235,7 @@ export const Profile = () => {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <MDBCardText className="text-muted">{user.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -132,16 +244,16 @@ export const Profile = () => {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                    <MDBCardText className="text-muted">{user.phone}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
+                    <MDBCardText>Gender</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
+                    <MDBCardText className="text-muted">{user.gender}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -150,76 +262,46 @@ export const Profile = () => {
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted">{user.address}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
-
+          )}
             <MDBRow>
-              <MDBCol md="6">
+            <MDBCol md="6">
                 <MDBCard className="mb-4 mb-md-0 rounded">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    <MDBCardBody>
+                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Events</span> Information Panel</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Events Created: {createdEventsCount}</MDBCardText>
+                        <MDBProgress className="rounded">
+                            <MDBProgressBar width={(createdEventsCount)} valuemin={0} valuemax={100} />
+                        </MDBProgress>
 
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Events Joined: {joinedEventsCount}</MDBCardText>
+                        <MDBProgress className="rounded">
+                            <MDBProgressBar width={(joinedEventsCount)} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+                    </MDBCardBody>
                 </MDBCard>
-              </MDBCol>
+            </MDBCol>
 
-              <MDBCol md="6">
+            <MDBCol md="6">
                 <MDBCard className="mb-4 mb-md-0 rounded">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
+                    <MDBCardBody>
+                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Reports</span> Information Panel</MDBCardText>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Submitted Reports: {submittedReportsCount}</MDBCardText>
+                        <MDBProgress className="rounded">
+                            <MDBProgressBar width={(submittedReportsCount)} valuemin={0} valuemax={100} />
+                        </MDBProgress>
 
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Not Submitted Reports: {notSubmittedReportsCount}</MDBCardText>
+                        <MDBProgress className="rounded">
+                            <MDBProgressBar width={(notSubmittedReportsCount)} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+                    </MDBCardBody>
                 </MDBCard>
-              </MDBCol>
+            </MDBCol>
             </MDBRow>
           </MDBCol>
         </MDBRow>
