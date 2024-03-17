@@ -113,10 +113,12 @@ export const Profile = () => {
                   const currentDate = new Date();
                   const eventEndDate = new Date(event.eventEndDate);
                   const daysDifference = Math.floor((currentDate - eventEndDate) / (1000 * 60 * 60 * 24));
-                  return eventEndDate < currentDate && daysDifference <= 7;
+                  return eventEndDate < currentDate && daysDifference <= 8;
               }
               return false;
             });
+
+            console.log(userEvents);
             
             // Count not submitted reports for the current user
             notSubmittedReportsCount = userEvents.length;
@@ -190,35 +192,51 @@ export const Profile = () => {
                 <p className="text-muted mb-1">Student</p>
                 <p className="text-muted mb-4">{user.program}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
+                  {/* <MDBBtn>Follow</MDBBtn>
+                  <MDBBtn outline className="ms-1">Message</MDBBtn> */}
                 </div>
               </MDBCardBody>
             </MDBCard>
           )}
           
+            {/* Ele points card */}
             <MDBCard className="mb-4 mb-lg-0 rounded">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText>https://mdbootstrap.com</MDBCardText>
+                    <div className="d-flex align-items-center">
+                      <span className="me-3">Ele 1</span>
+                      <MDBIcon fas icon="globe fa-lg text-warning" />
+                    </div>
+                    <MDBProgress style={{ height: '25px', width: '200px' }}>
+                      <MDBProgressBar className="progress-bar" style={{ width: `${(user && user.ele1[1]) || 0}%` }} animated striped>
+                        {(user && user.ele1[1]) && <span className="progress-text">{(user && user.ele1[1])}%</span>}
+                      </MDBProgressBar>
+                    </MDBProgress>
                   </MDBListGroupItem>
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                    <div className="d-flex align-items-center">
+                      <span className="me-3">Ele 2</span>
+                      <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
+                    </div>
+                    <MDBProgress style={{ height: '25px', width: '200px' }}>
+                      <MDBProgressBar className="progress-bar" style={{ width: `${(user && user.ele2[1]) || 0}%` }} animated striped>
+                        {(user && user.ele2[1]) && <span className="progress-text">{(user && user.ele2[1])}%</span>}
+                      </MDBProgressBar>
+                    </MDBProgress>
                   </MDBListGroupItem>
+
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
+                    <div className="d-flex align-items-center">
+                      <span className="me-3">Ele 3</span>
+                      <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
+                    </div>
+                    <MDBProgress style={{ height: '25px', width: '200px' }}>
+                      <MDBProgressBar className="progress-bar" style={{ width: `${(user && user.ele3[1]) || 0}%` }} animated striped>
+                        {(user && user.ele3[1]) && <span className="progress-text">{(user && user.ele3[1])}%</span>}
+                      </MDBProgressBar>
+                    </MDBProgress>
                   </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCardBody>

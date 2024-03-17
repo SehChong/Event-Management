@@ -110,12 +110,12 @@ export const RegisteredEvents = () => {
             </thead>
             <tbody>
               {filteredProposals.map((event, index) => (
-                <tr key={event.id}>
+                <tr key={event?.id}>
                   <td>{index + 1 + (currentPage - 1) * ITEMS_PER_PAGE}</td>
-                  <td>{event.eventName}</td>
-                  <td className='text-center'>{event.eventType}</td>
-                  <td className='text-center'>{event.eventDate}</td>
-                  <td className='text-center'>{event.totalELEPoints || 'None'}</td>
+                  <td>{event?.eventName}</td>
+                  <td className='text-center'>{event?.eventType}</td>
+                  <td className='text-center'>{event?.eventDate}</td>
+                  <td className='text-center'>{event?.totalELEPoints || 'None'}</td>
                   <td className='d-flex justify-content-center'>
                     <Button variant="primary" onClick={() => handleShowModal(event)}>
                       View
