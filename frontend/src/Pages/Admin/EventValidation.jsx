@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dashboard } from '../../Components/Dashboard';
 import '../../Assets/Styles/EventValidation.css';
 
-const EventRow = ({ id, eventType, eventName, organizedBy, eventDate, eventEndDate, eventTime, eventEndTime, publicityPeriod, endPeriod, venue, estimatedAttendance, totalHours, elePointRequest, totalELEPoints, eventLevel, eventCategory, pdfFile, userId, status, mode, link, platform }) => (
+const EventRow = ({ id, eventType, eventName, organizedBy, eventDate, eventEndDate, eventTime, eventEndTime, publicityPeriod, endPeriod, venue, estimatedAttendance, totalHours, elePointRequest, totalELEPoints, eventLevel, eventCategory, pdfFile, userId, status, mode, link, platform, onApprove, onReject }) => (
   <tr>
     <td className="pl-2">{id}</td>
     <td>
@@ -39,8 +39,8 @@ const EventRow = ({ id, eventType, eventName, organizedBy, eventDate, eventEndDa
       </div>
     </td>
     <td>
-      <button type="button" className="btn btn-success btn-circle btn-sm"><i className="fas fa-check"></i> </button>
-      <button type="button" className="btn btn-danger btn-circle btn-sm ml-2"><i className="fas fa-times"></i> </button>
+      <button type="button" className="btn btn-success btn-circle btn-sm" onClick={() => onApprove(id)}><i className="fas fa-check"></i> </button>
+      <button type="button" className="btn btn-danger btn-circle btn-sm ml-2" onClick={() => onReject(id)}><i className="fas fa-times"></i> </button>
     </td>
   </tr>
 );
@@ -50,29 +50,35 @@ export const EventValidation = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState('All'); // Track selected status filter
 
   useEffect(() => {
     fetch('http://localhost:8000/events')
       .then(response => response.json())
       .then(data => {
-        setEvents(data);
-        setFilteredEvents(data);
+        // Sort events by the createdAt timestamp in descending order
+        const sortedEvents = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setEvents(sortedEvents);
+        setFilteredEvents(sortedEvents);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   useEffect(() => {
     const filtered = events.filter(event =>
-      event.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+      (statusFilter === 'All' || event.status === statusFilter) && // Consider status filter
+      (event.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase()))
     );
     setFilteredEvents(filtered);
-  }, [searchQuery, events]);
+  }, [searchQuery, events, statusFilter]); // Include statusFilter in dependencies
 
   const eventsPerPage = 3;
-  const indexOfLastEvent = currentPage * eventsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+  const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -80,6 +86,76 @@ export const EventValidation = () => {
     setSearchQuery(event.target.value);
     setCurrentPage(1); // Reset pagination when searching
   };
+
+  const handleStatusFilterChange = event => {
+    setStatusFilter(event.target.value);
+    setCurrentPage(1); // Reset pagination when changing status filter
+  };
+
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+  const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+  
+  const handleApprove = (eventId) => {
+    // Find the event by ID
+    const eventToUpdate = events.find(event => event.id === eventId);
+    if (!eventToUpdate) return;
+  
+    // Update the status of the event to "Approved"
+    const updatedEvent = { ...eventToUpdate, status: 'Approved' };
+  
+    // Make a PATCH request to update the event in the database
+    fetch(`http://localhost:8000/events/${eventId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedEvent),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update event');
+        }
+        // Update the events state with the updated event
+        const updatedEvents = events.map(event =>
+          event.id === eventId ? updatedEvent : event
+        );
+        setEvents(updatedEvents);
+        setFilteredEvents(updatedEvents);
+      })
+      .catch(error => console.error('Error updating event:', error));
+  };
+  
+  const handleReject = (eventId) => {
+    // Find the event by ID
+    const eventToUpdate = events.find(event => event.id === eventId);
+    if (!eventToUpdate) return;
+  
+    // Update the status of the event to "Rejected"
+    const updatedEvent = { ...eventToUpdate, status: 'Rejected' };
+  
+    // Make a PATCH request to update the event in the database
+    fetch(`http://localhost:8000/events/${eventId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedEvent),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update event');
+        }
+        // Update the events state with the updated event
+        const updatedEvents = events.map(event =>
+          event.id === eventId ? updatedEvent : event
+        );
+        setEvents(updatedEvents);
+        setFilteredEvents(updatedEvents);
+      })
+      .catch(error => console.error('Error updating event:', error));
+  };
+  
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
@@ -100,6 +176,14 @@ export const EventValidation = () => {
                       onChange={handleSearch}
                     />
                   </div>
+                  <div className="dropdown ml-2">
+                    <select className="form-control" onChange={handleStatusFilterChange}>
+                      <option value="All">All</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="table-responsive">
                   <table className="table table-sm table-striped">
@@ -116,6 +200,8 @@ export const EventValidation = () => {
                         <EventRow
                           key={event.id}
                           {...event}
+                          onApprove={handleApprove}
+                          onReject={handleReject}
                         />
                       ))}
                     </tbody>
@@ -123,9 +209,9 @@ export const EventValidation = () => {
                 </div>
                 {/* Pagination */}
                 <ul className="pagination justify-content-center">
-                  {Array.from({ length: Math.ceil(filteredEvents.length / eventsPerPage) }).map((_, index) => (
-                    <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                      <button onClick={() => paginate(index + 1)} className="page-link">{index + 1}</button>
+                  {pageNumbers.map(number => (
+                    <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                      <button onClick={() => paginate(number)} className="page-link">{number}</button>
                     </li>
                   ))}
                 </ul>
