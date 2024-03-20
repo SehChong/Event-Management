@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Dashboard } from '../../Components/Dashboard';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import '../../Assets/Styles/ViewUser.css';
 import DeleteConfirmationModal from '../../Components/DeleteConfirmationModal'; // Import the confirmation modal component
+import EditUserModal from '../../Components/EditUserModal'; // Import the EditUserModal component
+
 
 const capitalizeFirstLetter = (str) => {
   if (!str) return '';
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const UserRow = ({ user, selectedUsers, toggleSelectUser }) => (
+const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
   <tr>
+    <td>{index}</td>
     <td className="pl-4">
       <img src={user.image} alt={user.name} className="rounded-circle" style={{ width: '50px', height: '50px' }} />
     </td>
@@ -43,12 +44,12 @@ const UserRow = ({ user, selectedUsers, toggleSelectUser }) => (
 
 export const ViewUser = () => {
   const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false); // State to control delete confirmation modal
+  const [showEditModal, setShowEditModal] = useState(false); // State to control edit user modal
+  const [editUserId, setEditUserId] = useState(null); // State to keep track of which user is being edited
   const [newUser, setNewUser] = useState({
     name: '',
     studentNo: '',
@@ -81,7 +82,7 @@ export const ViewUser = () => {
         console.error('Error fetching user data:', error);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -93,13 +94,6 @@ export const ViewUser = () => {
       user.role.toLowerCase() !== 'admin') // Exclude admin users
     );
   });
-  
-
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser).filter(user => user.role.toLowerCase() !== 'admin'); // Filter admin users from currentUsers
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const toggleModal = () => {
     // Reset newUser state when closing the modal
@@ -120,7 +114,7 @@ export const ViewUser = () => {
     setNewUser(showModal ? resetNewUser : newUser);
     setShowModal(!showModal);
   };
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
@@ -133,7 +127,7 @@ export const ViewUser = () => {
 
   const addUser = () => {
     if (!newUser.name.trim() || !newUser.studentNo.trim() || !newUser.id.trim() || !newUser.password.trim()) {
-      toast.warning("Please fill in all required fields");
+      //toast.warning("Please fill in all required fields");
       return;
     }
   
@@ -153,15 +147,15 @@ export const ViewUser = () => {
     .then(data => {
       // If the request is successful, update the state and close the modal
       setUsers([...users, newUser]);
+      toggleModal();
       setShowModal(false);
-      toast.success("User added successfully");
+      //toast.success("User added successfully");
     })
     .catch(error => {
       console.error('Error adding user:', error);
-      toast.error("Failed to add user");
+      //toast.error("Failed to add user");
     });
   };
-  
 
   const deleteUser = () => {
     fetch(`http://localhost:8000/user/${selectedUsers}`, {
@@ -179,16 +173,27 @@ export const ViewUser = () => {
       setUsers(updatedUsers);
       setSelectedUsers([]); // Clear selected users after deletion
       setShowDeleteModal(false); // Close the delete confirmation modal
-      toast.success("User(s) deleted successfully"); // Show success toast here
+      //toast.success("User(s) deleted successfully"); // Show success toast here
     })
     .catch(error => {
       console.error('Error deleting user(s):', error);
-      toast.error("Failed to delete user(s)");
+      //toast.error("Failed to delete user(s)");
     });
   };
+
+    // Function to handle editing user
+    const handleEditUser = (userId) => {
+      setEditUserId(userId);
+      setShowEditModal(true);
+    };
   
-  
-  const editUser = () => {};
+    // Function to save edited user
+    const saveEditedUser = (editedUser) => {
+      // Implement logic to save edited user
+      // Example:
+      const updatedUsers = users.map(user => user.id === editedUser.id ? editedUser : user);
+      setUsers(updatedUsers);
+    };
 
   const toggleSelectUser = (userId) => {
     if (selectedUsers.includes(userId)) {
@@ -204,8 +209,13 @@ export const ViewUser = () => {
     deleteUser(selectedUsers);
     setShowDeleteModal(false);
   };
-
+  
   const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
+
+  const clearSelectedUsers = () => {
+    setSelectedUsers([]);
+  };  
+  
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
@@ -221,35 +231,30 @@ export const ViewUser = () => {
               <div>
                 <button className={`btn btn-primary mx-3 ${showModal ? 'disabled' : ''}`} onClick={toggleModal}>Add User</button>
                 <button className={`btn btn-danger mx-3 ${isDeleteButtonClickable ? '' : 'disabled'}`} onClick={toggleDeleteModal}>Delete User</button>
-                <button className={`btn btn-secondary mx-3 ${selectedUsers.length === 1 ? '' : 'disabled'}`} onClick={() => editUser()}>Edit User</button>              </div>
+                <button className={`btn btn-secondary mx-3 ${selectedUsers.length === 1 ? '' : 'disabled'}`} onClick={() => handleEditUser(selectedUsers[0])}>Edit User</button>
+              </div>
             </div>
             <div className="table-responsive">
               <table className="table no-wrap user-table mb-0 rounded">
-                <thead>
-                  <tr>
-                    <th scope="col" className="border-0 text-uppercase font-medium pl-4">Image</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Student No</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Blank</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Details</th>
-                    <th scope="col" className="border-0 text-uppercase font-medium">Select</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentUsers.map(user => (
-                    <UserRow key={user.id} user={user} selectedUsers={selectedUsers} toggleSelectUser={toggleSelectUser} />
-                  ))}
-                </tbody>
+              <thead>
+                <tr>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Index</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Image</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Student No</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Blank</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Details</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">Select</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.map((user, index) => (
+                  <UserRow key={user.id} index={index + 1} user={user} selectedUsers={selectedUsers} toggleSelectUser={toggleSelectUser} />
+                ))}
+              </tbody>
               </table>
             </div>
-            <ul className="pagination justify-content-center mt-4">
-              {Array.from({ length: Math.ceil(filteredUsers.length / usersPerPage) }).map((_, index) => (
-                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                  <button onClick={() => paginate(index + 1)} className="page-link">{index + 1}</button>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
@@ -257,12 +262,12 @@ export const ViewUser = () => {
         <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Add User</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={toggleModal}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
+            <div className="modal-header">
+              <h5 className="modal-title w-100">Add User</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={toggleModal}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
               <div className="modal-body">
                 <form>
                   <div className="form-group">
@@ -318,11 +323,23 @@ export const ViewUser = () => {
       <DeleteConfirmationModal
         selectedUsers={selectedUsers}
         onDeleteConfirm={handleDeleteConfirm}
+        onClose={toggleDeleteModal} // Pass toggleDeleteModal as the onClose prop
         toggle={toggleDeleteModal} // Pass toggleDeleteModal as the toggle prop
       />
     )}
-      {showModal && <div className="modal-backdrop fade show"></div>}
-      <ToastContainer /> {/* Add ToastContainer here */}
+    {showModal && <div className="modal-backdrop fade show"></div>}
+    {showEditModal && editUserId && (
+      <EditUserModal
+        showModal={showEditModal}
+        toggleModal={() => setShowEditModal(false)}
+        updateUser={saveEditedUser}
+        handleInputChange={handleInputChange}
+        handleImageChange={handleImageChange}
+        editingUser={users.find(user => user.id === editUserId)}
+        clearSelectedUsers={clearSelectedUsers} // Pass clearSelectedUsers as a prop
+      />
+  )}
     </div>
   );
 };
+ 

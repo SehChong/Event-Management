@@ -55,16 +55,16 @@ export const Header_V2 = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg" style={{height:120}}>
+      <Navbar bg="light" expand="lg" style={{height:100}}>
         <Container>
-          <Navbar.Brand onClick={toHome} className='fs-3 mx-5'>UCSI ELE Portal</Navbar.Brand>
+          <Navbar.Brand onClick={toHome} className='fs-4 mx-5'>UCSI ELE Portal</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
+          <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-4 p-5'>
             <Nav className="me-auto gap-5">
               <NavDropdown title="Event" id="event-dropdown" className="rounded">
-                <NavDropdown.Item onClick={toEvent} className='fs-4'>Create Event</NavDropdown.Item>
-                <NavDropdown.Item onClick={toEventList} className='fs-4'>Event List</NavDropdown.Item>
-                <NavDropdown.Item onClick={toRegisteredEvents} className='fs-4'>Joined Events</NavDropdown.Item>
+                <NavDropdown.Item onClick={toEvent} className='fs-5'>Create Event</NavDropdown.Item>
+                <NavDropdown.Item onClick={toEventList} className='fs-5'>Event List</NavDropdown.Item>
+                <NavDropdown.Item onClick={toRegisteredEvents} className='fs-5'>Joined Events</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link onClick={toClub} onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
@@ -78,7 +78,7 @@ export const Header_V2 = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-              <Nav.Link onClick={toLogin} className='fs-3 p-5'>Logout</Nav.Link>
+              <Nav.Link onClick={toLogin} className='fs-4 p-5'>Logout</Nav.Link>
       </Navbar>
     </>
   )
