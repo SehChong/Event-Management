@@ -147,6 +147,14 @@ export const CardEventSlider = () => {
                       </>
                     )}
                   </li>
+                  <li>
+                    {event.paymentRequired != null && (
+                      <>
+                        <li><strong>Total:</strong> {event.paymentAmount}</li>
+                        <li><strong>Payment Link:</strong> {event.paymentLink}</li>
+                      </>
+                    )}
+                  </li>
                   <li><strong>Participants:</strong>  {countParticipants(event.id)} / {event.estimatedAttendance}</li>
                   <li><strong>Mode:</strong> {event.mode}</li>
                   {event.mode === 'Physical' && <li className="physical"><strong>Venue:</strong> {event.venue}</li>}

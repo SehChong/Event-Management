@@ -30,6 +30,10 @@ export const EventForm = () => {
   const [platform, setPlatform] = useState(proposal?.platform || '');
   const [link, setLink] = useState(proposal?.link || '');
   const [userIdValue, setUserIdValue] = useState(sessionStorage.getItem("username") || '');
+  const [paymentRequired, setPaymentRequired] = useState(proposal?.paymentRequired || '');
+  const [paymentAmount, setPaymentAmount] = useState(proposal?.paymentAmount || '');
+  const [paymentLink, setPaymentLink] = useState(proposal?.paymentLink || '');
+
 
   useEffect(() => {
     // Update userIdValue whenever sessionStorage changes
@@ -62,6 +66,9 @@ export const EventForm = () => {
     setLink('');
     setUserIdValue('');
     setPdfFile('');
+    setPaymentAmount('');
+    setPaymentLink('');
+    setPaymentRequired('');
   };
 
   const handleSubmit = (e) => {
@@ -73,7 +80,7 @@ export const EventForm = () => {
       return;
     }
 
-    const eventEndDateObj = new Date(eventEndDate);
+  const eventEndDateObj = new Date(eventEndDate);
   const eventDateObj = new Date(eventDate);
   const publicityEndDateObj = new Date(endPeriod);
   const publicityPeriodObj = new Date(publicityPeriod);
@@ -129,7 +136,10 @@ export const EventForm = () => {
         status: "Pending",
         mode,
         link,
-        platform
+        platform,
+        paymentAmount,
+        paymentLink,
+        paymentRequired
     };
     if (proposal.id) {
       // Update the existing event
@@ -179,51 +189,6 @@ export const EventForm = () => {
       setTotalHours(diffInHours.toFixed(2));
     }
   }, [eventTime, eventEndTime]);
-
-  // const [eventEndDateError, setEventEndDateError] = useState('');
-  // const [publicityEndDateError, setPublicityEndDateError] = useState('');
-
-  // useEffect(() => {
-  //   const eventEndDateObj = new Date(eventEndDate);
-  //   const eventDateObj = new Date(eventDate);
-
-  //   if (eventEndDateObj < eventDateObj) {
-  //     setEventEndDateError('Event end date should not be earlier than the event date.');
-  
-  //     // Display an error toast message
-  //     toast.error('Event end date should not be earlier than the event date.', {
-  //       position: 'top-right',
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //     });
-  //   } else {
-  //     setEventEndDateError('');
-  //   }  
-
-  //   const publicityEndDateObj = new Date(endPeriod);
-  //   const publicityPeriodObj = new Date(publicityPeriod);
-
-  //   if (publicityEndDateObj < publicityPeriodObj) {
-  //     setPublicityEndDateError('Publicity end date should not be earlier than the publicity date.');
-  
-  //     // Display an error toast message
-  //     toast.error('Publicity end date should not be earlier than the publicity date.', {
-  //       position: 'top-right',
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //     });
-  //   } else {
-  //     setPublicityEndDateError('');
-  //   }
-  // },[eventDate, eventEndDate, publicityPeriod, endPeriod]);
 
   return (
     <Container className="bg-danger p-5 my-5 rounded w-50 d-block">
@@ -305,7 +270,8 @@ export const EventForm = () => {
         </Form.Group>
       </Col>
     </Row>
-
+    <Row>
+      <Col>
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Mode:</Form.Label>
           <Form.Select type="text" required value={mode} onChange={(e) => setMode(e.target.value)} style={{width:200}}>
@@ -314,6 +280,18 @@ export const EventForm = () => {
             <option value="Online">Online</option>
           </Form.Select>
         </Form.Group>
+      </Col>
+      <Col>
+        <Form.Group className="mb-3">
+          <Form.Label className='fw-bold'>Payment Required:</Form.Label>
+          <Form.Select type="text" required value={paymentRequired} onChange={(e) => setPaymentRequired(e.target.value)} style={{width:200}}>
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+      </Row>
 
         {mode === "Physical" && (
           <Col>
@@ -337,6 +315,19 @@ export const EventForm = () => {
                 <Form.Control type="text" required value={link} onChange={(e) => setLink(e.target.value)} />
               </Form.Group>
             </Col>
+          </>
+        )}
+
+        {paymentRequired === "Yes" && (
+          <>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Payment Amount:</Form.Label>
+              <Form.Control type="number" required value={paymentAmount} onChange={(e) => setPaymentAmount(e.target.value)}/>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className='fw-bold'>Payment Link:</Form.Label>
+              <Form.Control type="text" required value={paymentLink} onChange={(e) => setPaymentLink(e.target.value)}/>
+            </Form.Group>
           </>
         )}
 
