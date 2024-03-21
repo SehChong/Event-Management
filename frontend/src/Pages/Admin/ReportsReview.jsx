@@ -8,13 +8,22 @@ export const ReportsReview = () => {
   const [selectedReport, setSelectedReport] = useState(null); // State for selected report
   const [showModal, setShowModal] = useState(false); // State for modal visibility
   const [currentPage, setCurrentPage] = useState(1); // Current page of pagination
-  const [itemsPerPage, setItemsPerPage] = useState(10); // Number of items per page
+  const [itemsPerPage] = useState(10); // Number of items per page
 
   useEffect(() => {
     fetch('http://localhost:8000/reports')
       .then(response => response.json())
       .then(data => setReports(data))
       .catch(error => console.error('Error fetching reports:', error));
+
+    const interval = setInterval(() => {
+      fetch('http://localhost:8000/reports')
+        .then(response => response.json())
+        .then(data => setReports(data))
+        .catch(error => console.error('Error fetching reports:', error));
+    }, 60000); // Refresh data every 1 minute (adjust interval as needed)
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
 
   const handleELEFilterChange = (event) => {
@@ -31,10 +40,24 @@ export const ReportsReview = () => {
 
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredReports.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage + 1;
+  const currentItems = filteredReports.slice(indexOfFirstItem - 1, indexOfLastItem);
+  
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    // Function to update the reports state
+    const updateReportSubmissionStatus = (updatedReport) => {
+      // Find the index of the updated report in the reports array
+      const index = reports.findIndex(report => report.id === updatedReport.id);
+      if (index !== -1) {
+        // Create a new array with the updated report
+        const updatedReports = [...reports];
+        updatedReports[index] = updatedReport;
+        // Update the reports state with the new array
+        setReports(updatedReports);
+      }
+    };
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
@@ -74,13 +97,13 @@ export const ReportsReview = () => {
                     <tbody>
                       {currentItems.map((report, index) => (
                         <tr key={report.id}>
-                          <td className='text-center'>{index + 1}</td>
+                          <td className='text-center'>{indexOfFirstItem + index}</td>
                           <td className='text-center'>{report.ele}</td>
                           <td className='text-center'>{report.eventName}</td>
                           <td className='text-center'>{report.eventDate}</td>
                           <td className='text-center'>{report.totalELEPoints}</td>
                           <td className='text-center'>{report.submissionStatus}</td>
-                          <td className='text-center'>{report.submittedReport.toString()}</td>
+                          <td className='text-center'>{report.submittedReport ? report.submittedReport.toString() : ''}</td>
                           <td className='text-center'>
                             <button className="btn btn-success" onClick={() => handleViewReport(report)}>View</button>
                           </td>
@@ -111,6 +134,7 @@ export const ReportsReview = () => {
         <ViewReports
           report={selectedReport}
           onClose={() => setShowModal(false)}
+          updateReportSubmissionStatus={updateReportSubmissionStatus} // Pass the function as prop
         />
       )}
     </div>

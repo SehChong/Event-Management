@@ -10,65 +10,6 @@ const capitalizeFirstLetter = (str) => {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
-  <tr style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : 'white' }}>
-    <td>{index}</td>
-    <td className="pl-4">
-      <img src={user.image} alt={user.name} className="rounded-circle" style={{ width: '50px', height: '50px' }} />
-    </td>
-    <td>{user.studentNo}</td>
-    <td>
-      <h5 className="font-medium mb-0">{capitalizeFirstLetter(user.name)}</h5>
-    </td>
-    <td>{capitalizeFirstLetter(user.role)}</td>
-    <td className='text-center'>
-      <label>
-        <input
-          type="checkbox"
-          checked={user.ele1 && user.ele1.length > 0}
-          onChange={() => {}}
-        />
-        ELE 1
-      </label>
-      <br />
-      <label>
-        <input
-          type="checkbox"
-          checked={user.ele2 && user.ele2.length > 0}
-          onChange={() => {}}
-        />
-        ELE 2
-      </label>
-      <br />
-      <label>
-        <input
-          type="checkbox"
-          checked={user.ele3 && user.ele3.length > 0}
-          onChange={() => {}}
-        />
-        ELE 3
-      </label>
-    </td>
-    <td style={{width:'30%'}}>
-      <details>
-        <summary >Show Details</summary>
-        <ul>
-          {user.id && <li>Username: {user.id}</li>}
-          {user.password && <li>Password: {user.password}</li>}
-          {user.program && <li>Program: {user.program}</li>}
-          {user.registeredEvents && user.registeredEvents.length > 0 && <li>Registered Events: {user.registeredEvents.join(', ')}</li>}
-          {user.ele1 && <li>ELE 1: {user.ele1.join(', ')}</li>}
-          {user.ele2 && <li>ELE 2: {user.ele2.join(', ')}</li>}
-          {user.ele3 && <li>ELE 3: {user.ele3.join(', ')}</li>}
-        </ul>
-      </details>
-    </td>
-    <td className='text-center'>
-      <input type="checkbox" onChange={() => toggleSelectUser(user.id)} checked={selectedUsers.includes(user.id)} />
-    </td>
-  </tr>
-);
-
 
 export const ViewUser = () => {
   const [users, setUsers] = useState([]);
@@ -78,6 +19,8 @@ export const ViewUser = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false); // State to control delete confirmation modal
   const [showEditModal, setShowEditModal] = useState(false); // State to control edit user modal
   const [editUserId, setEditUserId] = useState(null); // State to keep track of which user is being edited
+  const [currentPage, setCurrentPage] = useState(1); // Current page of pagination
+  const [itemsPerPage] = useState(5); // Number of items per page
   const [newUser, setNewUser] = useState({
     name: '',
     studentNo: '',
@@ -244,6 +187,71 @@ export const ViewUser = () => {
     setSelectedUsers([]);
   };  
   
+// Pagination logic
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = currentPage * itemsPerPage - itemsPerPage;
+const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
+    <tr style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : 'white' }}>
+    <td className='text-center'>{indexOfFirstItem + index}</td>
+      <td className="pl-4">
+        <img src={user.image} alt={user.name} className="rounded-circle" style={{ width: '50px', height: '50px' }} />
+      </td>
+      <td>{user.studentNo}</td>
+      <td>
+        <h5 className="font-medium mb-0">{capitalizeFirstLetter(user.name)}</h5>
+      </td>
+      <td>{capitalizeFirstLetter(user.role)}</td>
+      <td className='text-center'>
+        <label>
+          <input
+            type="checkbox"
+            checked={user.ele1 && user.ele1.length > 0}
+            onChange={() => {}}
+          />
+          ELE 1
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            checked={user.ele2 && user.ele2.length > 0}
+            onChange={() => {}}
+          />
+          ELE 2
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            checked={user.ele3 && user.ele3.length > 0}
+            onChange={() => {}}
+          />
+          ELE 3
+        </label>
+      </td>
+      <td style={{width:'30%'}}>
+        <details>
+          <summary >Show Details</summary>
+          <ul>
+            {user.id && <li>Username: {user.id}</li>}
+            {user.password && <li>Password: {user.password}</li>}
+            {user.program && <li>Program: {user.program}</li>}
+            {user.registeredEvents && user.registeredEvents.length > 0 && <li>Registered Events: {user.registeredEvents.join(', ')}</li>}
+            {user.ele1 && <li>ELE 1: {user.ele1.join(', ')}</li>}
+            {user.ele2 && <li>ELE 2: {user.ele2.join(', ')}</li>}
+            {user.ele3 && <li>ELE 3: {user.ele3.join(', ')}</li>}
+          </ul>
+        </details>
+      </td>
+      <td className='text-center'>
+        <input type="checkbox" onChange={() => toggleSelectUser(user.id)} checked={selectedUsers.includes(user.id)} />
+      </td>
+    </tr>
+  );
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
@@ -277,12 +285,24 @@ export const ViewUser = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.map((user, index) => (
+                {currentItems.map((user, index) => (
                   <UserRow key={user.id} index={index + 1} user={user} selectedUsers={selectedUsers} toggleSelectUser={toggleSelectUser} />
                 ))}
               </tbody>
               </table>
             </div>
+            {/* Pagination */}
+            <nav>
+                  <ul className="pagination justify-content-center">
+                    {Array.from({ length: Math.ceil(filteredUsers.length / itemsPerPage) }, (_, i) => (
+                      <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                        <button onClick={() => paginate(i + 1)} className="page-link">
+                          {i + 1}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
           </div>
         </div>
       </div>
@@ -325,6 +345,18 @@ export const ViewUser = () => {
                   <div className="form-group">
                     <label>Program:</label>
                     <input type="text" className="form-control" name="program" value={newUser.program} onChange={handleInputChange} />
+                  </div>
+                  <div className="form-group">
+                    <label>Address:</label>
+                    <input type="text" className="form-control" name="address" value={newUser.address} onChange={handleInputChange} />
+                  </div>
+                  <div className="form-group">
+                    <label>Email:</label>
+                    <input type="text" className="form-control" name="email" value={newUser.email} onChange={handleInputChange} />
+                  </div>
+                  <div className="form-group">
+                    <label>Phone:</label>
+                    <input type="text" className="form-control" name="phone" value={newUser.phone} onChange={handleInputChange} />
                   </div>
                   <div className="form-group">
                     <label>Gender:</label>

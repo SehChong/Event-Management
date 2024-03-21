@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditUserModal = ({ showModal, toggleModal, updateUser, handleInputChange, handleImageChange, editingUser, clearSelectedUsers }) => {
   const [updatedUser, setUpdatedUser] = useState(editingUser);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (JSON.stringify(updatedUser) !== JSON.stringify(editingUser)) {
-        setUpdatedUser(editingUser);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [editingUser, updatedUser]);
+  const [updatedId, setUpdatedId] = useState(editingUser.id);
+  const [updatedPassword, setUpdatedPassword] = useState(editingUser.password);
 
   const handleUpdateUser = async () => {
     try {
-      await fetch(`http://localhost:8000/user/${updatedUser.id}`, {
+      // Merge updated ID and password with the rest of the user data
+      const updatedUserData = {
+        ...updatedUser,
+        id: updatedId,
+        password: updatedPassword
+      };
+
+      await fetch(`http://localhost:8000/user/${updatedUserData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updatedUser)
+        body: JSON.stringify(updatedUserData)
       });
 
-      await updateUser(updatedUser);
+      await updateUser(updatedUserData);
       toggleModal();
       clearSelectedUsers();
 
@@ -72,14 +71,42 @@ const EditUserModal = ({ showModal, toggleModal, updateUser, handleInputChange, 
                   <label>Student No:</label>
                   <input type="text" className="form-control" name="studentNo" value={updatedUser.studentNo} onChange={(e) => setUpdatedUser({ ...updatedUser, studentNo: e.target.value })} />
                 </div>
+                {/* Handle ID and password separately */}
                 <div className="form-group">
-                  <label>Role:</label>
-                  <select className="form-control" name="role" value={updatedUser.role} onChange={(e) => setUpdatedUser({ ...updatedUser, role: e.target.value })}>
-                    <option value="">Select Role</option>
-                    <option value="Student">Student</option>
-                    <option value="Lecturer">Lecturer</option>
-                  </select>
+                  <label>ID:</label>
+                  <input type="text" className="form-control" name="id" value={updatedId} onChange={(e) => setUpdatedId(e.target.value)} />
                 </div>
+                <div className="form-group">
+                  <label>Password:</label>
+                  <input type="password" className="form-control" name="password" value={updatedPassword} onChange={(e) => setUpdatedPassword(e.target.value)} />
+                </div>
+                <div className="form-group">
+                    <label>Program:</label>
+                    <input type="text" className="form-control" name="program" value={updatedUser.program} onChange={(e) => setUpdatedUser({ ...updatedUser, program: e.target.value })} />
+                  </div>
+                  <div className="form-group">
+                    <label>Address:</label>
+                    <input type="text" className="form-control" name="address" value={updatedUser.address} onChange={(e) => setUpdatedUser({ ...updatedUser, address: e.target.value })} />
+                  </div>
+                  <div className="form-group">
+                    <label>Email:</label>
+                    <input type="text" className="form-control" name="email" value={updatedUser.email} onChange={(e) => setUpdatedUser({ ...updatedUser, email: e.target.value })} />
+                  </div>
+                  <div className="form-group">
+                    <label>Phone:</label>
+                    <input type="text" className="form-control" name="phone" value={updatedUser.phone} onChange={(e) => setUpdatedUser({ ...updatedUser, phone: e.target.value })} />
+                  </div>
+                  <div className="form-group">
+                    <label>Gender:</label>
+                    <select className="form-control" name="gender" value={updatedUser.gender} onChange={(e) => setUpdatedUser({ ...updatedUser, gender: e.target.value })}>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Image:</label>
+                    <input type="file" className="form-control-file mt-3 mx-2" name="image" onChange={(e) => handleImageChange(e)} />
+                  </div>
               </form>
             </div>
             <div className="modal-footer justify-content-end border-0">

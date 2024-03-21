@@ -100,7 +100,7 @@
     },
     {
       "id": "xx",
-      "name": "xxx",
+      "name": "xxx134",
       "studentNo": "xxx",
       "role": "Lecturer",
       "password": "xxx",
@@ -110,7 +110,11 @@
       "registeredEvents": [],
       "ele1": [],
       "ele2": [],
-      "ele3": []
+      "ele3": [],
+      "address": "asdasd",
+      "email": "asd444",
+      "phone": "asd",
+      "undefined": "xxx1342"
     },
     {
       "id": "sasadsda",
@@ -128,17 +132,20 @@
     },
     {
       "id": "X",
-      "name": "Poh King Yi",
-      "studentNo": "1002058888",
+      "name": "Poh King Yixxx",
+      "studentNo": "1002058888xxx",
       "role": "Student",
       "password": "X",
-      "program": "13123",
+      "program": "13123babadsasddsaaaxxx",
       "gender": "",
       "image": null,
       "registeredEvents": [],
       "ele1": [],
       "ele2": [],
-      "ele3": []
+      "ele3": [],
+      "email": "asdasdsasdsadxxx",
+      "address": "dadsaasdxxx",
+      "phone": "34324325dasxxx"
     },
     {
       "id": "lai123",
@@ -153,6 +160,37 @@
       "ele1": [],
       "ele2": [],
       "ele3": []
+    },
+    {
+      "id": "23123",
+      "name": "Poh King Yi",
+      "studentNo": "1233132",
+      "role": "",
+      "password": "123123",
+      "program": "123123",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": []
+    },
+    {
+      "id": "12233311",
+      "name": "CHAM 11",
+      "studentNo": "1002059999",
+      "role": "Student",
+      "password": "112233311",
+      "program": "1112344522",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": [],
+      "address": "112312312",
+      "email": "123123123123",
+      "phone": "123123123"
     }
   ],
   "events": [
@@ -924,7 +962,7 @@
       "eventDate": "2024-03-14",
       "eventEndDate": "2024-03-15",
       "totalELEPoints": "15",
-      "submissionStatus": "Rejected",
+      "submissionStatus": "Approved",
       "submittedReport": true
     }
   ],
