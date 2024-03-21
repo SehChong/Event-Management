@@ -1087,6 +1087,21 @@
       "submittedReport": true
     },
     {
+      "id": "jacky1",
+      "eventId": "15dc",
+      "userId": "user1",
+      "ele": "ele1",
+      "question1": "2342342",
+      "question2": "fesfsef",
+      "question3": "fsefsef",
+      "eventName": "Testing Event Slider Jacky",
+      "eventDate": "2024-03-14",
+      "eventEndDate": "2024-03-14",
+      "totalELEPoints": "17",
+      "submissionStatus": "Approved",
+      "submittedReport": true
+    },
+    {
       "id": "6e39",
       "eventId": "41c6",
       "userId": "user1",
@@ -1114,7 +1129,7 @@
       "eventDate": "2024-03-14",
       "eventEndDate": "2024-03-15",
       "totalELEPoints": "15",
-      "submissionStatus": "Approved",
+      "submissionStatus": "Rejected",
       "submittedReport": true
     }
   ],

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsList, BsHouse, BsPerson, BsCalendar, BsBoxArrowRight } from 'react-icons/bs';
+import { BsList, BsHouse, BsPerson, BsCalendar, BsBoxArrowRight, BsFillArchiveFill } from 'react-icons/bs';
 import { CSSTransition } from 'react-transition-group'; 
 import '../Assets/Styles/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +31,10 @@ export const Dashboard = () => {
 
   const navigateManageEvent = () => {
     navigate("/ManageEvent");
+  };
+
+  const navigateManageReport = () => {
+    navigate("/ManageReport");
   };
 
   const logout = () => {
@@ -71,6 +75,11 @@ export const Dashboard = () => {
               <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
                 <a className="nav-link text-dark sb-hover" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={navigateManageEvent}>
                   <BsCalendar /> Manage Event
+                </a>
+              </li>
+              <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>
+                <a className="nav-link text-dark sb-hover" href="#" style={{ padding: '10px', borderRadius: '5px', cursor: 'pointer' }} onClick={navigateManageReport}>
+                  <BsFillArchiveFill /> Manage Reports
                 </a>
               </li>
               <li className="nav-item sb-hover" style={{ margin: '10px 0' }}>

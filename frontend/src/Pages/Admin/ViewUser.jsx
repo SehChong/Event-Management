@@ -11,7 +11,7 @@ const capitalizeFirstLetter = (str) => {
 };
 
 const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
-  <tr>
+  <tr style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : 'white' }}>
     <td>{index}</td>
     <td className="pl-4">
       <img src={user.image} alt={user.name} className="rounded-circle" style={{ width: '50px', height: '50px' }} />
@@ -21,38 +21,34 @@ const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
       <h5 className="font-medium mb-0">{capitalizeFirstLetter(user.name)}</h5>
     </td>
     <td>{capitalizeFirstLetter(user.role)}</td>
-      <td>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={user.ele1 && user.ele1.length > 0}
-              onChange={() => {}}
-            />
-            ELE 1
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={user.ele2 && user.ele2.length > 0}
-              onChange={() => {}}
-            />
-            ELE 2
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={user.ele3 && user.ele3.length > 0}
-              onChange={() => {}}
-            />
-            ELE 3
-          </label>
-        </div>
-      </td>    
+    <td className='text-center'>
+      <label>
+        <input
+          type="checkbox"
+          checked={user.ele1 && user.ele1.length > 0}
+          onChange={() => {}}
+        />
+        ELE 1
+      </label>
+      <br />
+      <label>
+        <input
+          type="checkbox"
+          checked={user.ele2 && user.ele2.length > 0}
+          onChange={() => {}}
+        />
+        ELE 2
+      </label>
+      <br />
+      <label>
+        <input
+          type="checkbox"
+          checked={user.ele3 && user.ele3.length > 0}
+          onChange={() => {}}
+        />
+        ELE 3
+      </label>
+    </td>
     <td style={{width:'30%'}}>
       <details>
         <summary >Show Details</summary>
@@ -67,11 +63,12 @@ const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
         </ul>
       </details>
     </td>
-    <td>
+    <td className='text-center'>
       <input type="checkbox" onChange={() => toggleSelectUser(user.id)} checked={selectedUsers.includes(user.id)} />
     </td>
   </tr>
 );
+
 
 export const ViewUser = () => {
   const [users, setUsers] = useState([]);
@@ -266,7 +263,7 @@ export const ViewUser = () => {
               </div>
             </div>
             <div className="table-responsive">
-              <table className="table no-wrap user-table mb-0 rounded">
+            <table className="table table-sm table-striped">
               <thead>
                 <tr>
                   <th scope="col" className="border-0 text-uppercase font-medium">Index</th>
@@ -350,14 +347,16 @@ export const ViewUser = () => {
           </div>
         </div>
       )}
+
     {showDeleteModal && (
       <DeleteConfirmationModal
-        selectedUsers={selectedUsers}
+        selectedUsers={selectedUsers} // Pass the selectedUsers array containing user objects
         onDeleteConfirm={handleDeleteConfirm}
-        onClose={toggleDeleteModal} // Pass toggleDeleteModal as the onClose prop
-        toggle={toggleDeleteModal} // Pass toggleDeleteModal as the toggle prop
+        onClose={toggleDeleteModal}
+        toggle={toggleDeleteModal}
       />
     )}
+
     {showModal && <div className="modal-backdrop fade show"></div>}
     {showEditModal && editUserId && (
       <EditUserModal

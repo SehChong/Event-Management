@@ -16,6 +16,7 @@ import { HomePage } from './Pages/Admin/HomePage';
 import { ViewUser } from './Pages/Admin/ViewUser';
 import { AccordionQuestion } from './Components/AccordionQuestion';
 import { JoinedEvents } from './Pages/JoinedEvents';
+import { ReportsReview } from './Pages/Admin/ReportsReview';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/adminHome" element={<HomePage />} />
         <Route path="/ManageUsers" element={<ViewUser />} />
         <Route path="/ManageEvent" element={<EventValidation />} />
+        <Route path="/ManageReport" element={<ReportsReview />} />
         <Route path="/accordion-questions" element={<AccordionQuestion />} />
         <Route path="/registeredEvent" element={<JoinedEvents />} />
       </Routes>
