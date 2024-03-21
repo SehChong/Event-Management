@@ -50,7 +50,7 @@ export const Dashboard = () => {
         classNames="sidebar"
         unmountOnExit
       >
-        <div className="sidebar-container bg-light text-dark">
+        <div className="sidebar-container bg-secondary text-dark">
           <div className="sidebar">
             <ul className="nav flex-column">
               {/* Sidebar content */}
