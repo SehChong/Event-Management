@@ -112,7 +112,7 @@ export const Profile = () => {
               ) {
                   const currentDate = new Date();
                   const eventEndDate = new Date(event.eventEndDate);
-                  const daysDifference = Math.floor((currentDate - eventEndDate) / (1000 * 60 * 60 * 24));
+                  const daysDifference = Math.floor((currentDate - eventEndDate) / (1000 * 60 * 60 * 24 * 7));
                   return eventEndDate < currentDate && daysDifference <= 8;
               }
               return false;
