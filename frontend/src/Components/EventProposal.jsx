@@ -87,7 +87,8 @@ export const EventProposal = ({ onFilterChange }) => {
     navigate('/eventForm');
   };
 
-  const handleDeleteProposal = async (id) => {
+  const handleDeleteProposal = async (id, status) => {
+    if (status !== "Approved" && status !== "Rejected") {
     const response = await fetch(`http://localhost:8000/events/${id}`, {
       method: 'DELETE',
       headers: {
@@ -100,10 +101,13 @@ export const EventProposal = ({ onFilterChange }) => {
     } else {
       console.log('Error:', data);
     }
+  }
   };
 
   const handleEditProposal = (proposal) => {
-    navigate('/eventForm', { state: { proposal } });
+    if (proposal.status !== "Approved" && proposal.status !== "Rejected") {
+      navigate('/eventForm', { state: { proposal } });
+    }
   };
   
   const handlePrintProposal = (event) => {
@@ -197,7 +201,7 @@ export const EventProposal = ({ onFilterChange }) => {
                           <IconButton variant="info" onClick={() => handleEditProposal(proposal)} className="mb-2 px-2">
                             <FiEdit /> Edit
                           </IconButton>
-                          <IconButton variant="danger" onClick={() => handleDeleteProposal(proposal.id)} className="mb-2 px-2">
+                          <IconButton variant="danger" onClick={() => handleDeleteProposal(proposal.id, proposal.status)} disabled={proposal.status === "Approved" || proposal.status === "Rejected"} className="mb-2 px-2">
                             <FiTrash2 /> Delete
                           </IconButton>
                         </ButtonGroup>
