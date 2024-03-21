@@ -21,10 +21,41 @@ const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
       <h5 className="font-medium mb-0">{capitalizeFirstLetter(user.name)}</h5>
     </td>
     <td>{capitalizeFirstLetter(user.role)}</td>
-    <td></td>
-    <td>
+      <td>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={user.ele1 && user.ele1.length > 0}
+              onChange={() => {}}
+            />
+            ELE 1
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={user.ele2 && user.ele2.length > 0}
+              onChange={() => {}}
+            />
+            ELE 2
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={user.ele3 && user.ele3.length > 0}
+              onChange={() => {}}
+            />
+            ELE 3
+          </label>
+        </div>
+      </td>    
+    <td style={{width:'30%'}}>
       <details>
-        <summary>Show Details</summary>
+        <summary >Show Details</summary>
         <ul>
           {user.id && <li>Username: {user.id}</li>}
           {user.password && <li>Password: {user.password}</li>}
@@ -243,7 +274,7 @@ export const ViewUser = () => {
                   <th scope="col" className="border-0 text-uppercase font-medium">Student No</th>
                   <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
                   <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Blank</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium">ELE</th>
                   <th scope="col" className="border-0 text-uppercase font-medium">Details</th>
                   <th scope="col" className="border-0 text-uppercase font-medium">Select</th>
                 </tr>
