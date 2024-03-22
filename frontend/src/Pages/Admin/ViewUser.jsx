@@ -3,6 +3,8 @@ import { Dashboard } from '../../Components/Dashboard';
 import '../../Assets/Styles/ViewUser.css';
 import DeleteConfirmationModal from '../../Components/DeleteConfirmationModal'; // Import the confirmation modal component
 import EditUserModal from '../../Components/EditUserModal'; // Import the EditUserModal component
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 
 const capitalizeFirstLetter = (str) => {
@@ -89,6 +91,7 @@ export const ViewUser = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
+    
   };
 
   const handleImageChange = (e) => {
@@ -120,11 +123,11 @@ export const ViewUser = () => {
       setUsers([...users, newUser]);
       toggleModal();
       setShowModal(false);
-      //toast.success("User added successfully");
+      toast.success("User added successfully");
     })
     .catch(error => {
       console.error('Error adding user:', error);
-      //toast.error("Failed to add user");
+      toast.error("Failed to add user");
     });
   };
 
@@ -144,11 +147,9 @@ export const ViewUser = () => {
       setUsers(updatedUsers);
       setSelectedUsers([]); // Clear selected users after deletion
       setShowDeleteModal(false); // Close the delete confirmation modal
-      //toast.success("User(s) deleted successfully"); // Show success toast here
     })
     .catch(error => {
       console.error('Error deleting user(s):', error);
-      //toast.error("Failed to delete user(s)");
     });
   };
 
@@ -240,6 +241,10 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
             {user.id && <li>Username: {user.id}</li>}
             {user.password && <li>Password: {user.password}</li>}
             {user.program && <li>Program: {user.program}</li>}
+            {user.address && <li>Address: {user.address}</li>}
+            {user.email && <li>Email: {user.email}</li>}
+            {user.phone && <li>Phone: {user.phone}</li>}
+            {user.gender && <li>Gender: {user.gender}</li>}
             {user.registeredEvents && user.registeredEvents.length > 0 && <li>Registered Events: {user.registeredEvents.join(', ')}</li>}
             {user.ele1 && <li>ELE 1: {user.ele1.join(', ')}</li>}
             {user.ele2 && <li>ELE 2: {user.ele2.join(', ')}</li>}

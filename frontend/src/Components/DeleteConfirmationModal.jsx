@@ -1,10 +1,20 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Inside the DeleteConfirmationModal component
 const DeleteConfirmationModal = ({ selectedUsers, onDeleteConfirm, onClose, toggle }) => {
-  const handleDeleteConfirm = () => {
-    onDeleteConfirm(selectedUsers);
-    onClose();
+  const handleDeleteConfirm = async () => {
+    try {
+      await onDeleteConfirm(selectedUsers);
+      onClose();
+
+      // Show toast notification upon successful deletion
+      toast.success('User(s) deleted successfully');
+    } catch (error) {
+      console.error('Error deleting user(s):', error);
+      toast.error('Error deleting user(s)');
+    }
   };
 
   return (
