@@ -43,9 +43,9 @@ export const SubmitReportModal = ( {userId} ) => {
                     const timeDifference = currentDate.getTime() - eventEndDate.getTime();
                     let submissionStatus;
                     if (timeDifference <= 7 * 24 * 60 * 60 * 1000) {
-                        submissionStatus = event.submittedReport ? "Approved" : "Ongoing";
+                        submissionStatus = event.submittedReport ? "Pending" : "Pending";
                     } else {
-                        submissionStatus = "Rejected";
+                        submissionStatus = event.submittedReport ? "Approved" : "Rejected";
                     }
                     return {
                         event: event.id,
@@ -103,7 +103,7 @@ export const SubmitReportModal = ( {userId} ) => {
     switch (submissionStatus) {
       case "Approved":
         return "text-success";
-      case "Ongoing":
+      case "Pending":
         return "text-warning";
       case "Rejected":
         return "text-danger";

@@ -23,27 +23,73 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
     });
   };
 
-  const updateSubmissionStatus = (status) => {
-    fetch(`http://localhost:8000/reports/${report.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ submissionStatus: status }), // Only include submissionStatus
-    })
-      .then(response => response.json())
-      .then(updatedReport => {
-        // Handle successful update
-        console.log(`Report has been ${status}`);
+  const updateSubmissionStatus = async (status) => {
+    try {
+        const response = await fetch(`http://localhost:8000/reports/${report.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ submissionStatus: status }), // Only include submissionStatus
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update report status');
+        }
+
+        const updatedReport = await response.json();
+
+        // Update ELE points if the report is approved
+        if (status === 'Approved') {
+            const eleIndex = updatedReport.ele.charAt(updatedReport.ele.length - 1);
+            const eleKey = `ele${eleIndex}`;
+
+            const userDataResponse = await fetch(`http://localhost:8000/user/${updatedReport.userId}`);
+            if (!userDataResponse.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+
+            const userData = await userDataResponse.json();
+
+            // Check if the selected ELE option is registered
+            if (userData[eleKey][2] === 'Registered') {
+                // Increment ELE points based on selected option
+                const updatedELE = [...userData[eleKey]];
+                updatedELE[1] = parseInt(updatedELE[1]) + parseInt(updatedReport.totalELEPoints); // Parse to integers and add points
+
+                // Update formData with the updated ELE points
+                userData[eleKey] = updatedELE;
+
+                // Send PUT request to update user object with new ELE points
+                const userUpdateResponse = await fetch(`http://localhost:8000/user/${updatedReport.userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (!userUpdateResponse.ok) {
+                    throw new Error('Failed to update user data');
+                }
+            } else {
+                throw new Error(`ELE ${eleIndex} is not registered yet.`);
+            }
+        }
+
+        // Show toast notification
+        // toast.success(`Report has been Approved`, {
+        //     autoClose: 3000, // Close the notification after 3 seconds
+        // });
+
         setIsSubmitting(false);
         onClose(); // Close the modal after submission
         updateReportSubmissionStatus(updatedReport); // Call the function to update the report in parent component
-      })
-      .catch(error => {
+    } catch (error) {
         console.error('Error updating submission status:', error);
         setIsSubmitting(false);
-      });
-  };
+    }
+};
 
   useEffect(() => {
     const interval = setInterval(() => {

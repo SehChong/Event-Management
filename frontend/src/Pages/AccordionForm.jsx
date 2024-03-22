@@ -87,7 +87,7 @@ export const AccordionForm = () => {
   
           const updatedFormData = {
               ...formData,
-              submissionStatus: "Approved",
+              submissionStatus: "Pending",
               submittedReport: true
           };
           setFormData(updatedFormData);
@@ -140,60 +140,34 @@ export const AccordionForm = () => {
 
     // Function to handle saving ELE points and navigate back
     const handleSaveELEPoints = async () => {
-        try {
-            if (!eventDetails) {
+      try {
+          if (!eventDetails) {
               console.error('Event details not found');
               return;
-            }
-
-            // Check if eventDetails contains the totalELEPoints property
-            if (!eventDetails.hasOwnProperty('totalELEPoints')) {
-                console.error('totalELEPoints not found in event details');
-                return;
-            }
-
-            const eleIndex = selectedELE.charAt(selectedELE.length - 1); // Extract ELE index (1, 2, or 3)
-            const eleKey = `ele${eleIndex}`;
-    
-            // Fetch user data to get the current ELE points
-            const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-            const userData = await response.json();
-    
-            // Check if the selected ELE option is registered
-            if (userData[eleKey][2] === 'Registered') {
-                // Increment ELE points based on selected option
-                const updatedELE = [...userData[eleKey]];
-                updatedELE[1] = parseInt(updatedELE[1]) + parseInt(eventDetails.totalELEPoints); // Parse to integers and add points
-                // updatedELE[2] = 'Registered';
-                // updatedELE[3] = eventDetails.eventName; // Assuming you want to store the event name
-    
-                // Update formData with the updated ELE points
-                userData[eleKey] = updatedELE;
-    
-                // Send PUT request to update user object with new ELE points
-                const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userData)
-                });
-    
-                if (!response.ok) {
-                    throw new Error('Failed to update user data');
-                }
-                // If successful, navigate to the previous page
-                navigate(-1);
-            } else {
-                alert(`ELE ${eleIndex} is not registered yet.`);
-            }
-        } catch (error) {
-            console.error('Error updating user data:', error);
-        }
-    };
+          }
+  
+          const eleIndex = selectedELE.charAt(selectedELE.length - 1); // Extract ELE index (1, 2, or 3)
+          const eleKey = `ele${eleIndex}`;
+  
+          // Fetch user data to get the current ELE registration status
+          const response = await fetch(`http://localhost:8000/user/${sessionStorage.getItem("username")}`);
+          if (!response.ok) {
+              throw new Error('Failed to fetch user data');
+          }
+          const userData = await response.json();
+  
+          // Check if the selected ELE option is registered
+          if (userData[eleKey][2] === 'Registered') {
+              // If registered, navigate to the previous page
+              navigate(-1);
+          } else {
+              // If not registered, prompt an alert message
+              alert(`ELE ${eleIndex} is not registered yet.`);
+          }
+      } catch (error) {
+          console.error('Error checking ELE registration:', error);
+      }
+  };
 
   const handleSaveAndSubmit = async () => {
       await handleSaveELEPoints(); // First, handle ELE points saving

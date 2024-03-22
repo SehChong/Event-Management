@@ -237,7 +237,7 @@ export const HomePage = () => {
       <div style={{ width: '20%' }}>
         <Dashboard />
       </div>
-      <div className="w-75 mt-5" style={{ position: 'relative' }}>
+      <div className="w-75 mt-3" style={{ position: 'relative' }}>
         <div className="d-flex justify-content-start m-4 gap-4">
           <div className="card" style={{ width: '25%' }}>
             <div className="card-body rounded bg-secondary text-light">
@@ -285,7 +285,7 @@ export const HomePage = () => {
           </div>
         </div>
 
-        <div className="d-flex justify-content-around m-4 gap-4" style={{height:300}}>
+        <div className="d-flex justify-content-around m-4 gap-4">
           <div className="card" style={{ width: '50%' }}>
             <div className="card-body rounded bg-dark">
               <canvas ref={reportsBarChartRef}></canvas>
