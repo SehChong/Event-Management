@@ -138,6 +138,7 @@ export const SubmitReportModal = ( {userId} ) => {
       </thead>
       <tbody>
         {currentItems.map((event, index) => {
+        const isButtonDisabled = event.submittedReport || event.submissionStatus === "Rejected";
         return (
             <tr key={event.id}>
               <td>{index + 1 + (currentPage - 1) * itemsPerPage}</td>
@@ -148,14 +149,14 @@ export const SubmitReportModal = ( {userId} ) => {
               <td className={getStatusColor(event.submissionStatus)}>{event.submissionStatus}</td>
               <td>{event.submittedReport ? "Yes" : "No"}</td>
               <td>
-              {!event.submittedReport ? (
-                  <Button variant="primary" onClick={() => handleSubmit(event)}>
-                      <HiDocument />
-                  </Button>
-               ) : (
-                  <Button variant="primary" disabled>
-                      <HiDocument />
-                  </Button>
+              {!isButtonDisabled ? (
+                <Button variant="primary" onClick={() => handleSubmit(event)}>
+                  <HiDocument />
+                </Button>
+              ) : (
+                <Button variant="primary" disabled>
+                  <HiDocument />
+                </Button>
               )}
               </td>
             </tr>

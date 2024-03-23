@@ -16,7 +16,7 @@ export const Back = ({to}) => {
 
   return (
     <>
-        <Navbar bg="light" expand="lg" sticky="top" style={{height:120}}>
+        <Navbar bg="light" expand="lg" sticky="top" style={{height:100}}>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav " className='flex-grow-0 fs-3 p-5'>
                     <Nav className="me-auto">

@@ -182,9 +182,9 @@ export const ActivitiesCard = () => {
       <button class='btn btn-primary btn-lg'variant="primary" onClick={toggleReportModal}>
         Submit Report
       </button>
-      <MDBBtn variant="primary" onClick={resetEle1Points}>
+      {/* <MDBBtn variant="primary" onClick={resetEle1Points}>
       Reset Points for ELE 1
-      </MDBBtn>
+      </MDBBtn> */}
 
     <CardContainer className='gap-5'>
       <CardWrapper>

@@ -101,7 +101,7 @@ export const ClubForm = () => {
   return (
     <Container className="p-5 m-1 mx-auto bg-light rounded mt-5">
       <Row>
-        <Col className="bg-danger p-5 rounded">
+        <Col className="bg-danger p-3 rounded">
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md={4} className="d-flex align-items-center justify-content-center bg-danger p-5">
@@ -139,7 +139,7 @@ export const ClubForm = () => {
                 </Form.Group>
               </Col>
 
-              <Col md={8} className="bg-danger p-5">
+              <Col md={8} className="bg-danger p-3">
                 <Form.Group controlId="formName">
                   <Form.Label>Name of Club / Society</Form.Label>
                   <Form.Control type="text" name="name" value={formData.name} onChange={handleInputChange} />
@@ -191,7 +191,7 @@ export const ClubForm = () => {
               </Col>
             </Row>
 
-            <div className="d-flex justify-content-end mt-4">
+            <div className="d-flex justify-content-end mt-3">
               <Button variant="secondary" className="me-5">
                 Cancel
               </Button>

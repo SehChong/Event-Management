@@ -139,7 +139,7 @@ export const ClubProposal = ({ onFilterChange }) => {
     <Container fluid className="my-5" style={{ height: '110vh', overflowY: 'auto' }}>
       <Row className="h-100">
         {/* Student info card */}
-        <Col md={4} className="h-100 d-flex flex-column justify-content-center">
+        <Col md={4} className="h-75 d-flex flex-column justify-content-center">
           <Card className="h-100 shadow-sm rounded">
             <Card.Body>
                 {/* Student info content */}
@@ -156,7 +156,7 @@ export const ClubProposal = ({ onFilterChange }) => {
           </Card>
         </Col>
         {/* Club proposals table */}
-        <Col md={8} className="h-100">
+        <Col md={8} className="h-75">
           <Card className="h-100 shadow-sm rounded">
             <Card.Body className="h-100 d-flex flex-column">
               {/* Filter dropdown */}
