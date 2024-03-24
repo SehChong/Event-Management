@@ -51,12 +51,12 @@ export const Dashboard = () => {
         unmountOnExit
       >
         <div className="sidebar-container bg-secondary text-dark">
-          <div className="sidebar">
-            <ul className="nav flex-column">
+          <div className="sidebar" style={{ height: '100%'}}>
+            <ul className="nav flex-column" >
               {/* Sidebar content */}
               <li className="nav-item">
                 <div className="media align-items-center">
-                  <img src="https://placehold.jp/150x150.png" alt="User Icon" className="mr-3 mt-4" style={{ width: '200px', height: '200px' }} />
+                  <img src="https://placehold.jp/150x150.png" alt="User Icon" className="mr-3 mt-4" style={{ width: '200px'}} />
                   <div className="media-body mt-3 mb-4">
                     <h5 className="mt-0 d-flex justify-content-center">{username}</h5>
                   </div>

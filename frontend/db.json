@@ -122,7 +122,7 @@
     },
     {
       "id": "sasadsda",
-      "name": "asdsss",
+      "name": "XXXX",
       "studentNo": "asdasdsad",
       "role": "",
       "password": "sadsdsa",
@@ -229,21 +229,68 @@
       "phone": "12123"
     },
     {
-      "id": "asdasdasd",
-      "name": "HIas",
-      "studentNo": "dasdasdasd",
+      "id": "dasdasd",
+      "name": "ys",
+      "studentNo": "asda",
       "role": "",
-      "password": "asdassad",
-      "program": "sadadsdsa",
+      "password": "sadas",
+      "program": "dasdad",
       "gender": "",
       "image": null,
       "registeredEvents": [],
-      "ele1": [],
-      "ele2": [],
-      "ele3": [],
-      "address": "sadsda",
-      "email": "sadsdad",
-      "phone": "sadsda"
+      "ele1": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele2": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele3": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "address": "dasdasd",
+      "email": "dasda",
+      "phone": "sdasd"
+    },
+    {
+      "name": "12",
+      "studentNo": "323",
+      "role": "Student",
+      "id": "qweqwe",
+      "password": "3",
+      "program": "qweqwe",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele2": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele3": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "address": "qweqw",
+      "email": "eqweqwe",
+      "phone": "qweqwe"
     }
   ],
   "events": [

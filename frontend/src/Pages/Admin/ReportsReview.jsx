@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Dashboard } from '../../Components/Dashboard';
 import { ViewReports } from '../../Components/ViewReports';
 
+const capitalizeFirstLetter = (str) => {
+  if (!str) return '';
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 export const ReportsReview = () => {
   const [reports, setReports] = useState([]);
   const [filterELE, setFilterELE] = useState('All');
@@ -103,7 +108,7 @@ export const ReportsReview = () => {
                           <td className='text-center'>{report.eventDate}</td>
                           <td className='text-center'>{report.totalELEPoints}</td>
                           <td className='text-center'>{report.submissionStatus}</td>
-                          <td className='text-center'>{report.submittedReport ? report.submittedReport.toString() : ''}</td>
+                          <td className='text-center'>{capitalizeFirstLetter(report.submittedReport ? report.submittedReport.toString() : '')}</td>
                           <td className='text-center'>
                             <button className="btn btn-success" onClick={() => handleViewReport(report)}>View</button>
                           </td>

@@ -265,7 +265,7 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   
 
   return (
-    <div className="d-flex bg-light" style={{ height: '100vh' }}>
+    <div className="d-flex bg-light" style={{ height: '100%' }}>
       <div style={{ width: "15%" }}><Dashboard /></div>
       <div className="container my-4">
         <div className="table-container">

@@ -12,6 +12,12 @@ const EditUserModal = ({ showModal, toggleModal, updateUser, handleImageChange, 
   }, [editingUser]);
 
   const handleUpdateUser = async () => {
+    // Validation for required fields
+    if (!updatedUser.name || !updatedUser.studentNo || !updatedPassword) {
+      toast.error('Please enter Name, Student No, and Password');
+      return;
+    }
+
     try {
       const updatedUserData = {
         ...updatedUser,
@@ -38,7 +44,6 @@ const EditUserModal = ({ showModal, toggleModal, updateUser, handleImageChange, 
       toast.error('Error updating user');
     }
   };
-  
 
   return (
     <div>
@@ -70,15 +75,15 @@ const EditUserModal = ({ showModal, toggleModal, updateUser, handleImageChange, 
             <div className="modal-body">
               <form>
                 <div className="form-group">
-                  <label>Name:</label>
+                  <label>* Name:</label>
                   <input type="text" className="form-control" name="name" value={updatedUser.name} onChange={(e) => setUpdatedUser({ ...updatedUser, name: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Student No:</label>
+                  <label>* Student No:</label>
                   <input type="text" className="form-control" name="studentNo" value={updatedUser.studentNo} onChange={(e) => setUpdatedUser({ ...updatedUser, studentNo: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Password:</label>
+                  <label>* Password:</label>
                   <input type="password" className="form-control" name="password" value={updatedPassword} onChange={(e) => setUpdatedPassword(e.target.value)} />
                 </div>
                 <div className="form-group">
