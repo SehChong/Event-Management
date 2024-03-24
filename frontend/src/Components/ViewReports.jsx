@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleApprove = (status) => {
+  const handleApprove = () => {
     setIsSubmitting(true);
     updateSubmissionStatus('Approved');
     // Show toast notification
@@ -14,7 +14,7 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
     });
   };
 
-  const handleReject = (status) => {
+  const handleReject = () => {
     setIsSubmitting(true);
     updateSubmissionStatus('Rejected');
     // Show toast notification for error
@@ -77,11 +77,6 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
             }
         }
 
-        // Show toast notification
-        // toast.success(`Report has been Approved`, {
-        //     autoClose: 3000, // Close the notification after 3 seconds
-        // });
-
         setIsSubmitting(false);
         onClose(); // Close the modal after submission
         updateReportSubmissionStatus(updatedReport); // Call the function to update the report in parent component
@@ -89,7 +84,7 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
         console.error('Error updating submission status:', error);
         setIsSubmitting(false);
     }
-};
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -97,7 +92,7 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
     }, 60000); // Refresh data every 1 minute (adjust interval as needed)
 
     return () => clearInterval(interval); // Cleanup interval on unmount
-  }, []); // Run effect only once on component mount
+  }, []);
 
   return (
     <div>
@@ -137,8 +132,8 @@ export const ViewReports = ({ report, onClose, updateReportSubmissionStatus }) =
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={isSubmitting ? null : onClose}>Close</button>
-              <button type="button" className="btn btn-danger" onClick={handleReject} disabled={isSubmitting}>Reject</button>
-              <button type="button" className="btn btn-success" onClick={handleApprove} disabled={isSubmitting}>Approve</button>
+              <button type="button" className="btn btn-danger" onClick={handleReject} disabled={isSubmitting || report.submissionStatus !== 'Pending'}>Reject</button>
+              <button type="button" className="btn btn-success" onClick={handleApprove} disabled={isSubmitting || report.submissionStatus !== 'Pending'}>Approve</button>
             </div>
           </div>
         </div>

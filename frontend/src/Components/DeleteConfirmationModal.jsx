@@ -2,14 +2,13 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Inside the DeleteConfirmationModal component
-const DeleteConfirmationModal = ({ selectedUsers, onDeleteConfirm, onClose, toggle }) => {
+const DeleteConfirmationModal = ({ selectedUsers = [], onDeleteConfirm, onClose, toggle }) => {
+  console.log('Selected Users:', selectedUsers); // Debugging
+
   const handleDeleteConfirm = async () => {
     try {
       await onDeleteConfirm(selectedUsers);
       onClose();
-
-      // Show toast notification upon successful deletion
       toast.success('User(s) deleted successfully');
     } catch (error) {
       console.error('Error deleting user(s):', error);
@@ -19,7 +18,6 @@ const DeleteConfirmationModal = ({ selectedUsers, onDeleteConfirm, onClose, togg
 
   return (
     <div>
-      {/* Dark semi-transparent background */}
       <div
         className="modal-overlay"
         style={{
@@ -28,13 +26,12 @@ const DeleteConfirmationModal = ({ selectedUsers, onDeleteConfirm, onClose, togg
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the alpha value to control transparency
-          zIndex: 1000, // Ensure it's below the modal content
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 1000,
         }}
         onClick={onClose}
       ></div>
 
-      {/* Modal content */}
       <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', zIndex: 1001 }}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -46,10 +43,9 @@ const DeleteConfirmationModal = ({ selectedUsers, onDeleteConfirm, onClose, togg
             </div>
             <div className="modal-body">
               <p>Are you sure you want to delete the selected user(s)?</p>
-              {/* Display selected user names */}
               <ul>
                 {selectedUsers.map(user => (
-                  <li key={user}>{user}</li> // Assuming each user object has an ID and name property
+                  <li key={user}>{user}</li>
                 ))}
               </ul>
             </div>

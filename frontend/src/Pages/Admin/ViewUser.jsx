@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Dashboard } from '../../Components/Dashboard';
 import '../../Assets/Styles/ViewUser.css';
+import AddUserModal from '../../Components/AddUserModal';
 import DeleteConfirmationModal from '../../Components/DeleteConfirmationModal'; // Import the confirmation modal component
 import EditUserModal from '../../Components/EditUserModal'; // Import the EditUserModal component
+import { ViewELE } from '../../Components/ViewELE';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
@@ -23,6 +25,7 @@ export const ViewUser = () => {
   const [editUserId, setEditUserId] = useState(null); // State to keep track of which user is being edited
   const [currentPage, setCurrentPage] = useState(1); // Current page of pagination
   const [itemsPerPage] = useState(5); // Number of items per page
+  const [showELEModal, setShowELEModal] = useState(false);
   const [newUser, setNewUser] = useState({
     name: '',
     studentNo: '',
@@ -69,8 +72,9 @@ export const ViewUser = () => {
   });
 
   const toggleModal = () => {
-    // Reset newUser state when closing the modal
-    const resetNewUser = {
+    setShowModal(!showModal);
+    // Reset newUser state when opening the modal
+    setNewUser({
       name: '',
       studentNo: '',
       role: '',
@@ -83,9 +87,7 @@ export const ViewUser = () => {
       ele1: [],
       ele2: [],
       ele3: []
-    };
-    setNewUser(showModal ? resetNewUser : newUser);
-    setShowModal(!showModal);
+    });
   };
 
   const handleInputChange = (e) => {
@@ -105,12 +107,19 @@ export const ViewUser = () => {
       return;
     }
   
+    const newUserWithELE = {
+      ...newUser,
+      ele1: ["None", 0, "Unregistered", ""],
+      ele2: ["None", 0, "Unregistered", ""],
+      ele3: ["None", 0, "Unregistered", ""]
+    };
+  
     fetch('http://localhost:8000/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(newUserWithELE) // Send the newUserWithELE object in the request body
     })
     .then(response => {
       if (!response.ok) {
@@ -120,16 +129,32 @@ export const ViewUser = () => {
     })
     .then(data => {
       // If the request is successful, update the state and close the modal
-      setUsers([...users, newUser]);
+      setUsers([...users, newUserWithELE]);
       toggleModal();
       setShowModal(false);
       toast.success("User added successfully");
+  
+      // Clear input fields after adding user
+      setNewUser({
+        name: '',
+        studentNo: '',
+        role: '',
+        id: '',
+        password: '',
+        program: '',
+        gender: '', // Made it required
+        image: null, // Modified to handle file
+        registeredEvents: [],
+        ele1: [],
+        ele2: [],
+        ele3: []
+      });
     })
     .catch(error => {
       console.error('Error adding user:', error);
       toast.error("Failed to add user");
     });
-  };
+  };     
 
   const deleteUser = () => {
     fetch(`http://localhost:8000/user/${selectedUsers}`, {
@@ -184,6 +209,14 @@ export const ViewUser = () => {
   
   const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
 
+  const handleViewELE = (userId) => {
+    const selectedUser = users.find(user => user.id === userId);
+    if (selectedUser) {
+      setNewUser(selectedUser); // Assuming `setNewUser` updates the state to show in the modal
+      setShowELEModal(true); // Open the modal to view ELE
+    }
+  };  
+
   const clearSelectedUsers = () => {
     setSelectedUsers([]);
   };  
@@ -198,45 +231,17 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const UserRow = ({ index, user, selectedUsers, toggleSelectUser }) => (
     <tr style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : 'white' }}>
     <td className='text-center'>{indexOfFirstItem + index}</td>
-      <td className="pl-4">
+      <td className="pl-4 text-center">
         <img src={user.image} alt={user.name} className="rounded-circle" style={{ width: '50px', height: '50px' }} />
       </td>
-      <td>{user.studentNo}</td>
-      <td>
+      <td className='text-center'>{user.studentNo}</td>
+      <td className='text-center'>
         <h5 className="font-medium mb-0">{capitalizeFirstLetter(user.name)}</h5>
       </td>
-      <td>{capitalizeFirstLetter(user.role)}</td>
-      <td className='text-center'>
-        <label>
-          <input
-            type="checkbox"
-            checked={user.ele1 && user.ele1.length > 0}
-            onChange={() => {}}
-          />
-          ELE 1
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            checked={user.ele2 && user.ele2.length > 0}
-            onChange={() => {}}
-          />
-          ELE 2
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            checked={user.ele3 && user.ele3.length > 0}
-            onChange={() => {}}
-          />
-          ELE 3
-        </label>
-      </td>
-      <td style={{width:'30%'}}>
+      <td className='text-center'>{capitalizeFirstLetter(user.role)}</td>
+      <td style={{width:'20%'}}>
         <details>
-          <summary >Show Details</summary>
+          <summary className='text-center'>Show Details</summary>
           <ul>
             {user.id && <li>Username: {user.id}</li>}
             {user.password && <li>Password: {user.password}</li>}
@@ -245,18 +250,19 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
             {user.email && <li>Email: {user.email}</li>}
             {user.phone && <li>Phone: {user.phone}</li>}
             {user.gender && <li>Gender: {user.gender}</li>}
-            {user.registeredEvents && user.registeredEvents.length > 0 && <li>Registered Events: {user.registeredEvents.join(', ')}</li>}
-            {user.ele1 && <li>ELE 1: {user.ele1.join(', ')}</li>}
-            {user.ele2 && <li>ELE 2: {user.ele2.join(', ')}</li>}
-            {user.ele3 && <li>ELE 3: {user.ele3.join(', ')}</li>}
+
           </ul>
         </details>
       </td>
       <td className='text-center'>
-        <input type="checkbox" onChange={() => toggleSelectUser(user.id)} checked={selectedUsers.includes(user.id)} />
+        <button className="btn btn-success" onClick={() => handleViewELE(user.id)}>View</button> 
       </td>
+      <td className='text-center'>
+        <input type="checkbox" onChange={() => toggleSelectUser(user.id)} checked={selectedUsers.includes(user.id)} />
+      </td>      
     </tr>
   );
+  
 
   return (
     <div className="d-flex bg-light" style={{ height: '100vh' }}>
@@ -270,7 +276,7 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
                 <input type="text" className="form-control" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
               </div>
               <div>
-                <button className={`btn btn-primary mx-3 ${showModal ? 'disabled' : ''}`} onClick={toggleModal}>Add User</button>
+              <button className={`btn btn-primary mx-3 ${showModal || selectedUsers.length > 0 ? 'disabled' : ''}`} onClick={toggleModal}>Add User</button>
                 <button className={`btn btn-danger mx-3 ${isDeleteButtonClickable ? '' : 'disabled'}`} onClick={toggleDeleteModal}>Delete User</button>
                 <button className={`btn btn-secondary mx-3 ${selectedUsers.length === 1 ? '' : 'disabled'}`} onClick={() => handleEditUser(selectedUsers[0])}>Edit User</button>
               </div>
@@ -279,19 +285,19 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
             <table className="table table-sm table-striped">
               <thead>
                 <tr>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Index</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Image</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Student No</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">ELE</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Details</th>
-                  <th scope="col" className="border-0 text-uppercase font-medium">Select</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Index</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Image</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Student No</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Name</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Category</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Details</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">View ELE</th>
+                  <th scope="col" className="border-0 text-uppercase font-medium text-center">Select</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems.map((user, index) => (
-                  <UserRow key={user.id} index={index + 1} user={user} selectedUsers={selectedUsers} toggleSelectUser={toggleSelectUser} />
+                  <UserRow key={user.id} index={index + 1} user={user} selectedUsers={selectedUsers} toggleSelectUser={toggleSelectUser}  handleViewELE={() => handleViewELE(user.id)} />
                 ))}
               </tbody>
               </table>
@@ -311,78 +317,17 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
           </div>
         </div>
       </div>
+
+      
       {showModal && (
-        <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title w-100">Add User</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={toggleModal}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-              <div className="modal-body">
-                <form>
-                  <div className="form-group">
-                    <label>* Name:</label>
-                    <input type="text" className="form-control" name="name" value={newUser.name} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>* Student No:</label>
-                    <input type="text" className="form-control" name="studentNo" value={newUser.studentNo} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Role:</label>
-                    <select className="form-control" name="role" value={newUser.role} onChange={handleInputChange}>
-                      <option value="">Select Role</option>
-                      <option value="Student">Student</option>
-                      <option value="Lecturer">Lecturer</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>* ID:</label>
-                    <input type="text" className="form-control" name="id" value={newUser.id} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>* Password:</label>
-                    <input type="password" className="form-control" name="password" value={newUser.password} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Program:</label>
-                    <input type="text" className="form-control" name="program" value={newUser.program} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Address:</label>
-                    <input type="text" className="form-control" name="address" value={newUser.address} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Email:</label>
-                    <input type="text" className="form-control" name="email" value={newUser.email} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Phone:</label>
-                    <input type="text" className="form-control" name="phone" value={newUser.phone} onChange={handleInputChange} />
-                  </div>
-                  <div className="form-group">
-                    <label>Gender:</label>
-                    <select className="form-control" name="gender" value={newUser.gender} onChange={handleInputChange}>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Image:</label>
-                    <input type="file" className="form-control-file mt-3 mx-2" name="image" onChange={(e) => handleImageChange(e)} />
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={toggleModal}>Close</button>
-                <button type="button" className="btn btn-primary" onClick={addUser}>Add User</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AddUserModal
+          showModal={showModal}
+          toggleModal={toggleModal}
+          newUser={newUser}
+          handleInputChange={handleInputChange}
+          handleImageChange={handleImageChange}
+          addUser={addUser}
+        />
       )}
 
     {showDeleteModal && (
@@ -406,6 +351,14 @@ const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
         clearSelectedUsers={clearSelectedUsers} // Pass clearSelectedUsers as a prop
       />
   )}
+
+    {showELEModal && (
+      <ViewELE
+        user={newUser}
+        onClose={() => setShowELEModal(false)}
+      />
+    )}
+
     </div>
   );
 };

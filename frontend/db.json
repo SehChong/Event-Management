@@ -28,7 +28,8 @@
         "3a79",
         "5d2n",
         "8dl3",
-        "4c4d"
+        "4c4d",
+        "3psn"
       ],
       "ele1": [
         "Ongoing",
@@ -38,7 +39,7 @@
       ],
       "ele2": [
         "Ongoing",
-        18,
+        36,
         "Registered",
         "2024-01-01"
       ],
@@ -143,9 +144,24 @@
       "gender": "",
       "image": null,
       "registeredEvents": [],
-      "ele1": [],
-      "ele2": [],
-      "ele3": [],
+      "ele1": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele2": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
+      "ele3": [
+        "None",
+        0,
+        "Unregistered",
+        ""
+      ],
       "email": "asdasdsasdsadxxx",
       "address": "dadsaasdxxx",
       "phone": "34324325dasxxx"
@@ -194,6 +210,40 @@
       "address": "112312312",
       "email": "123123123123",
       "phone": "123123123"
+    },
+    {
+      "id": "123123",
+      "name": "CSDIS",
+      "studentNo": "bobo",
+      "role": "Student",
+      "password": "213132",
+      "program": "213312",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": [],
+      "address": "2121312",
+      "email": "123213",
+      "phone": "12123"
+    },
+    {
+      "id": "asdasdasd",
+      "name": "HIas",
+      "studentNo": "dasdasdasd",
+      "role": "",
+      "password": "asdassad",
+      "program": "sadadsdsa",
+      "gender": "",
+      "image": null,
+      "registeredEvents": [],
+      "ele1": [],
+      "ele2": [],
+      "ele3": [],
+      "address": "sadsda",
+      "email": "sadsdad",
+      "phone": "sadsda"
     }
   ],
   "events": [
@@ -879,13 +929,13 @@
       "submittedReport": true
     },
     {
-      "id": "e374",
+      "id": "fe39",
       "eventId": "4c4d",
       "userId": "user1",
       "ele": "ele2",
-      "question1": "wefesfsefesf",
-      "question2": "esfsfsefse",
-      "question3": "rsgdrgrdgrd",
+      "question1": "wwewefwef",
+      "question2": "fewewfewfds",
+      "question3": "fwefwefwe",
       "event": "4c4d",
       "eventName": "Testing Event Fee",
       "eventDate": "2024-03-21",
