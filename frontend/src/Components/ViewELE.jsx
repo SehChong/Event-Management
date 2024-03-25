@@ -35,7 +35,6 @@ export const ViewELE = ({ user, onClose }) => {
   
     // Define the status for registered and unregistered states
     const registeredStatus = ["Ongoing", 0, "Registered", currentDate];
-    const unregisteredStatus = ["None", 0, "Unregistered", ""];
   
     // Determine the ELE array to update based on the level
     let eleArrayToUpdate;

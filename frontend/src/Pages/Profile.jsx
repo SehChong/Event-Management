@@ -155,25 +155,35 @@ export const Profile = () => {
       const toAttendance = () => {
         navigate("/attendance")
       }
+
+      const toLogin = () => {
+        navigate("/");
+      };
+
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5" style={{height:"100"}}>
         <MDBRow>
           <MDBCol>
-            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-              <MDBBreadcrumbItem>
-                <a onClick={toHome} className='text-primary' style={{ cursor: 'pointer' }}>Home</a>
+            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between align-items-center">
+              <div className="d-flex justify-content-start">
+                <MDBBreadcrumbItem>
+                  <a onClick={toHome} className='text-primary' style={{ cursor: 'pointer' }}>Home</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem>
+                  <a onClick={toClub} className='text-primary' style={{ cursor: 'pointer' }}>Club</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem>
+                  <a onClick={toEvent} className='text-primary' style={{ cursor: 'pointer' }}>Event</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem>
+                  <a onClick={toAttendance} className='text-primary' style={{ cursor: 'pointer' }}>Attendance</a>
+                </MDBBreadcrumbItem>
+                <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              </div>
+              <MDBBreadcrumbItem className=''>
+                <a onClick={toLogin} className='text-primary' style={{ cursor: 'pointer', textDecoration: 'none' }}>Logout</a>
               </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a onClick={toClub} className='text-primary' style={{ cursor: 'pointer' }}>Club</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a onClick={toEvent} className='text-primary' style={{ cursor: 'pointer' }}>Event</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a onClick={toAttendance} className='text-primary' style={{ cursor: 'pointer' }}>Attendance</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>
