@@ -127,6 +127,13 @@ export const CardEventSlider = () => {
   const indexOfFirstEvent = indexOfLastEvent - ITEMS_PER_PAGE;
   const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(filteredEvents.length / ITEMS_PER_PAGE));
+    setCurrentPage(1);
+  }, [filteredEvents]);
+
   // Render the component
   return (
     <div className='m-5 p-5'>
@@ -178,26 +185,47 @@ export const CardEventSlider = () => {
           </div>
         ))}
       </div>
+      {/* Pagination */}
       <nav aria-label="Page navigation example" className='mt-5'>
-        <ul className="pagination justify-content-end">
-          {/* Pagination controls */}
-          {currentPage > 1 && (
-            <li className="page-item">
-              <a className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>Previous</a>
-            </li>
-          )}
-          {Array.from({ length: Math.ceil(events.length / ITEMS_PER_PAGE) }, (_, i) => i + 1).map(page => (
-            <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
-              <a className="page-link" href="#" onClick={() => handlePageChange(page)}>{page}</a>
-            </li>
-          ))}
-          {currentPage < Math.ceil(events.length / ITEMS_PER_PAGE) && (
-            <li className="page-item">
-              <a className="page-link" href="#" onClick={() => handlePageChange(currentPage + 1)}>Next</a>
-            </li>
-          )}
-        </ul>
-      </nav>
+                <ul className="pagination justify-content-end">
+                  {/* Previous page */}
+                  {currentPage > 1 && (
+                    <li className="page-item">
+                      <a className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>Previous</a>
+                    </li>
+                  )}
+                  {/* Page numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+                    if (totalPages > 10) {
+                      if (page === currentPage || page === currentPage - 1 || page === currentPage - 2 || page === currentPage + 1 || page === currentPage + 2 || page === 1 || page === totalPages) {
+                        return (
+                          <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
+                            <a className="page-link" href="#" onClick={() => handlePageChange(page)}>{page}</a>
+                          </li>
+                        );
+                      } else if (page === currentPage - 3 || page === currentPage + 3) {
+                        return (
+                          <li key={page} className="page-item">
+                            <a className="page-link" href="#">...</a>
+                          </li>
+                        );
+                      }
+                    } else {
+                      return (
+                        <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
+                          <a className="page-link" href="#" onClick={() => handlePageChange(page)}>{page}</a>
+                        </li>
+                      );
+                    }
+                  })}
+                  {/* Next page */}
+                  {currentPage < totalPages && (
+                    <li className="page-item">
+                      <a className="page-link" href="#" onClick={() => handlePageChange(currentPage + 1)}>Next</a>
+                    </li>
+                  )}
+                </ul>
+              </nav>
     </div>
   );
 };

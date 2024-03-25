@@ -204,13 +204,13 @@ export const EventForm = () => {
         <Col>
           <Form.Group className="mb-3">
             <Form.Label className='fw-bold'>Event Name:</Form.Label>
-            <Form.Control type="text" required value={eventName} onChange={(e) => setEventName(e.target.value)} style={{width:400}}/>
+            <Form.Control type="text" required value={eventName} onChange={(e) => setEventName(e.target.value)} style={{width:500}}/>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3">
             <Form.Label className='fw-bold'>Event Type:</Form.Label>
-            <Form.Select type="text" required value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:410}}>
+            <Form.Select type="text" required value={eventType} onChange={(e) => setEventType(e.target.value)} style={{width:220}}>
                   <option value="">Select Type</option>
                   <option value="Event">Event</option>
                   <option value="Competition">Competition</option>
@@ -274,7 +274,7 @@ export const EventForm = () => {
       <Col>
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Mode:</Form.Label>
-          <Form.Select type="text" required value={mode} onChange={(e) => setMode(e.target.value)} style={{width:200}}>
+          <Form.Select type="text" required value={mode} onChange={(e) => setMode(e.target.value)}>
             <option value="">Select Mode</option>
             <option value="Physical">Physical</option>
             <option value="Online">Online</option>
@@ -284,7 +284,7 @@ export const EventForm = () => {
       <Col>
         <Form.Group className="mb-3">
           <Form.Label className='fw-bold'>Payment Required:</Form.Label>
-          <Form.Select type="text" required value={paymentRequired} onChange={(e) => setPaymentRequired(e.target.value)} style={{width:200}}>
+          <Form.Select type="text" required value={paymentRequired} onChange={(e) => setPaymentRequired(e.target.value)}>
             <option value="">Select</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
@@ -335,14 +335,14 @@ export const EventForm = () => {
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Estimated Attendance:</Form.Label>
-              <Form.Control type="number" required value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)} style={{width:250}}/>
+              <Form.Control type="number" required value={estimatedAttendance} onChange={(e) => setEstimatedAttendance(e.target.value)}/>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group className="mb-3">
               <Form.Label className='fw-bold'>Total Hours:</Form.Label>
-              <Form.Control type="number" required readOnly value={totalHours} onChange={(e) => setTotalHours(e.target.value)} style={{width:250}}/>
+              <Form.Control type="number" required readOnly value={totalHours} onChange={(e) => setTotalHours(e.target.value)}/>
             </Form.Group>
           </Col>
 

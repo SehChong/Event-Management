@@ -91,7 +91,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <MDBContainer className="margin-screen gradient-form rounded">
+    <MDBContainer className="margin-screen gradient-form rounded my-5">
       <MDBRow>
         <MDBCol className="pb-5 col-md-6 col-12">
           <div className="d-flex flex-column mx-5">
