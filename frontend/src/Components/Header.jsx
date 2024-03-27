@@ -85,8 +85,8 @@ export const Header = () => {
 
       <Card className="text-center bg-primary text-danger" style={{height:800 , backgroundImage: `url(${require('../Assets/img/UCSI_Background.jpg')})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Card.Body className='d-flex align-items-center justify-content-center flex-column'>
-          <Card.Title className='fs-1'>Welcome to My Website</Card.Title>
-          <Card.Text className='fs-1'>This is the first page banner.</Card.Text>
+          <Card.Title className='fs-1'>Welcome to UCSI Event Management System</Card.Title>
+          <Card.Text className='fs-1'>This is the Home Page.</Card.Text>
           <Button className='fs-3 bg-primary' variant="outline-light">Learn more</Button>
         </Card.Body>
       </Card>
